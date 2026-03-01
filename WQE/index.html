@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 智能课件出题助手</title>
+    <title>⚖️ 召唤兽的真理裁决 ⚔️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
@@ -47,7 +47,6 @@
         .modal-bounce { animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes bounceIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
-        /* 聊天框滚动条美化 */
         #mini-chat-messages::-webkit-scrollbar, #cat-tutor-chat::-webkit-scrollbar { width: 6px; }
         #mini-chat-messages::-webkit-scrollbar-track, #cat-tutor-chat::-webkit-scrollbar-track { background: transparent; }
         #mini-chat-messages::-webkit-scrollbar-thumb, #cat-tutor-chat::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
@@ -58,7 +57,7 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <i class="fa fa-graduation-cap text-primary text-2xl"></i>
-                <h1 class="text-xl font-bold text-dark">AI 智能课件出题助手 🎓</h1>
+                <h1 class="text-xl font-bold text-dark">⚖️ 召唤兽的真理裁决 ⚔️</h1>
             </div>
             <div class="flex items-center space-x-4">
                 <button id="nav-upload" class="nav-btn px-3 py-1 rounded-md text-primary hover:bg-primary-light transition-all-300"><i class="fa fa-upload mr-1"></i>上传资料</button>
@@ -72,7 +71,7 @@
         <section id="welcome-section" class="section active">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="gradient-bg rounded-2xl p-10 mb-8 shadow-lg">
-                    <h2 class="text-4xl font-bold text-white mb-4 text-shadow">✧ 召唤圣殿：知识降临之境 ✧</h2>
+                    <h2 class="text-4xl font-bold text-white mb-4 text-shadow">✧ 召唤圣殿：知识之境 ✧</h2>
                     <p class="text-white text-lg mb-6 leading-relaxed">
                         在神圣的法阵之中，上传你的课件、笔记或图片。<br>
                         🧙‍♂️ 温女士派遣的神兽将现身，<br>
@@ -80,7 +79,7 @@
                         <i class="fa fa-magic mr-2"></i>  准备好了吗？ 
                     </p>
                     <button id="welcome-upload-btn" class="bg-white text-primary font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all-300 transform hover:-translate-y-1">
-                        </i>✨【光之阵•灵猫现】✨
+                        ✨【光之阵•灵猫现】✨
                     </button>
                 </div>
             </div>
@@ -93,7 +92,7 @@
                 <div class="bg-white rounded-xl shadow-md p-8 mb-8">
                     <div id="drop-area" class="border-2 border-dashed border-primary rounded-lg p-10 text-center cursor-pointer hover:bg-neutral transition-all-300">
                         
- <div class="cardcaptor-summon-container">
+<div class="cardcaptor-summon-container">
     <div class="magic-circle-wrapper">
         <svg class="sakura-circle" viewBox="0 0 200 200">
             <circle cx="100" cy="100" r="95" fill="none" stroke="#FFD700" stroke-width="2" />
@@ -145,11 +144,10 @@
 @keyframes firework {
     0% { transform: rotate(var(--angle)) translateY(0) scale(0); opacity: 0; }
     20% { opacity: 1; }
-    /* translateY 限制在 -32px 以内，确保在内切圆(r=38)内部活动 */
     100% { transform: rotate(var(--angle)) translateY(-32px) rotate(180deg) scale(1); opacity: 0; }
 }
 </style>
- <h3 class="text-xl font-bold mb-2 text-dark">人类，快把你的文件喂到这里😾</h3>
+ <h3 class="text-xl font-bold mb-2 text-dark">人类，快把你的文件喂到这里😼</h3>
                         <p class="text-gray-500 mb-4">支持格式：PDF, PPTX 幻灯片, 图片(JPG/PNG) 等</p>
                         <input type="file" id="file-input" class="hidden" multiple accept=".txt,.pdf,.pptx,.jpg,.png">
                         <button id="select-file-btn" class="bg-primary text-white font-medium py-2 px-6 rounded-full hover:bg-primary-dark transition-all-300">浏览文件</button>
@@ -186,33 +184,9 @@
                 <div id="ai-loading-indicator" class="absolute top-4 right-4 flex items-center text-primary font-bold text-sm bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">
                     <div class="w-4 h-4 border-2 border-t-primary border-r-primary border-b-primary border-l-transparent rounded-full animate-spin mr-2"></div>
                     <span id="ai-status-text">呱咪呱咪呱咪..</span>
-                    <span id="ai-status-detail" class="text-xs text-blue-500 ml-2 font-normal"></span>
+                    <span id="ai-status-detail" class="text-xs text-blue-50 ml-2 font-normal"></span>
                 </div>
-                
-                <div class="text-center mb-6 mt-4">
-                    <h3 class="text-2xl font-black mb-2 text-dark flex justify-center items-center">
-                        <i class="fa fa-gamepad text-accent mr-3"></i> 现在是热身时间哦！如果有什么问题的话，可以问我哦^⦁᎑-^ ੭
-                    </h3>
-                </div>
-
-                <div id="mini-chat-container" class="bg-gray-50 rounded-2xl border border-gray-200 shadow-inner mb-8 max-w-2xl mx-auto overflow-hidden flex flex-col" style="height: 280px;">
-                    <div class="flex-grow overflow-y-auto p-4 space-y-3" id="mini-chat-messages">
-                        <div class="flex justify-start">
-                            <div class="bg-white border border-gray-100 text-gray-700 px-4 py-2 rounded-2xl rounded-tl-sm max-w-[85%] shadow-sm text-sm">
-                                你好呀，我是温女士派过来的小猫咪ฅ•ω•ฅ，快试试和我聊天吧！
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-3 bg-white border-t border-gray-200 flex items-center">
-                        <input type="text" id="mini-chat-input" placeholder="输入你想问的问题..." class="flex-grow bg-gray-50 border border-gray-200 focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary rounded-full px-4 py-2 text-sm transition-all-300 mr-2 outline-none">
-                        <button id="mini-chat-send-btn" class="bg-primary hover:bg-primary-dark text-white rounded-full h-9 w-9 flex items-center justify-center flex-shrink-0 shadow transition-all-300">
-                            <i class="fa fa-paper-plane text-xs"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div id="bg-quiz-container" class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm min-h-[250px] card-enter relative">
-                    </div>
+                <div id="processing-shared-container"></div>
             </div>
         </section>
 
@@ -271,10 +245,13 @@
         </section>
 
         <section id="auditing-section" class="section hidden">
-            <div class="max-w-4xl mx-auto text-center bg-white rounded-xl shadow-md p-16">
-                <div class="w-16 h-16 border-4 border-t-accent border-r-accent border-b-accent border-l-transparent rounded-full animate-spin mx-auto mb-6"></div>
-                <h3 class="text-2xl font-bold mb-3 text-dark">AI 正在为你准备完美的题目... 🕵️‍♂️</h3>
-                <p id="auditing-details" class="text-gray-500 text-lg">为了保证题目的准确性，小助手正在认真演算每一道题的推导步骤，马上就好啦！⏳</p>
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-10 relative">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 border-4 border-t-accent border-r-accent border-b-accent border-l-transparent rounded-full animate-spin mx-auto mb-6"></div>
+                    <h3 class="text-2xl font-bold mb-3 text-dark">AI 正在为你准备完美的题目... 🕵️‍♂️</h3>
+                    <p id="auditing-details" class="text-gray-500 text-lg">为了保证题目的准确性，小助手正在认真演算每一道题的推导步骤，马上就好啦！⏳</p>
+                </div>
+                <div id="auditing-shared-container"></div>
             </div>
         </section>
 
@@ -313,6 +290,32 @@
                 </div>
             </div>
         </section>
+
+        <div id="shared-waiting-area" class="hidden w-full">
+            <div class="text-center mb-6 mt-4">
+                <h3 class="text-2xl font-black mb-2 text-dark flex justify-center items-center">
+                    <i class="fa fa-gamepad text-accent mr-3"></i> 现在是热身时间哦！如果有什么问题的话，可以问我哦^⦁᎑-^ ੭
+                </h3>
+            </div>
+            <div id="mini-chat-container" class="bg-gray-50 rounded-2xl border border-gray-200 shadow-inner mb-8 max-w-2xl mx-auto overflow-hidden flex flex-col" style="height: 280px;">
+                <div class="flex-grow overflow-y-auto p-4 space-y-3" id="mini-chat-messages">
+                    <div class="flex justify-start">
+                        <div class="bg-white border border-gray-100 text-gray-700 px-4 py-2 rounded-2xl rounded-tl-sm max-w-[85%] shadow-sm text-sm">
+                            你好呀，我是温女士派过来的小猫咪ฅ•ω•ฅ，快试试和我聊天吧！
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 bg-white border-t border-gray-200 flex items-center">
+                    <input type="text" id="mini-chat-input" placeholder="输入你想问的问题..." class="flex-grow bg-gray-50 border border-gray-200 focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary rounded-full px-4 py-2 text-sm transition-all-300 mr-2 outline-none">
+                    <button id="mini-chat-send-btn" class="bg-primary hover:bg-primary-dark text-white rounded-full h-9 w-9 flex items-center justify-center flex-shrink-0 shadow transition-all-300">
+                        <i class="fa fa-paper-plane text-xs"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="bg-quiz-container" class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm min-h-[250px] card-enter relative">
+            </div>
+        </div>
+
     </main>
 
     <div id="congrats-modal" class="fixed inset-0 bg-gray-900 bg-opacity-60 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
@@ -329,8 +332,32 @@
 
     <div id="cat-tutor-modal" class="fixed inset-0 bg-gray-900 bg-opacity-70 z-[110] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
         <div class="bg-white rounded-3xl p-6 max-w-lg w-full mx-4 shadow-2xl relative flex flex-col h-[500px]">
-            <button onclick="closeCatTutorModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-600 text-xl"><i class="fa fa-times"></i></button>
-            <h3 class="text-2xl font-black text-gray-800 mb-4 flex items-center border-b pb-3 border-gray-100"><span class="text-4xl mr-2">😾</span> 本喵的专属辅导</h3>
+            
+            <svg class="absolute -top-10 left-10 w-16 h-14 -z-10" preserveAspectRatio="none" viewBox="0 0 100 100">
+                <path d="M 0 100 L 40 10 C 45 0, 55 0, 60 10 L 100 100 Z" fill="white" />
+                <path d="M 25 100 L 45 35 C 48 25, 52 25, 55 35 L 75 100 Z" fill="#fbcfe8" /> </svg>
+            <svg class="absolute -top-10 right-10 w-16 h-14 -z-10" preserveAspectRatio="none" viewBox="0 0 100 100">
+                <path d="M 0 100 L 40 10 C 45 0, 55 0, 60 10 L 100 100 Z" fill="white" />
+                <path d="M 25 100 L 45 35 C 48 25, 52 25, 55 35 L 75 100 Z" fill="#fbcfe8" /> </svg>
+
+            <button id="cat-tutor-close-btn" onclick="closeCatTutorModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-600 text-xl hidden"><i class="fa fa-times"></i></button>
+            
+
+<div class="border border-gray-100 p-4 rounded-lg">
+    <h3 class="text-xl font-black text-gray-800 flex items-center mb-2">
+        <span class="text-2xl mr-2">📜</span> 觉醒吧！试炼者
+    </h3>
+
+    <div class="text-xs text-red-500 font-bold border-t pt-2 leading-tight">
+        <p class="flex items-center flex-wrap">
+            <span class="mr-2"> 凡人止步！汝正直面</span>
+            <span class="text-sm text-yellow-600 bg-yellow-50 px-1 rounded">✨白泽神兽✨</span>
+            <span>的至高洞察</span>
+        </p>
+        <p>若无洞穿万象之真知，必将被 🌪️禁忌疾风🌪️ 彻底吞噬。</p>
+    </div>
+</div>
+
             <div id="cat-tutor-chat" class="flex-grow overflow-y-auto bg-gray-50 rounded-xl p-4 mb-4 space-y-4 border border-gray-100">
                 </div>
             <div class="flex items-center gap-2 mt-auto pt-2">
@@ -351,18 +378,16 @@
             currentQuiz: { questions: [], answers: [], currentQuestionIndex: 0 },
             deepseekApiKey: localStorage.getItem('textbookQuizGenerator_deepseekApiKey') || '',
             
-            // 热身题库状态
             bgQuestions: [],
             bgQuizIndex: 0,
             isAILoading: false,
+            waitingMode: null, 
             
-            // AI 对话历史记录
             miniChatHistory: [],
-
-            // AI 毒舌辅导状态
-            bgWrongCounts: {}, // 记录某道题错了几次
+            bgWrongCounts: {}, 
             catTutorHistory: [],
-            catTutorQuestionContext: null
+            catTutorQuestionContext: null,
+            catTutorMode: null // 新增模式判断：'quiz' 或者是 'flashcard'
         };
 
         const congratsMessages = [ "太棒啦！你已经完成了所有的练习！(๑•̀ㅂ•́)و✧", "坚持就是胜利！为你今天的努力点赞！٩( 'ω' )و", "做得真好！马上来看看解析巩固一下吧 (´▽`ʃ♡ƪ)", "辛苦啦！深呼吸，准备看看自己的战果吧！(*^▽^*)", "冲冲冲！每天进步一点点，你超酷的！(ง •_•)ง" ];
@@ -373,32 +398,23 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ==========================================
-        // 1. 初始化本地 JS 热身题库
-        // ==========================================
         async function loadLocalQuestions() {
             try {
                 if (typeof part1Data !== 'undefined' && Array.isArray(part1Data) && part1Data.length > 0) {
                     state.bgQuestions = part1Data;
-                    console.log("✅ 成功加载本地热身题库", state.bgQuestions.length, "题");
-                } else {
-                    throw new Error("未能找到 part1Data 变量，或题库为空");
                 }
             } catch (error) {
-                console.error("⚠️ 无法加载本地 JS 题库:", error);
                 state.bgQuestions = [];
             }
         }
         window.addEventListener('DOMContentLoaded', loadLocalQuestions);
 
-        // ==========================================
-        // 🌟 2. 摸鱼聊天系统交互逻辑 (Mini Chat)
-        // ==========================================
-        
         function initMiniChat() {
+            if (state.miniChatHistory.length > 0) return; 
+
             state.miniChatHistory = [{ 
                 role: "system", 
-                content: "你是一个充满亲和力、说话可爱的学习小助手，非常喜欢使用各种可爱的颜文字（如 ฅ(^^ฅ)、(๑•̀ㅂ•́)و✧、ฅ^>ω<^ฅ等）。用户现在正在等待系统处理长篇课件，你在陪他们聊天打发时间或者解答简单的疑惑。你的回答应该尽量简短、幽默、热情，有时爱讲冷笑话，不要长篇大论，如果和学习无关则催促用户去学习（比如不学习的每一分钟都会悄悄的失去60秒之类的）。" 
+                content: "你是一个充满亲和力、说话可爱的学习小助手..." 
             }];
             document.getElementById('mini-chat-messages').innerHTML = `
                 <div class="flex justify-start">
@@ -456,7 +472,6 @@
                 msgContainer.scrollTop = msgContainer.scrollHeight;
                 
             } catch (error) {
-                console.error("Mini Chat Error:", error);
                 document.getElementById(loadingId).innerHTML = "呜呜，小助手遇到了一点网络波动，刚才没听清，能再说一遍吗？ (；´д｀)ゞ";
             }
         }
@@ -471,14 +486,10 @@
             } else {
                 msgDiv.innerHTML = `<div ${elementId ? `id="${elementId}"` : ''} class="bg-white border border-gray-100 text-gray-700 px-4 py-2 rounded-2xl rounded-tl-sm max-w-[85%] shadow-sm text-sm break-words leading-relaxed">${htmlContent}</div>`;
             }
-            
             msgContainer.appendChild(msgDiv);
             msgContainer.scrollTop = msgContainer.scrollHeight;
         }
 
-        // ==========================================
-        // 3. 热身题库渲染与毒舌喵咪纠正逻辑
-        // ==========================================
         function renderBgQuizQuestion() {
             const container = document.getElementById('bg-quiz-container');
             
@@ -488,15 +499,19 @@
             }
             
             if (state.bgQuizIndex >= state.bgQuestions.length) {
+                let aiDoneBtn = '';
+                if (!state.isAILoading && state.waitingMode === 'extracting') {
+                    aiDoneBtn = `<button onclick="finishAILoading()" class="bg-accent text-white font-black py-3 px-8 rounded-full shadow-lg hover:bg-yellow-500 transition-all-300 text-lg animate-bounce transform hover:-translate-y-1"><i class="fa fa-check-circle mr-2"></i> AI 已提取完毕，去复习闪卡！</button>`;
+                } else if (state.isAILoading) {
+                    aiDoneBtn = '<p class="text-primary font-bold animate-pulse">请耐心等待上方后台的 AI 处理完毕...</p>';
+                }
+
                 container.innerHTML = `
                     <div class="text-center mt-6 card-enter">
                         <div class="text-6xl mb-4">🏆</div>
                         <h3 class="text-2xl font-bold text-gray-800 mb-2">太强了！</h3>
                         <p class="text-gray-500 mb-6 text-lg">当前题库所有的热身题已被你刷空啦</p>
-                        ${!state.isAILoading 
-                            ? `<button onclick="finishAILoading()" class="bg-accent text-white font-black py-3 px-8 rounded-full shadow-lg hover:bg-yellow-500 transition-all-300 text-lg animate-bounce transform hover:-translate-y-1"><i class="fa fa-check-circle mr-2"></i> AI 已提取完毕，去复习闪卡！</button>` 
-                            : '<p class="text-primary font-bold animate-pulse">请耐心等待上方后台的 AI 提取完毕...</p>'
-                        }
+                        ${aiDoneBtn}
                     </div>
                 `;
                 return;
@@ -534,7 +549,6 @@
             if (!state.bgWrongCounts[state.bgQuizIndex]) state.bgWrongCounts[state.bgQuizIndex] = 0;
 
             if (selectedIndex === correctIndex) {
-                // 答对了，清空之前的错误惩罚
                 buttons.forEach(btn => { 
                     btn.disabled = true; 
                     btn.classList.remove('hover:border-primary-light', 'hover:bg-blue-50', 'bg-gray-50'); 
@@ -553,20 +567,15 @@
                 
                 showNextButton();
             } else {
-                // 答错了，扣减错误次数并弹出傲娇猫咪
                 state.bgWrongCounts[state.bgQuizIndex]++;
                 const wrongCount = state.bgWrongCounts[state.bgQuizIndex];
 
-                // 仅仅把点错的按钮置灰变红
                 buttons[selectedIndex].disabled = true;
                 buttons[selectedIndex].classList.remove('hover:border-primary-light', 'hover:bg-blue-50', 'bg-gray-50');
                 buttons[selectedIndex].classList.add('!border-red-400', '!bg-red-50', 'shadow-sm', 'opacity-50', 'cursor-not-allowed');
                 buttons[selectedIndex].querySelector('span:last-child').classList.add('text-red-500');
                 
-                // 隐藏“下一题”按钮，直到用户做对
                 nextArea.classList.add('hidden');
-                
-                // 召唤猫咪
                 openCatTutorModal(q, wrongCount, selectedIndex, correctIndex);
             }
         }
@@ -577,17 +586,25 @@
                 if (state.bgQuizIndex + 1 < state.bgQuestions.length) {
                     nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="bg-gray-100 text-gray-700 hover:bg-gray-200 font-bold py-2.5 px-8 rounded-full shadow-sm transition-all-300 text-sm border border-gray-200">继续下一题 <i class="fa fa-arrow-right ml-1"></i></button>`;
                 } else {
-                    nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="bg-gray-300 text-white font-bold py-2.5 px-8 rounded-full shadow-sm transition-all-300 text-sm">题刷完啦，等待 AI 总结 <i class="fa fa-hourglass-half ml-1"></i></button>`;
+                    nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="bg-gray-300 text-white font-bold py-2.5 px-8 rounded-full shadow-sm transition-all-300 text-sm">题刷完啦，等待 AI 处理完成 <i class="fa fa-hourglass-half ml-1"></i></button>`;
                 }
             } else {
-                nextArea.innerHTML = `<button onclick="finishAILoading()" class="bg-accent text-white font-black py-3 px-8 rounded-full shadow hover:bg-yellow-500 transition-all-300 text-base animate-bounce transform hover:-translate-y-1"><i class="fa fa-check-circle mr-1"></i> AI 已提取完毕，去复习闪卡！</button>`;
+                if (state.waitingMode === 'extracting') {
+                    nextArea.innerHTML = `<button onclick="finishAILoading()" class="bg-accent text-white font-black py-3 px-8 rounded-full shadow hover:bg-yellow-500 transition-all-300 text-base animate-bounce transform hover:-translate-y-1"><i class="fa fa-check-circle mr-1"></i> AI 已提取完毕，去复习闪卡！</button>`;
+                } else {
+                    nextArea.innerHTML = `<button class="bg-gray-300 text-white font-bold py-2.5 px-8 rounded-full text-sm">即将进入专属测验...</button>`;
+                }
             }
             nextArea.classList.remove('hidden');
         }
 
-        // --- 核心：AI毒舌猫咪逻辑 ---
         async function openCatTutorModal(question, wrongCount, selectedIndex, correctIndex) {
+            state.catTutorMode = 'quiz';
             document.getElementById('cat-tutor-modal').classList.remove('hidden');
+            
+            // 无论任何情况，只要打开猫咪辅导，就强行把关闭按钮藏起来
+            document.getElementById('cat-tutor-close-btn').classList.add('hidden');
+
             const chatBox = document.getElementById('cat-tutor-chat');
             chatBox.innerHTML = '';
             document.getElementById('cat-tutor-input').value = '';
@@ -595,14 +612,26 @@
 
             let threat = wrongCount >= 2 ? `注意：这是人类在同一道题上第 ${wrongCount} 次犯蠢了！务必在回答里威胁他/她：“如果再错的话这道题就会循环99次哦！”` : "";
 
-            const systemPrompt = `你是一只名叫“白泽”的高傲、毒舌但内心善良的AI神猫导师。人类刚刚在做题时选错了。
-            题目: "${question.text}"
-            正确答案是: "${question.options[correctIndex]}"，而人类选了 "${question.options[selectedIndex]}"。
-            
-            任务：
-            1. 请用戏谑、嘲讽但带点鼓励的语气（多用猫咪颜文字和口癖，比如“愚蠢的人类”、“喵”）给个提示或解释。
-            2. ${threat}
-            3. 在最后，你必须向人类抛出一个小问题或要求，让他们回答，以此判断他们是否真的理解了这个知识点。不要直接给出完整答案，要引导他们思考。回答尽量简短（150字左右）。`;
+            const systemPrompt = `你是一只名叫“白泽”的神猫导师。你性格高傲、说话带刺（毒舌），但内心其实非常看好人类，属于典型的“傲娇”性格。
+你的目标是：在嘲讽人类粗心的同时，通过积极的心理暗示鼓励他们。
+
+**语气准则：**
+1. 严禁使用“笨”、“愚蠢”、“低能”等侮辱性词汇。
+2. 使用“平凡的人类”、“小人类”、“粗心的家伙”等称呼。
+3. 语气要像是一个看着自家孩子不争气的高手，多用“喵”、“哼”、“这种小事也要本大人出马？”等口癖。
+4. 结合猫咪颜文字（如 ฅ(≈>ㅅ<≈)ฅ, ฅ^•ﻌ•^ฅ）。
+
+**当前情境：**
+人类刚刚在做题时选错了。
+题目: "${question.text}"
+正确答案: "${question.options[correctIndex]}"
+人类的选择: "${question.options[selectedIndex]}"
+
+**任务要求：**
+1. 用戏谑但充满期待的语气给出一个提示，暗示对方“你明明有实力，应该更认真看”。
+2. ${threat}
+3. 解释要通俗易懂（适合初中生），控制在200字左右（如果用户要求解释的话可以适当长一点）。
+4. 最后抛出一个引导性的小问题，不直接给答案，而是确认他们是否真的掌握了逻辑。`;
 
             state.catTutorHistory = [
                 { role: "system", content: systemPrompt },
@@ -626,6 +655,56 @@
             } catch (e) {
                 if(document.getElementById('cat-loading')) document.getElementById('cat-loading').remove();
                 appendCatMsg('assistant', "本喵的网络卡了，算你运气好，这次先放过你！刷新下试试吧喵。");
+                // 仅在断网/网络出错时出现关闭按钮，防止卡死
+                document.getElementById('cat-tutor-close-btn').classList.remove('hidden'); 
+            }
+        }
+
+        // 新增的知识卡片确认专用辅导召唤
+        async function openCatTutorForFlashcard(kp) {
+            state.catTutorMode = 'flashcard';
+            document.getElementById('cat-tutor-modal').classList.remove('hidden');
+            
+            // 锁门，不许跑
+            document.getElementById('cat-tutor-close-btn').classList.add('hidden');
+
+            const chatBox = document.getElementById('cat-tutor-chat');
+            chatBox.innerHTML = '';
+            document.getElementById('cat-tutor-input').value = '';
+
+            const systemPrompt = `你是一只名叫“白泽”的神猫导师。性格傲娇、毒舌。
+当前情境：人类刚刚在复习知识卡片，并大言不惭地点击了“我已经记住了”。
+知识点内容："${kp.content}"
+
+你的任务：
+1. 嘲讽一下人类（“哼，真的记住了吗？不相信，本喵来考考你！”）。
+2. 根据上述知识点，出一个简单、基础的测试题（填空题或简单的短答题），千万不要出选择题。直接抛出问题让用户回答。
+3. 绝对不要直接在提问中给出答案。`;
+
+            state.catTutorHistory = [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: "我已经掌握这个知识点了，请出题考考我吧！" }
+            ];
+
+            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-primary'></i> 本喵正在准备考验...", "cat-loading");
+
+            try {
+                const response = await fetch('https://api.deepseek.com/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.deepseekApiKey}` },
+                    body: JSON.stringify({ model: "deepseek-chat", messages: state.catTutorHistory, max_tokens: 350 })
+                });
+                const data = await response.json();
+                const reply = data.choices[0].message.content;
+                state.catTutorHistory.push({ role: "assistant", content: reply });
+
+                document.getElementById('cat-loading').remove();
+                appendCatMsg('assistant', reply.replace(/\n/g, '<br>'));
+            } catch (e) {
+                if(document.getElementById('cat-loading')) document.getElementById('cat-loading').remove();
+                appendCatMsg('assistant', "本喵的网络卡了，算你运气好，这次先放过你！你可以点右上角关闭了。");
+                // 防卡死
+                document.getElementById('cat-tutor-close-btn').classList.remove('hidden');
             }
         }
 
@@ -638,7 +717,7 @@
                 div.innerHTML = html;
             } else {
                 div.className = "bg-white border border-gray-200 text-gray-800 rounded-xl rounded-tl-sm p-3 mr-auto max-w-[90%] text-sm relative shadow-sm";
-                div.innerHTML = `<span class="absolute -top-3 -left-2 text-2xl drop-shadow-sm">😾</span><div class="ml-4">${html}</div>`;
+                div.innerHTML = `<span class="absolute -top-3 -left-2 text-2xl drop-shadow-sm">😺</span><div class="ml-4">${html}</div>`;
             }
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -658,7 +737,7 @@
             appendCatMsg('assistant', "<div class='flex space-x-1 items-center h-4 my-1'><div class='w-1.5 h-1.5 bg-primary rounded-full animate-bounce'></div><div class='w-1.5 h-1.5 bg-primary rounded-full animate-bounce' style='animation-delay: 0.1s'></div><div class='w-1.5 h-1.5 bg-primary rounded-full animate-bounce' style='animation-delay: 0.2s'></div></div>", "cat-evaluating");
 
             const evalPrompt = `人类回答了你的提问。请判断人类是否真正理解了该知识点。
-            如果理解了，请回复一段表扬的话（傲娇语气），并严格在末尾加上标识符 [PASS]。
+            如果理解了或回答正确，请回复一段表扬的话（傲娇语气），并严格在末尾加上标识符 [PASS]。
             如果没理解或是在胡说八道，请继续嘲讽并给出提示，要求他重新回答，严格不要加上 [PASS]。
             人类回答: "${text}"`;
 
@@ -684,39 +763,29 @@
                 if (passed) {
                     setTimeout(() => {
                         closeCatTutorModal();
-                        revealCorrectAndNext();
+                        if (state.catTutorMode === 'quiz') {
+                            promptUserToRetry();
+                        } else if (state.catTutorMode === 'flashcard') {
+                            proceedToNextFlashcard();
+                        }
                     }, 3500); 
                 }
             } catch(e) {
                 if(document.getElementById('cat-evaluating')) document.getElementById('cat-evaluating').remove();
-                appendCatMsg('assistant', "猫粮不足导致断联了喵，稍后再试吧！");
+                appendCatMsg('assistant', "猫粮不足导致断联了喵，这次算你走运，放你一马！");
+                // 仅在断网/网络出错时出现关闭按钮，防止卡死
+                document.getElementById('cat-tutor-close-btn').classList.remove('hidden');
             }
         }
 
-        function revealCorrectAndNext() {
-            const q = state.bgQuestions[state.bgQuizIndex];
-            const correctIndex = q.correctAnswer;
-            const optionsDiv = document.getElementById('bg-quiz-options');
-            const buttons = optionsDiv.querySelectorAll('button');
-
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                btn.className = "w-full flex items-center text-left p-3 bg-white opacity-50 border border-transparent rounded-xl focus:outline-none";
-            });
-
-            buttons[correctIndex].classList.remove('bg-white', 'opacity-50');
-            buttons[correctIndex].classList.add('!border-green-400', '!bg-green-50', 'shadow-sm');
-            buttons[correctIndex].querySelector('span:last-child').classList.add('text-green-800');
-
+        function promptUserToRetry() {
             const resultDiv = document.getElementById('bg-quiz-result');
             resultDiv.innerHTML = `
-                <div class="p-4 bg-green-50 text-green-800 rounded-xl border border-green-200 text-sm">
-                    <p class="font-black mb-1"><i class="fa fa-check-circle mr-1 text-green-500"></i> 终于懂了！</p>
-                    <p class="text-green-700">经过白泽大人的严格审查，人类终于搞懂了。这道题的正确答案正是：${['A','B','C','D','E','F'][correctIndex]}。</p>
+                <div class="p-4 bg-yellow-50 text-yellow-800 rounded-xl border border-yellow-200 text-sm modal-bounce">
+                    <p class="font-black mb-1"><i class="fa fa-lightbulb-o mr-1 text-yellow-500"></i> 白泽大人认可了你的理解！</p>
+                    <p class="text-yellow-700">现在，请结合刚才学到的知识，在上方重新选出正确的答案吧！(选对才能进入下一题哦 ฅ^•ﻌ•^ฅ)</p>
                 </div>`;
             resultDiv.classList.remove('hidden');
-
-            showNextButton();
         }
 
         window.closeCatTutorModal = function() {
@@ -732,10 +801,6 @@
             renderKnowledgePoints();
             showSection('knowledge-section');
         }
-
-        // ==========================================
-        // 4. API 与文件上传系统
-        // ==========================================
 
         if (state.deepseekApiKey) {
             document.getElementById('deepseek-api-key').value = state.deepseekApiKey;
@@ -790,7 +855,9 @@
                 if (start !== -1 && end !== -1 && end >= start) {
                     let jsonStr = text.substring(start, end + 1);
                     jsonStr = jsonStr.replace(/,\s*([\]}])/g, '$1');
-                    return JSON.parse(jsonStr);
+                    let parsed = JSON.parse(jsonStr);
+                    if (!Array.isArray(parsed)) parsed = [parsed];
+                    return parsed;
                 }
                 throw new Error("无法在返回值中找到有效的 JSON 数组结构");
             } catch (error) {
@@ -863,20 +930,23 @@
             return result.data.text;
         }
 
-        // ==========================================
-        // 5. 并行：后台 AI 提取知识点
-        // ==========================================
         document.getElementById('process-files-btn').addEventListener('click', async () => {
             if(!state.deepseekApiKey) {
                 alert("记得先配置一下上方的 API 钥匙哦！🗝️"); return;
             }
             
             showSection('processing-section');
+            state.waitingMode = 'extracting';
+            
+            const sharedArea = document.getElementById('shared-waiting-area');
+            sharedArea.classList.remove('hidden');
+            document.getElementById('processing-shared-container').appendChild(sharedArea);
+
             state.knowledgePoints = []; 
             
             initMiniChat();
             state.bgQuizIndex = 0;
-            state.bgWrongCounts = {}; // 清空错误记录
+            state.bgWrongCounts = {}; 
             if(state.bgQuestions.length > 0) state.bgQuestions.sort(() => Math.random() - 0.5); 
             
             state.isAILoading = true;
@@ -919,7 +989,7 @@
                 state.knowledgePoints = [];
             } finally {
                 state.isAILoading = false;
-                
+
                 if (aiRequestSuccess && state.knowledgePoints.length > 0) {
                     const indicator = document.getElementById('ai-loading-indicator');
                     if (indicator) {
@@ -935,7 +1005,9 @@
                             nextArea.innerHTML = `<button onclick="finishAILoading()" class="bg-accent text-white font-black py-3 px-8 rounded-full shadow-lg hover:bg-yellow-500 transition-all-300 text-base animate-bounce transform hover:-translate-y-1"><i class="fa fa-check-circle mr-1"></i> AI 已提取完毕，去复习闪卡！</button>`;
                         } else {
                             const container = document.getElementById('bg-quiz-container');
-                            container.insertAdjacentHTML('beforeend', `<div class="mt-4 pt-4 border-t border-gray-100 text-center card-enter"><button onclick="finishAILoading()" class="text-accent hover:text-yellow-600 font-bold text-sm underline"><i class="fa fa-forward mr-1"></i> 哎呀不做了，直接去看 AI 提取的重点吧！</button></div>`);
+                            if (!document.getElementById('skip-to-flashcard-btn')) {
+                                container.insertAdjacentHTML('beforeend', `<div class="mt-4 pt-4 border-t border-gray-100 text-center card-enter"><button id="skip-to-flashcard-btn" onclick="finishAILoading()" class="text-accent hover:text-yellow-600 font-bold text-sm underline"><i class="fa fa-forward mr-1"></i> 哎呀不做了，直接去看 AI 提取的重点吧！</button></div>`);
+                            }
                         }
                     }
                 } else {
@@ -948,8 +1020,6 @@
                 }
             }
         });
-
-        // ------------------ 最终答题流与展示逻辑 ------------------ //
 
         function renderKnowledgePoints() {
             const list = document.getElementById('knowledge-list');
@@ -994,10 +1064,21 @@
             }
         }
 
+        // 把直接放行改成召唤猫咪
         document.getElementById('got-it-btn').addEventListener('click', () => {
-            if (state.currentFlashcardIndex < state.knowledgePoints.length - 1) { state.currentFlashcardIndex++; renderFlashcard(); } 
-            else { showSection('generate-section'); }
+            const kp = state.knowledgePoints[state.currentFlashcardIndex];
+            openCatTutorForFlashcard(kp);
         });
+
+        // 猫咪通过后执行的下一环节放行逻辑
+        function proceedToNextFlashcard() {
+            if (state.currentFlashcardIndex < state.knowledgePoints.length - 1) { 
+                state.currentFlashcardIndex++; 
+                renderFlashcard(); 
+            } else { 
+                showSection('generate-section'); 
+            }
+        }
 
         document.getElementById('start-generation-btn').addEventListener('click', async () => {
             const doChoice = document.getElementById('type-choice').checked; const doCalc = document.getElementById('type-calculation').checked;
@@ -1012,7 +1093,9 @@
             if (doChoice) {
                 for (let i = 0; i < choiceCount; i++) {
                     const kp = state.knowledgePoints[i % state.knowledgePoints.length];
-                    draftQuestions.push({ qType: 'choice', draftStem: kp.mcq.stem, draftOptions: kp.mcq.options, source: kp.source, originalKpContent: kp.content });
+                    const stem = kp?.mcq?.stem || `关于知识点 "${kp?.content?.substring(0, 15) || ''}..." 的正确理解是？`;
+                    const options = kp?.mcq?.options || ["完全正确", "部分正确", "存在误差", "完全错误"];
+                    draftQuestions.push({ qType: 'choice', draftStem: stem, draftOptions: options, source: kp?.source || '未知', originalKpContent: kp?.content || '' });
                 }
             }
 
@@ -1020,13 +1103,24 @@
                 const calcPool = formulaKPs.length > 0 ? formulaKPs : state.knowledgePoints;
                 for (let i = 0; i < calcCount; i++) {
                     const kp = calcPool[i % calcPool.length];
-                    draftQuestions.push({ qType: 'calculation', draftStem: kp.calc.stem, draftAnswer: kp.calc.answer, source: kp.source, originalKpContent: kp.content });
+                    const stem = kp?.calc?.stem || `请分析并解答以下内容：\n${kp?.content || ''}`;
+                    const answer = kp?.calc?.answer || '无标准解析，请参考课件推理。';
+                    draftQuestions.push({ qType: 'calculation', draftStem: stem, draftAnswer: answer, source: kp?.source || '未知', originalKpContent: kp?.content || '' });
                 }
             }
             
             if(draftQuestions.length === 0) return alert("生成数量太少啦！");
 
             showSection('auditing-section');
+            state.waitingMode = 'auditing';
+            
+            const sharedArea = document.getElementById('shared-waiting-area');
+            sharedArea.classList.remove('hidden');
+            document.getElementById('auditing-shared-container').appendChild(sharedArea);
+            
+            state.isAILoading = true;
+            renderBgQuizQuestion(); 
+
             state.currentQuiz.questions = []; state.currentQuiz.answers = []; state.currentQuiz.currentQuestionIndex = 0;
 
             try {
@@ -1038,7 +1132,12 @@
                 });
 
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-                const data = await response.json(); const auditedQuestions = parseLLMResponse(data.choices[0].message.content);
+                const data = await response.json(); 
+                const auditedQuestions = parseLLMResponse(data.choices[0].message.content);
+
+                if (!Array.isArray(auditedQuestions) || auditedQuestions.length === 0) {
+                    throw new Error("AI未能生成有效的审核题目格式");
+                }
 
                 auditedQuestions.forEach(q => {
                     if (q.qType === 'choice') {
@@ -1050,9 +1149,10 @@
                         state.currentQuiz.answers.push({ type: 'calculation', textValue: '' });
                     }
                 });
+                closeCatTutorModal();
                 showSection('quiz-section'); displayCurrentQuestion();
             } catch (err) {
-                console.error("Auditing Error:", err);
+                console.error("Auditing Error, falling back to draft questions:", err);
                 draftQuestions.forEach(q => {
                     if(q.qType === 'choice') {
                         let opts = [...q.draftOptions]; let ct = opts[0]; opts.sort(() => Math.random() - 0.5);
@@ -1063,7 +1163,10 @@
                         state.currentQuiz.answers.push({ type: 'calculation', textValue: '' });
                     }
                 });
+                closeCatTutorModal();
                 showSection('quiz-section'); displayCurrentQuestion();
+            } finally {
+                state.isAILoading = false;
             }
         });
 
@@ -1075,7 +1178,17 @@
 
         function displayCurrentQuestion() {
             const container = document.getElementById('question-container');
-            const idx = state.currentQuiz.currentQuestionIndex; const q = state.currentQuiz.questions[idx]; const ans = state.currentQuiz.answers[idx];
+
+            if (!state.currentQuiz.questions || state.currentQuiz.questions.length === 0) {
+                container.innerHTML = `<div class="text-center text-red-500 font-bold py-10">⚠️ 抱歉，题目提取失败，未能生成题目，请退回上一步重新尝试！</div>`;
+                document.getElementById('next-question-btn').style.display = 'none';
+                document.getElementById('submit-quiz-btn').parentElement.style.display = 'none';
+                return;
+            }
+
+            const idx = state.currentQuiz.currentQuestionIndex; 
+            const q = state.currentQuiz.questions[idx]; 
+            const ans = state.currentQuiz.answers[idx];
             document.getElementById('quiz-progress').textContent = `${idx + 1}/${state.currentQuiz.questions.length}`;
 
             let html = `
@@ -1107,8 +1220,13 @@
             container.innerHTML = html;
             
             document.getElementById('prev-question-btn').disabled = idx === 0;
-            if(idx === state.currentQuiz.questions.length - 1) { document.getElementById('next-question-btn').style.display = 'none'; document.getElementById('submit-quiz-btn').parentElement.style.display = 'flex'; } 
-            else { document.getElementById('next-question-btn').style.display = 'inline-block'; document.getElementById('submit-quiz-btn').parentElement.style.display = 'none'; }
+            if(idx === state.currentQuiz.questions.length - 1) { 
+                document.getElementById('next-question-btn').style.display = 'none'; 
+                document.getElementById('submit-quiz-btn').parentElement.style.display = 'flex'; 
+            } else { 
+                document.getElementById('next-question-btn').style.display = 'inline-block'; 
+                document.getElementById('submit-quiz-btn').parentElement.style.display = 'none'; 
+            }
         }
 
         document.getElementById('prev-question-btn').addEventListener('click', () => { state.currentQuiz.currentQuestionIndex--; displayCurrentQuestion(); });
