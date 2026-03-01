@@ -403,7 +403,7 @@
             document.getElementById('mini-chat-messages').innerHTML = `
                 <div class="flex justify-start">
                     <div class="bg-white border border-gray-100 text-gray-700 px-4 py-2 rounded-2xl rounded-tl-sm max-w-[85%] shadow-sm text-sm">
-                        你好呀！(*^▽^*) 等待后台处理课件的时候，不仅可以做下方的小题挑战，还能随时跟我聊天提问哦~
+                        你好呀！(*^▽^*) 等待后台处理课件的时候，不仅可以做下方的小题挑战，还能随时跟我聊天提问哦
                     </div>
                 </div>`;
             document.getElementById('mini-chat-input').value = '';
@@ -423,7 +423,7 @@
             inputEl.value = '';
 
             if (!state.deepseekApiKey) {
-                appendMiniChatMessage("assistant", "哎呀，你好像还没有配置 API 魔法钥匙呢 (T_T) 先在上面配置好，我才能回答你哦~");
+                appendMiniChatMessage("assistant", "哎呀，你好像还没有配置 API 魔法钥匙呢 (T_T) 先在上面配置好，我才能回答你哦");
                 return;
             }
 
@@ -492,7 +492,7 @@
                     <div class="text-center mt-6 card-enter">
                         <div class="text-6xl mb-4">🏆</div>
                         <h3 class="text-2xl font-bold text-gray-800 mb-2">太强了！</h3>
-                        <p class="text-gray-500 mb-6 text-lg">当前题库所有的热身题已被你刷空啦~</p>
+                        <p class="text-gray-500 mb-6 text-lg">当前题库所有的热身题已被你刷空啦</p>
                         ${!state.isAILoading 
                             ? `<button onclick="finishAILoading()" class="bg-accent text-white font-black py-3 px-8 rounded-full shadow-lg hover:bg-yellow-500 transition-all-300 text-lg animate-bounce transform hover:-translate-y-1"><i class="fa fa-check-circle mr-2"></i> AI 已提取完毕，去复习闪卡！</button>` 
                             : '<p class="text-primary font-bold animate-pulse">请耐心等待上方后台的 AI 提取完毕...</p>'
