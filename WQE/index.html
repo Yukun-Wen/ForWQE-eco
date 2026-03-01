@@ -48,9 +48,9 @@
         @keyframes bounceIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
         /* 聊天框滚动条美化 */
-        #mini-chat-messages::-webkit-scrollbar { width: 6px; }
-        #mini-chat-messages::-webkit-scrollbar-track { background: transparent; }
-        #mini-chat-messages::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+        #mini-chat-messages::-webkit-scrollbar, #cat-tutor-chat::-webkit-scrollbar { width: 6px; }
+        #mini-chat-messages::-webkit-scrollbar-track, #cat-tutor-chat::-webkit-scrollbar-track { background: transparent; }
+        #mini-chat-messages::-webkit-scrollbar-thumb, #cat-tutor-chat::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
 <body class="bg-neutral min-h-screen flex flex-col relative">
@@ -93,9 +93,7 @@
                 <div class="bg-white rounded-xl shadow-md p-8 mb-8">
                     <div id="drop-area" class="border-2 border-dashed border-primary rounded-lg p-10 text-center cursor-pointer hover:bg-neutral transition-all-300">
                         
- <!-- * 特效开始 * -->
-
-<div class="cardcaptor-summon-container">
+ <div class="cardcaptor-summon-container">
     <div class="magic-circle-wrapper">
         <svg class="sakura-circle" viewBox="0 0 200 200">
             <circle cx="100" cy="100" r="95" fill="none" stroke="#FFD700" stroke-width="2" />
@@ -151,8 +149,7 @@
     100% { transform: rotate(var(--angle)) translateY(-32px) rotate(180deg) scale(1); opacity: 0; }
 }
 </style>
- <!-- * 特效结束 * -->
-                        <h3 class="text-xl font-bold mb-2 text-dark">人类，快把你的文件喂到这里😾</h3>
+ <h3 class="text-xl font-bold mb-2 text-dark">人类，快把你的文件喂到这里😾</h3>
                         <p class="text-gray-500 mb-4">支持格式：PDF, PPTX 幻灯片, 图片(JPG/PNG) 等</p>
                         <input type="file" id="file-input" class="hidden" multiple accept=".txt,.pdf,.pptx,.jpg,.png">
                         <button id="select-file-btn" class="bg-primary text-white font-medium py-2 px-6 rounded-full hover:bg-primary-dark transition-all-300">浏览文件</button>
@@ -330,6 +327,19 @@
         </div>
     </div>
 
+    <div id="cat-tutor-modal" class="fixed inset-0 bg-gray-900 bg-opacity-70 z-[110] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 max-w-lg w-full mx-4 shadow-2xl relative flex flex-col h-[500px]">
+            <button onclick="closeCatTutorModal()" class="absolute top-4 right-5 text-gray-400 hover:text-gray-600 text-xl"><i class="fa fa-times"></i></button>
+            <h3 class="text-2xl font-black text-gray-800 mb-4 flex items-center border-b pb-3 border-gray-100"><span class="text-4xl mr-2">😾</span> 本喵的专属辅导</h3>
+            <div id="cat-tutor-chat" class="flex-grow overflow-y-auto bg-gray-50 rounded-xl p-4 mb-4 space-y-4 border border-gray-100">
+                </div>
+            <div class="flex items-center gap-2 mt-auto pt-2">
+                <input type="text" id="cat-tutor-input" class="flex-grow border border-gray-300 rounded-full px-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm" placeholder="接受本喵的拷问吧，回答我...">
+                <button id="cat-tutor-send" class="bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary-dark transition-all"><i class="fa fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
@@ -347,7 +357,12 @@
             isAILoading: false,
             
             // AI 对话历史记录
-            miniChatHistory: []
+            miniChatHistory: [],
+
+            // AI 毒舌辅导状态
+            bgWrongCounts: {}, // 记录某道题错了几次
+            catTutorHistory: [],
+            catTutorQuestionContext: null
         };
 
         const congratsMessages = [ "太棒啦！你已经完成了所有的练习！(๑•̀ㅂ•́)و✧", "坚持就是胜利！为你今天的努力点赞！٩( 'ω' )و", "做得真好！马上来看看解析巩固一下吧 (´▽`ʃ♡ƪ)", "辛苦啦！深呼吸，准备看看自己的战果吧！(*^▽^*)", "冲冲冲！每天进步一点点，你超酷的！(ง •_•)ง" ];
@@ -381,10 +396,9 @@
         // ==========================================
         
         function initMiniChat() {
-            // 每次启动加载都重置聊天系统提示词
             state.miniChatHistory = [{ 
                 role: "system", 
-                content: "你是一个充满亲和力、说话可爱的学习小助手，非常喜欢使用各种可爱的颜文字（如 (*^▽^*)、(๑•̀ㅂ•́)و✧、(T_T) 等）。用户现在正在等待系统处理长篇课件，你在陪他们聊天打发时间或者解答简单的疑惑。你的回答应该尽量简短、幽默、热情，有时爱讲冷笑话，不要长篇大论。" 
+                content: "你是一个充满亲和力、说话可爱的学习小助手，非常喜欢使用各种可爱的颜文字（如 ฅ(^^ฅ)、(๑•̀ㅂ•́)و✧、ฅ^>ω<^ฅ等）。用户现在正在等待系统处理长篇课件，你在陪他们聊天打发时间或者解答简单的疑惑。你的回答应该尽量简短、幽默、热情，有时爱讲冷笑话，不要长篇大论，如果和学习无关则催促用户去学习（比如不学习的每一分钟都会悄悄的失去60秒之类的）。" 
             }];
             document.getElementById('mini-chat-messages').innerHTML = `
                 <div class="flex justify-start">
@@ -405,7 +419,6 @@
             const text = inputEl.value.trim();
             if (!text) return;
 
-            // 渲染用户的提问
             appendMiniChatMessage("user", text);
             inputEl.value = '';
 
@@ -416,7 +429,6 @@
 
             state.miniChatHistory.push({ role: "user", content: text });
 
-            // 渲染 AI 的输入中动画
             const loadingId = "msg-loading-" + Date.now();
             appendMiniChatMessage("assistant", `
                 <div class='flex space-x-1 items-center h-4 my-1'>
@@ -426,15 +438,10 @@
                 </div>`, loadingId);
 
             try {
-                // 使用速度更快的 deepseek-chat 进行闲聊
                 const response = await fetch('https://api.deepseek.com/chat/completions', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.deepseekApiKey}` },
-                    body: JSON.stringify({
-                        model: "deepseek-chat", 
-                        messages: state.miniChatHistory,
-                        max_tokens: 300 // 限制回复长度，保持简短
-                    })
+                    body: JSON.stringify({ model: "deepseek-chat", messages: state.miniChatHistory, max_tokens: 300 })
                 });
 
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
@@ -443,11 +450,8 @@
                 const replyText = data.choices[0].message.content;
                 
                 state.miniChatHistory.push({ role: "assistant", content: replyText });
-                
-                // 将动画替换为真实的回答文本
                 document.getElementById(loadingId).innerHTML = replyText.replace(/\n/g, '<br>');
                 
-                // 滚动到底部
                 const msgContainer = document.getElementById('mini-chat-messages');
                 msgContainer.scrollTop = msgContainer.scrollHeight;
                 
@@ -473,7 +477,7 @@
         }
 
         // ==========================================
-        // 3. 热身题库渲染逻辑 (防重复递增)
+        // 3. 热身题库渲染与毒舌喵咪纠正逻辑
         // ==========================================
         function renderBgQuizQuestion() {
             const container = document.getElementById('bg-quiz-container');
@@ -527,34 +531,48 @@
             const nextArea = document.getElementById('bg-quiz-next-area');
             const q = state.bgQuestions[state.bgQuizIndex];
             
-            buttons.forEach(btn => { btn.disabled = true; btn.classList.remove('hover:border-primary-light', 'hover:bg-blue-50', 'bg-gray-50'); btn.classList.add('bg-white', 'opacity-50'); });
-            
+            if (!state.bgWrongCounts[state.bgQuizIndex]) state.bgWrongCounts[state.bgQuizIndex] = 0;
+
             if (selectedIndex === correctIndex) {
+                // 答对了，清空之前的错误惩罚
+                buttons.forEach(btn => { 
+                    btn.disabled = true; 
+                    btn.classList.remove('hover:border-primary-light', 'hover:bg-blue-50', 'bg-gray-50'); 
+                    btn.classList.add('bg-white', 'opacity-50'); 
+                });
                 buttons[selectedIndex].classList.remove('bg-white', 'opacity-50');
                 buttons[selectedIndex].classList.add('!border-green-400', '!bg-green-50', 'shadow-sm');
                 buttons[selectedIndex].querySelector('span:last-child').classList.add('text-green-800');
+                
                 resultDiv.innerHTML = `
                     <div class="p-4 bg-green-50 text-green-800 rounded-xl border border-green-200 text-sm">
                         <p class="font-black mb-1"><i class="fa fa-check-circle mr-1 text-green-500"></i> 回答正确！</p>
                         <p class="text-green-700">${q.explanation || '干得漂亮！'}</p>
                     </div>`;
+                resultDiv.classList.remove('hidden');
+                
+                showNextButton();
             } else {
-                buttons[selectedIndex].classList.remove('bg-white', 'opacity-50');
-                buttons[selectedIndex].classList.add('!border-red-400', '!bg-red-50', 'shadow-sm');
-                buttons[selectedIndex].querySelector('span:last-child').classList.add('text-red-800');
+                // 答错了，扣减错误次数并弹出傲娇猫咪
+                state.bgWrongCounts[state.bgQuizIndex]++;
+                const wrongCount = state.bgWrongCounts[state.bgQuizIndex];
+
+                // 仅仅把点错的按钮置灰变红
+                buttons[selectedIndex].disabled = true;
+                buttons[selectedIndex].classList.remove('hover:border-primary-light', 'hover:bg-blue-50', 'bg-gray-50');
+                buttons[selectedIndex].classList.add('!border-red-400', '!bg-red-50', 'shadow-sm', 'opacity-50', 'cursor-not-allowed');
+                buttons[selectedIndex].querySelector('span:last-child').classList.add('text-red-500');
                 
-                buttons[correctIndex].classList.remove('bg-white', 'opacity-50');
-                buttons[correctIndex].classList.add('!border-green-400', '!bg-green-50');
+                // 隐藏“下一题”按钮，直到用户做对
+                nextArea.classList.add('hidden');
                 
-                resultDiv.innerHTML = `
-                    <div class="p-4 bg-red-50 text-red-800 rounded-xl border border-red-200 text-sm">
-                        <p class="font-black mb-1"><i class="fa fa-times-circle mr-1 text-red-500"></i> 回答错误</p>
-                        <p class="text-red-700 leading-relaxed"><span class="font-bold">正确答案是：${['A','B','C','D','E','F'][correctIndex]}。</span><br>${q.explanation || ''}</p>
-                    </div>`;
+                // 召唤猫咪
+                openCatTutorModal(q, wrongCount, selectedIndex, correctIndex);
             }
-            
-            resultDiv.classList.remove('hidden');
-            
+        }
+
+        function showNextButton() {
+            const nextArea = document.getElementById('bg-quiz-next-area');
             if (state.isAILoading) {
                 if (state.bgQuizIndex + 1 < state.bgQuestions.length) {
                     nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="bg-gray-100 text-gray-700 hover:bg-gray-200 font-bold py-2.5 px-8 rounded-full shadow-sm transition-all-300 text-sm border border-gray-200">继续下一题 <i class="fa fa-arrow-right ml-1"></i></button>`;
@@ -567,6 +585,144 @@
             nextArea.classList.remove('hidden');
         }
 
+        // --- 核心：AI毒舌猫咪逻辑 ---
+        async function openCatTutorModal(question, wrongCount, selectedIndex, correctIndex) {
+            document.getElementById('cat-tutor-modal').classList.remove('hidden');
+            const chatBox = document.getElementById('cat-tutor-chat');
+            chatBox.innerHTML = '';
+            document.getElementById('cat-tutor-input').value = '';
+            state.catTutorQuestionContext = question;
+
+            let threat = wrongCount >= 2 ? `注意：这是人类在同一道题上第 ${wrongCount} 次犯蠢了！务必在回答里威胁他/她：“如果再错的话这道题就会循环99次哦！”` : "";
+
+            const systemPrompt = `你是一只名叫“白泽”的高傲、毒舌但内心善良的AI神猫导师。人类刚刚在做题时选错了。
+            题目: "${question.text}"
+            正确答案是: "${question.options[correctIndex]}"，而人类选了 "${question.options[selectedIndex]}"。
+            
+            任务：
+            1. 请用戏谑、嘲讽但带点鼓励的语气（多用猫咪颜文字和口癖，比如“愚蠢的人类”、“喵”）给个提示或解释。
+            2. ${threat}
+            3. 在最后，你必须向人类抛出一个小问题或要求，让他们回答，以此判断他们是否真的理解了这个知识点。不要直接给出完整答案，要引导他们思考。回答尽量简短（150字左右）。`;
+
+            state.catTutorHistory = [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: "糟糕，我又选错了，快点嘲讽我并教我吧。" }
+            ];
+
+            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-primary'></i> 本喵正在降临...", "cat-loading");
+
+            try {
+                const response = await fetch('https://api.deepseek.com/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.deepseekApiKey}` },
+                    body: JSON.stringify({ model: "deepseek-chat", messages: state.catTutorHistory, max_tokens: 350 })
+                });
+                const data = await response.json();
+                const reply = data.choices[0].message.content;
+                state.catTutorHistory.push({ role: "assistant", content: reply });
+
+                document.getElementById('cat-loading').remove();
+                appendCatMsg('assistant', reply.replace(/\n/g, '<br>'));
+            } catch (e) {
+                if(document.getElementById('cat-loading')) document.getElementById('cat-loading').remove();
+                appendCatMsg('assistant', "本喵的网络卡了，算你运气好，这次先放过你！刷新下试试吧喵。");
+            }
+        }
+
+        function appendCatMsg(role, html, id=null) {
+            const chatBox = document.getElementById('cat-tutor-chat');
+            const div = document.createElement('div');
+            if(id) div.id = id;
+            if(role === 'user') {
+                div.className = "bg-primary text-white rounded-xl rounded-tr-sm p-3 ml-auto max-w-[80%] text-sm shadow-sm";
+                div.innerHTML = html;
+            } else {
+                div.className = "bg-white border border-gray-200 text-gray-800 rounded-xl rounded-tl-sm p-3 mr-auto max-w-[90%] text-sm relative shadow-sm";
+                div.innerHTML = `<span class="absolute -top-3 -left-2 text-2xl drop-shadow-sm">😾</span><div class="ml-4">${html}</div>`;
+            }
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        document.getElementById('cat-tutor-send').addEventListener('click', sendCatTutorMsg);
+        document.getElementById('cat-tutor-input').addEventListener('keypress', e => { if(e.key==='Enter') sendCatTutorMsg(); });
+
+        async function sendCatTutorMsg() {
+            const input = document.getElementById('cat-tutor-input');
+            const text = input.value.trim();
+            if(!text) return;
+            appendCatMsg('user', text);
+            input.value = '';
+
+            state.catTutorHistory.push({ role: "user", content: text });
+            appendCatMsg('assistant', "<div class='flex space-x-1 items-center h-4 my-1'><div class='w-1.5 h-1.5 bg-primary rounded-full animate-bounce'></div><div class='w-1.5 h-1.5 bg-primary rounded-full animate-bounce' style='animation-delay: 0.1s'></div><div class='w-1.5 h-1.5 bg-primary rounded-full animate-bounce' style='animation-delay: 0.2s'></div></div>", "cat-evaluating");
+
+            const evalPrompt = `人类回答了你的提问。请判断人类是否真正理解了该知识点。
+            如果理解了，请回复一段表扬的话（傲娇语气），并严格在末尾加上标识符 [PASS]。
+            如果没理解或是在胡说八道，请继续嘲讽并给出提示，要求他重新回答，严格不要加上 [PASS]。
+            人类回答: "${text}"`;
+
+            let tempHistory = [...state.catTutorHistory, { role: "user", content: evalPrompt }];
+
+            try {
+                const response = await fetch('https://api.deepseek.com/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.deepseekApiKey}` },
+                    body: JSON.stringify({ model: "deepseek-chat", messages: tempHistory, max_tokens: 250 })
+                });
+                const data = await response.json();
+                let reply = data.choices[0].message.content;
+
+                const passed = reply.includes('[PASS]');
+                reply = reply.replace('[PASS]', '').trim();
+
+                state.catTutorHistory.push({ role: "assistant", content: reply });
+
+                if(document.getElementById('cat-evaluating')) document.getElementById('cat-evaluating').remove();
+                appendCatMsg('assistant', reply.replace(/\n/g, '<br>'));
+
+                if (passed) {
+                    setTimeout(() => {
+                        closeCatTutorModal();
+                        revealCorrectAndNext();
+                    }, 3500); 
+                }
+            } catch(e) {
+                if(document.getElementById('cat-evaluating')) document.getElementById('cat-evaluating').remove();
+                appendCatMsg('assistant', "猫粮不足导致断联了喵，稍后再试吧！");
+            }
+        }
+
+        function revealCorrectAndNext() {
+            const q = state.bgQuestions[state.bgQuizIndex];
+            const correctIndex = q.correctAnswer;
+            const optionsDiv = document.getElementById('bg-quiz-options');
+            const buttons = optionsDiv.querySelectorAll('button');
+
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.className = "w-full flex items-center text-left p-3 bg-white opacity-50 border border-transparent rounded-xl focus:outline-none";
+            });
+
+            buttons[correctIndex].classList.remove('bg-white', 'opacity-50');
+            buttons[correctIndex].classList.add('!border-green-400', '!bg-green-50', 'shadow-sm');
+            buttons[correctIndex].querySelector('span:last-child').classList.add('text-green-800');
+
+            const resultDiv = document.getElementById('bg-quiz-result');
+            resultDiv.innerHTML = `
+                <div class="p-4 bg-green-50 text-green-800 rounded-xl border border-green-200 text-sm">
+                    <p class="font-black mb-1"><i class="fa fa-check-circle mr-1 text-green-500"></i> 终于懂了！</p>
+                    <p class="text-green-700">经过白泽大人的严格审查，人类终于搞懂了。这道题的正确答案正是：${['A','B','C','D','E','F'][correctIndex]}。</p>
+                </div>`;
+            resultDiv.classList.remove('hidden');
+
+            showNextButton();
+        }
+
+        window.closeCatTutorModal = function() {
+            document.getElementById('cat-tutor-modal').classList.add('hidden');
+        }
+
         window.nextBgQuizQuestion = function() {
             state.bgQuizIndex++; 
             renderBgQuizQuestion();
@@ -577,9 +733,8 @@
             showSection('knowledge-section');
         }
 
-
         // ==========================================
-        // 4. API 与文件上传系统 (带防卡死修复)
+        // 4. API 与文件上传系统
         // ==========================================
 
         if (state.deepseekApiKey) {
@@ -719,9 +874,9 @@
             showSection('processing-section');
             state.knowledgePoints = []; 
             
-            // 初始化后台页面状态
             initMiniChat();
             state.bgQuizIndex = 0;
+            state.bgWrongCounts = {}; // 清空错误记录
             if(state.bgQuestions.length > 0) state.bgQuestions.sort(() => Math.random() - 0.5); 
             
             state.isAILoading = true;
@@ -739,7 +894,6 @@
                     for(let i=0; i < file.extractedText.length; i+= CHUNK_SIZE) textChunks.push(file.extractedText.substring(i, i + CHUNK_SIZE));
 
                     for(let i=0; i < textChunks.length; i++) {
-                        // 在右上角无声更新进度
                         document.getElementById('ai-status-detail').textContent = `[ ${file.name} (章节 ${i+1}/${textChunks.length}) ]`;
                         
                         const prompt = `你是一个耐心且专业的教育小助手。请从给定的课件文本中提取核心考点，并生成草稿考试题。请绝对严格按以下 JSON 数组格式输出，不要有markdown：[{ "id": "kp_01", "type": "formula", "content": "知识点", "source": "${file.name}", "mcq": { "stem": "题干", "options": ["正", "干1", "干2", "干3"] }, "calc": { "stem": "计算题干", "answer": "步骤" } }] 文本：${textChunks[i]}`;
