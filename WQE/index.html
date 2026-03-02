@@ -97,11 +97,106 @@
         @keyframes fall {
             to { transform: translateY(110vh) rotate(360deg); }
         }
+
+        /* 游戏化特效 */
+        @keyframes floatUpFade {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-40px) scale(1.5) rotate(15deg); opacity: 1; }
+            100% { transform: translateY(-80px) scale(1) rotate(-15deg); opacity: 0; }
+        }
+        .floating-fish {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            animation: floatUpFade 1.2s ease-out forwards;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(245,166,35,0.8));
+            user-select: none;
+        }
+
+        /* 爱心爆炸特效 */
+        @keyframes heartBurst {
+            0% { transform: translate(0, 0) scale(0.3) rotate(0deg); opacity: 1; }
+            80% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rot)); opacity: 0.8; }
+            100% { transform: translate(var(--tx), calc(var(--ty) - 30px)) scale(1) rotate(var(--rot)); opacity: 0; }
+        }
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            animation: heartBurst 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
+            user-select: none;
+        }
+
+        /* ✨ 刻印按钮专属星星特效 ✨ */
+        @keyframes starFlash {
+            0% { transform: scale(0.5) translate(0, 0) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 5px #fde047); }
+            100% { transform: scale(1.5) translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; filter: drop-shadow(0 0 15px #fef08a); }
+        }
+        .flashcard-star {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            animation: starFlash 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            font-size: 1.5rem;
+        }
+
+        /* 经验值条 */
+        .xp-bar-container { 
+            background: rgba(15, 23, 42, 0.1); 
+            border: 2px solid #d4af37; 
+            border-radius: 999px; 
+            overflow: hidden; 
+            height: 14px; 
+            width: 100%; 
+            margin-top: 8px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+        .xp-bar-fill { 
+            background: linear-gradient(90deg, #f59e0b, #fbbf24); 
+            height: 100%; 
+            width: 0%; 
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 0 10px rgba(245,166,35,0.8); 
+            position: relative;
+        }
+        .xp-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @keyframes fishBite {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(-10deg); }
+            50% { transform: scale(1.3) rotate(10deg); }
+            75% { transform: scale(1.1) rotate(-5deg); }
+        }
+        .animate-fish-bite { animation: fishBite 0.4s ease-in-out; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col relative font-sans">
     
     <canvas id="fireworks-canvas" class="fixed inset-0 w-full h-full z-[9999] pointer-events-none hidden bg-black/60 backdrop-blur-sm"></canvas>
+
+    <div class="fixed top-24 right-4 md:right-8 z-50 flex flex-col gap-3">
+        <div id="fish-counter-container" class="bg-dark/90 backdrop-blur-sm border-2 border-secondary rounded-full px-4 py-2 md:px-5 md:py-3 flex items-center shadow-[0_0_20px_rgba(212,175,55,0.6)] transform transition-transform cursor-pointer group hover:scale-105">
+            <span class="text-2xl md:text-3xl mr-2 group-hover:animate-bounce drop-shadow-[0_0_8px_rgba(245,166,35,0.8)]">🐟</span>
+            <span id="global-fish-count" class="text-secondary font-black text-xl md:text-2xl font-medieval tracking-widest">0</span>
+        </div>
+        
+        <div id="coin-counter-container" class="bg-dark/90 backdrop-blur-sm border-2 border-yellow-400 rounded-full px-4 py-2 md:px-5 md:py-3 flex items-center shadow-[0_0_20px_rgba(251,191,36,0.6)] transform transition-transform cursor-pointer group hover:scale-105" onclick="showSection('mall-section')">
+            <span class="text-2xl md:text-3xl mr-2 group-hover:animate-spin drop-shadow-[0_0_8px_rgba(251,191,36,0.8)]">🪙</span>
+            <span id="global-coin-count" class="text-yellow-400 font-black text-xl md:text-2xl font-medieval tracking-widest">0</span>
+        </div>
+    </div>
 
     <nav class="bg-[#0f172a]/90 backdrop-blur-md border-b-2 border-secondary shadow-[0_0_20px_rgba(212,175,55,0.5)] sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-2">
@@ -111,6 +206,7 @@
             <div class="flex items-center space-x-2 md:space-x-4">
                 <button id="nav-upload" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-light hover:text-secondary hover:bg-white/10 transition-all-300 font-medieval"><i class="fa fa-upload mr-1"></i> 献上祭品</button>
                 <button id="nav-quiz" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-light hover:text-secondary hover:bg-white/10 transition-all-300 font-medieval"><i class="fa fa-pencil mr-1"></i> 开启试炼</button>
+                <button id="nav-mall" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-yellow-400 hover:text-yellow-300 hover:bg-white/10 transition-all-300 font-medieval font-bold shadow-sm"><i class="fa fa-shopping-cart mr-1"></i> 魔法商城</button>
             </div>
         </div>
     </nav>
@@ -144,63 +240,12 @@
                 
                 <div class="medieval-card rounded-2xl p-5 md:p-8 mb-8">
                     <div id="drop-area" class="border-2 border-dashed border-secondary bg-[#fdfaf0]/50 rounded-xl p-6 md:p-10 text-center cursor-pointer hover:bg-blue-50 transition-all-300">
-                        
-<div class="cardcaptor-summon-container scale-75 md:scale-100">
-    <div class="magic-circle-wrapper">
-        <svg class="sakura-circle" viewBox="0 0 200 200">
-            <circle cx="100" cy="100" r="95" fill="none" stroke="#FFD700" stroke-width="2" />
-            <circle cx="100" cy="100" r="88" fill="none" stroke="#FFD700" stroke-width="1" stroke-dasharray="5,3" />
-            
-            <g class="inner-symbols">
-                <polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#FFD700" stroke-width="2" transform="rotate(36, 100, 100)" />
-                <polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#FFD700" stroke-width="2" />
-                
-                <circle cx="100" cy="100" r="38" fill="none" stroke="#FFD700" stroke-width="1.5" />
-                <polygon points="100,72 108,90 128,92 114,105 118,125 100,115 82,125 86,105 72,92 92,90" fill="#FFD700" />
-
-                <path d="M28,85 A18,18 0 1,1 28,115 A14,14 0 1,0 28,85" fill="#FFD700" />
-                <g transform="translate(15, 0)">
-                    <circle cx="140" cy="100" r="12" fill="none" stroke="#FFD700" stroke-width="2" />
-                    <g stroke="#FFD700" stroke-width="2">
-                        <line x1="140" y1="83" x2="140" y2="87" /><line x1="140" y1="113" x2="140" y2="117" />
-                        <line x1="123" y1="100" x2="127" y2="100" /><line x1="153" y1="100" x2="157" y2="100" />
-                    </g>
-                </g>
-            </g>
-        </svg>
-    </div>
-
-    <div class="particles">
-        <span class="particle" style="--angle: 0deg; --delay: 0s;">✨</span>
-        <span class="particle" style="--angle: 72deg; --delay: 0.2s;">🌟</span>
-        <span class="particle" style="--angle: 144deg; --delay: 0.4s;">✨</span>
-        <span class="particle" style="--angle: 216deg; --delay: 0.6s;">🌟</span>
-        <span class="particle" style="--angle: 288deg; --delay: 0.8s;">✨</span>
-        <span class="particle" style="--angle: 45deg; --delay: 1s;">🌟</span>
-        <span class="particle" style="--angle: 180deg; --delay: 1.2s;">✨</span>
-    </div>
-</div>
-
-<style>
-.cardcaptor-summon-container {
-    position: relative; display: inline-flex; align-items: center; justify-content: center;
-    width: 250px; height: 250px; overflow: hidden;
-    background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
-}
-.magic-circle-wrapper { position: absolute; width: 220px; height: 220px; z-index: 1; }
-.sakura-circle { width: 100%; height: 100%; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9)); animation: rotate-summon 15s linear infinite; }
-.particles { position: absolute; width: 0; height: 0; display: flex; align-items: center; justify-content: center; z-index: 2; }
-.particle { position: absolute; font-size: 1rem; pointer-events: none; opacity: 0; animation: firework 2s ease-out infinite; animation-delay: var(--delay); }
-
-@keyframes rotate-summon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-@keyframes firework {
-    0% { transform: rotate(var(--angle)) translateY(0) scale(0); opacity: 0; }
-    20% { opacity: 1; text-shadow: 0 0 10px gold; }
-    100% { transform: rotate(var(--angle)) translateY(-40px) rotate(180deg) scale(1.5); opacity: 0; }
-}
-</style>
- <h3 class="text-xl md:text-2xl font-black mb-2 text-dark font-medieval tracking-wide">凡人，快将卷轴献祭于此 😼</h3>
+                        <div class="cardcaptor-summon-container scale-75 md:scale-100">
+                            <div class="magic-circle-wrapper"><svg class="sakura-circle" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#FFD700" stroke-width="2" /><circle cx="100" cy="100" r="88" fill="none" stroke="#FFD700" stroke-width="1" stroke-dasharray="5,3" /><g class="inner-symbols"><polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#FFD700" stroke-width="2" transform="rotate(36, 100, 100)" /><polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#FFD700" stroke-width="2" /><circle cx="100" cy="100" r="38" fill="none" stroke="#FFD700" stroke-width="1.5" /><polygon points="100,72 108,90 128,92 114,105 118,125 100,115 82,125 86,105 72,92 92,90" fill="#FFD700" /><path d="M28,85 A18,18 0 1,1 28,115 A14,14 0 1,0 28,85" fill="#FFD700" /><g transform="translate(15, 0)"><circle cx="140" cy="100" r="12" fill="none" stroke="#FFD700" stroke-width="2" /><g stroke="#FFD700" stroke-width="2"><line x1="140" y1="83" x2="140" y2="87" /><line x1="140" y1="113" x2="140" y2="117" /><line x1="123" y1="100" x2="127" y2="100" /><line x1="153" y1="100" x2="157" y2="100" /></g></g></g></svg></div>
+                            <div class="particles"><span class="particle" style="--angle: 0deg; --delay: 0s;">✨</span><span class="particle" style="--angle: 72deg; --delay: 0.2s;">🌟</span><span class="particle" style="--angle: 144deg; --delay: 0.4s;">✨</span><span class="particle" style="--angle: 216deg; --delay: 0.6s;">🌟</span><span class="particle" style="--angle: 288deg; --delay: 0.8s;">✨</span><span class="particle" style="--angle: 45deg; --delay: 1s;">🌟</span><span class="particle" style="--angle: 180deg; --delay: 1.2s;">✨</span></div>
+                        </div>
+                        <style>.cardcaptor-summon-container { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 250px; height: 250px; overflow: hidden; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%); } .magic-circle-wrapper { position: absolute; width: 220px; height: 220px; z-index: 1; } .sakura-circle { width: 100%; height: 100%; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9)); animation: rotate-summon 15s linear infinite; } .particles { position: absolute; width: 0; height: 0; display: flex; align-items: center; justify-content: center; z-index: 2; } .particle { position: absolute; font-size: 1rem; pointer-events: none; opacity: 0; animation: firework 2s ease-out infinite; animation-delay: var(--delay); } @keyframes rotate-summon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes firework { 0% { transform: rotate(var(--angle)) translateY(0) scale(0); opacity: 0; } 20% { opacity: 1; text-shadow: 0 0 10px gold; } 100% { transform: rotate(var(--angle)) translateY(-40px) rotate(180deg) scale(1.5); opacity: 0; } }</style>
+                        <h3 class="text-xl md:text-2xl font-black mb-2 text-dark font-medieval tracking-wide">凡人，快将卷轴献祭于此 😼</h3>
                         <p class="text-gray-600 mb-6 text-sm md:text-base font-medium">法则之力支持：PDF, PPTX, JPG, PNG, TXT</p>
                         <input type="file" id="file-input" class="hidden" multiple accept=".txt,.pdf,.pptx,.jpg,.png">
                         <button id="select-file-btn" class="w-full sm:w-auto bg-gradient-to-r from-blue-800 to-primary-dark text-white border border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.6)] font-bold py-3 px-8 rounded-full hover:from-blue-700 hover:to-blue-900 transition-all-300">浏览典籍</button>
@@ -264,15 +309,22 @@
             <div class="max-w-3xl mx-auto">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-8 gap-4">
                     <h2 class="text-2xl md:text-3xl font-bold text-secondary font-medieval text-shadow-glow"><i class="fa fa-star text-light mr-2"></i>✨ 灵魂刻印之时 ✨</h2>
-                    <div class="bg-dark border border-secondary rounded-full px-4 py-1.5 md:px-6 md:py-2 flex items-center shadow-[0_0_10px_rgba(212,175,55,0.5)]">
-                        <span class="text-xs md:text-sm font-medium text-gray-400 mr-2 md:mr-3 font-medieval tracking-widest">刻印进度:</span>
-                        <span id="flashcard-progress" class="font-bold text-secondary text-lg md:text-xl">1/5</span>
+                    
+                    <div class="flex flex-col items-end w-full sm:w-auto">
+                        <div class="bg-dark border border-secondary rounded-full px-4 py-1.5 md:px-6 md:py-2 flex items-center shadow-[0_0_10px_rgba(212,175,55,0.5)] z-10 relative bg-opacity-90">
+                            <span class="text-xs md:text-sm font-medium text-gray-400 mr-2 md:mr-3 font-medieval tracking-widest">刻印进度:</span>
+                            <span id="flashcard-progress" class="font-bold text-secondary text-lg md:text-xl">1/5</span>
+                        </div>
+                        <div class="xp-bar-container w-48 -mt-2"><div id="flashcard-xp-fill" class="xp-bar-fill" style="width: 0%"></div></div>
                     </div>
                 </div>
                 <div id="flashcard-container" class="medieval-card rounded-3xl p-8 md:p-14 mb-8 md:mb-10 border-t-8 border-t-primary shadow-[0_0_30px_rgba(59,130,246,0.3)] relative min-h-[300px] md:min-h-[350px] flex flex-col justify-center transition-all duration-300"></div>
-                <div class="flex justify-center">
-                    <button id="got-it-btn" class="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest">
-                        <i class="fa fa-check-circle sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl"></i> <span>已刻入灵魂！(下一枚) 🌟</span>
+                
+                <div class="flex justify-center relative">
+                    <button id="got-it-btn" class="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group">
+                        <span class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
+                        <i class="fa fa-check-circle sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl relative z-10"></i> 
+                        <span class="btn-text relative z-10">已刻入灵魂！(+1 🐟) 🌟</span>
                     </button>
                 </div>
             </div>
@@ -316,7 +368,11 @@
             <div class="max-w-4xl mx-auto">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-8 gap-4">
                     <h2 class="text-2xl md:text-3xl font-bold text-secondary font-medieval text-shadow-glow flex items-center"><i class="fa fa-gavel mr-3"></i> 绝对裁决开始</h2>
-                    <div class="bg-dark text-secondary border border-secondary rounded-full px-4 py-1.5 md:px-6 md:py-2 shadow-[0_0_10px_rgba(212,175,55,0.4)] font-bold text-sm md:text-lg font-medieval tracking-widest">试炼进度: <span id="quiz-progress" class="ml-2 text-light">1/5</span></div>
+                    
+                    <div class="flex flex-col items-end w-full sm:w-auto">
+                        <div class="bg-dark text-secondary border border-secondary rounded-full px-4 py-1.5 md:px-6 md:py-2 shadow-[0_0_10px_rgba(212,175,55,0.4)] font-bold text-sm md:text-lg font-medieval tracking-widest z-10 relative bg-opacity-90">试炼进度: <span id="quiz-progress" class="ml-2 text-light">1/5</span></div>
+                        <div class="xp-bar-container w-48 -mt-2"><div id="quiz-xp-fill" class="xp-bar-fill" style="width: 0%"></div></div>
+                    </div>
                 </div>
                 <div class="medieval-card rounded-3xl shadow-[0_0_25px_rgba(0,0,0,0.5)] p-6 md:p-12 mb-8 md:mb-10 relative">
                     <div id="question-container"></div>
@@ -326,7 +382,10 @@
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <button id="submit-quiz-btn" class="w-full sm:w-auto bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.8)] font-black py-3 px-8 md:py-4 md:px-16 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,1)] transition-all-300 text-lg md:text-2xl transform hover:-translate-y-1 font-medieval tracking-widest"><i class="fa fa-balance-scale mr-3"></i> 接受最终裁决！</button>
+                    <button id="submit-quiz-btn" class="w-full sm:w-auto bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.8)] font-black py-3 px-8 md:py-4 md:px-16 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,1)] transition-all-300 text-lg md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group">
+                        <span class="absolute inset-0 bg-white/30 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
+                        <i class="fa fa-balance-scale mr-3"></i> 接受最终裁决！
+                    </button>
                 </div>
             </div>
         </section>
@@ -334,7 +393,7 @@
         <section id="result-section" class="section hidden relative z-10">
             <div class="max-w-5xl mx-auto medieval-card rounded-3xl p-6 md:p-12 shadow-[0_0_40px_rgba(212,175,55,0.5)] border-4 border-double border-secondary">
                 <h2 class="text-3xl md:text-5xl font-black mb-6 md:mb-8 text-dark text-center font-medieval border-b-4 border-secondary pb-4 md:pb-6 inline-block w-full">🎉 裁决之卷已现 🎉</h2>
-                <div class="text-center mb-8 md:mb-12 pb-6 md:pb-10 border-b-2 border-dashed border-gray-300">
+                <div class="text-center mb-8 md:mb-12 pb-6 md:pb-10 border-b-2 border-dashed border-gray-300 relative">
                     <h3 class="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-red-600 mb-4 md:mb-6 drop-shadow-[0_0_15px_rgba(245,166,35,0.8)] font-medieval" id="result-score">0%</h3>
                     <p id="result-message" class="text-gray-700 text-lg md:text-2xl font-bold font-medieval tracking-widest px-2">命运的轮盘已经停止！客观题已自动批改，解答题请参考神兽的推导步骤</p>
                 </div>
@@ -345,6 +404,63 @@
                 <div class="flex flex-col md:flex-row justify-center mt-8 md:mt-12 gap-4 md:gap-6">
                     <button id="review-mistakes-btn" class="w-full md:w-auto bg-gradient-to-r from-blue-800 to-primary-dark text-light border-2 border-primary-light shadow-[0_0_20px_rgba(59,130,246,0.6)] font-black py-3 px-6 md:py-4 md:px-10 rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,1)] transition-all-300 transform hover:-translate-y-1 text-base md:text-xl font-medieval tracking-widest flex justify-center items-center"><i class="fa fa-paw mr-3"></i> 召唤白泽错题复盘</button>
                     <button id="new-quiz-btn" class="w-full md:w-auto bg-gradient-to-r from-dark to-black text-secondary border-2 border-secondary shadow-[0_0_20px_rgba(212,175,55,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:bg-black transition-all-300 transform hover:-translate-y-1 text-base md:text-xl font-medieval tracking-widest flex justify-center items-center"><i class="fa fa-refresh mr-3"></i> 开启新一轮轮回</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="mall-section" class="section hidden relative z-10">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 text-yellow-400 font-medieval text-shadow-glow tracking-widest">💎 魔法商城 💎</h2>
+                    <p class="text-light text-lg">用你通过试炼获得的金币，兑换专属的秘密奖励吧！</p>
+                </div>
+                
+                <div class="medieval-card rounded-3xl p-6 md:p-8 mb-10 text-center border-dashed border-4 border-secondary/50 bg-[#fdfaf0]/90">
+                    <h3 class="text-2xl font-black text-dark mb-4 font-medieval tracking-widest"><i class="fa fa-balance-scale text-secondary mr-2"></i> 炼金工坊</h3>
+                    <p class="mb-6 text-gray-600 font-bold text-lg">当前汇率：<span class="text-secondary text-2xl mx-1">60 🐟</span> = <span class="text-yellow-500 text-2xl mx-1">1 🪙</span></p>
+                    <button onclick="manualExchange()" class="bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark px-8 py-3 md:px-12 md:py-4 rounded-full font-black shadow-[0_0_15px_rgba(245,166,35,0.6)] hover:shadow-[0_0_25px_rgba(245,166,35,0.9)] transition-all-300 transform hover:-translate-y-1 text-lg tracking-widest">
+                        立即将 60 小鱼干提炼为金币
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8">
+                    
+                    <div class="medieval-card rounded-3xl p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(255,105,180,0.4)] transition-all-300 border-2 hover:border-pink-400 group">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-pink-100 rounded-full mb-6 flex items-center justify-center border-4 border-pink-300 shadow-inner relative overflow-hidden group-hover:animate-pulse">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">💖</span>
+                        </div>
+                        <h3 class="text-xl font-black text-pink-600 mb-3 font-medieval tracking-widest text-center">温女士的鼓励</h3>
+                        <p class="text-gray-500 mb-6 flex-grow text-center font-bold text-sm">觉得疲惫了吗？聆听一段来自温女士的专属温柔肯定，补充心灵能量。</p>
+                        <button id="btn-buy-encourage" onclick="buyMallItem('encourage')" class="w-full bg-pink-500 text-white font-black py-4 rounded-xl border-2 border-pink-400 hover:bg-pink-600 transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(236,72,153,0.4)]">
+                            花费 2 🪙 兑换
+                        </button>
+                    </div>
+
+                    <div class="medieval-card rounded-3xl p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all-300 relative">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-gray-200 rounded-xl mb-6 flex items-center justify-center border-4 border-gray-300 shadow-inner relative overflow-hidden">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">🎫</span>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/40"></div>
+                        </div>
+                        <h3 class="text-xl font-black text-primary-dark mb-3 font-medieval tracking-widest text-center">温女士的专属午餐</h3>
+                        <p class="text-gray-500 mb-6 flex-grow text-center font-bold text-sm">一张蕴含饱腹魔法的兑换券，可向温女士兑换一份美味的午餐外卖。</p>
+                        <button id="btn-buy-photo" onclick="buyMallItem('photo')" class="w-full bg-dark text-yellow-400 font-black py-4 rounded-xl border-2 border-yellow-400 hover:bg-black transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(212,175,55,0.3)]">
+                            花费 5 🪙 兑换
+                        </button>
+                        <div id="content-photo" class="hidden mt-6 w-full text-left"></div>
+                    </div>
+
+                    <div class="medieval-card rounded-3xl p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all-300 relative">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-gray-200 rounded-xl mb-6 flex items-center justify-center border-4 border-gray-300 shadow-inner relative overflow-hidden">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">🎬</span>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/40"></div>
+                        </div>
+                        <h3 class="text-xl font-black text-primary-dark mb-3 font-medieval tracking-widest text-center">温女士的秘密影像</h3>
+                        <p class="text-gray-500 mb-6 flex-grow text-center font-bold text-sm">一段珍贵的专属留念影像，兑换凭证后可找温女士一睹光影魔法。</p>
+                        <button id="btn-buy-secret" onclick="buyMallItem('secret')" class="w-full bg-dark text-yellow-400 font-black py-4 rounded-xl border-2 border-yellow-400 hover:bg-black transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(212,175,55,0.3)]">
+                            花费 10 🪙 兑换
+                        </button>
+                        <div id="content-secret" class="hidden mt-6 w-full text-left"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -389,9 +505,49 @@
         </div>
     </div>
 
+    <div id="exchange-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[120] hidden flex items-center justify-center backdrop-blur-md transition-opacity duration-300">
+        <div id="exchange-card" class="medieval-card rounded-3xl p-8 md:p-12 max-w-md w-full mx-4 shadow-[0_0_50px_rgba(251,191,36,0.6)] border-4 border-double border-yellow-400 relative text-center">
+            <div class="text-6xl md:text-8xl mb-4 md:mb-6 flex justify-center space-x-2">
+                <span class="animate-bounce" style="animation-delay: 0s;">🐟</span>
+                <span class="animate-spin" style="animation-duration: 3s;">➡️</span>
+                <span class="animate-bounce drop-shadow-[0_0_15px_rgba(251,191,36,1)]" style="animation-delay: 0.2s;">🪙</span>
+            </div>
+            <h3 class="text-2xl md:text-4xl font-black text-dark mb-3 md:mb-4 font-medieval tracking-widest text-yellow-600">哇！太棒了！</h3>
+            <p class="text-gray-700 mb-8 md:mb-10 font-bold text-base md:text-xl leading-relaxed">你凭借智慧和汗水，攒够了整整 <span class="text-secondary text-2xl font-black mx-1">60</span> 条小鱼干！<br><br>要不要现在就把它们炼化成 1 枚闪闪发光的金币呢？</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="declineExchange()" class="w-full sm:w-auto bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-full hover:bg-gray-300 transition-all-300 tracking-widest">留着撸猫</button>
+                <button onclick="confirmExchange()" class="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-600 text-dark font-black py-3 px-8 rounded-full shadow-[0_0_15px_rgba(245,166,35,0.6)] hover:shadow-[0_0_25px_rgba(245,166,35,0.9)] transform hover:-translate-y-1 transition-all-300 tracking-widest"><i class="fa fa-magic mr-2"></i>立即炼化金币</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="encourage-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[130] hidden flex items-center justify-center backdrop-blur-md transition-opacity duration-300">
+        <div id="encourage-card" class="bg-[#fff0f5] border-4 border-double border-pink-400 rounded-3xl p-8 md:p-12 max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(255,105,180,0.6)] relative text-center transform scale-95 opacity-0 transition-all duration-300">
+            <button onclick="closeEncourageModal()" class="absolute top-4 right-5 md:top-5 md:right-6 text-gray-400 hover:text-pink-500 text-xl md:text-2xl"><i class="fa fa-times"></i></button>
+            
+            <div class="relative inline-block mb-6">
+                <div class="text-6xl drop-shadow-md">🪄</div>
+                <div class="absolute -top-4 -right-6 text-3xl animate-[spin_3s_linear_infinite] text-yellow-300 drop-shadow-[0_0_10px_#fde047]">✨</div>
+                <div class="absolute -top-6 -right-2 text-4xl animate-ping text-orange-400 drop-shadow-[0_0_10px_#fb923c] opacity-75" style="animation-duration: 0.8s;">💥</div>
+                <div class="absolute -top-2 -right-8 text-2xl animate-bounce text-yellow-200" style="animation-duration: 0.5s;">✨</div>
+            </div>
+
+            <h3 class="text-2xl md:text-3xl font-black text-pink-600 mb-6 font-medieval tracking-widest border-b-2 border-pink-200 pb-4">来自温女士的传音</h3>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-inner border border-pink-100 min-h-[120px] flex items-center justify-center">
+                <p id="encourage-message" class="text-gray-700 font-bold text-lg md:text-xl leading-relaxed text-left inline-block">
+                    <i class="fa fa-spinner fa-spin text-pink-400"></i> 正在接通心灵感应...
+                </p>
+            </div>
+            
+            <div class="mt-8">
+                <button onclick="closeEncourageModal()" class="bg-gradient-to-r from-pink-400 to-pink-500 text-white font-black py-3 px-10 rounded-full shadow-[0_0_15px_rgba(236,72,153,0.5)] hover:shadow-[0_0_25px_rgba(236,72,153,0.8)] transform hover:-translate-y-1 transition-all-300 tracking-widest text-lg">我收到啦 💖</button>
+            </div>
+        </div>
+    </div>
+
     <div id="cat-tutor-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[110] hidden flex items-center justify-center backdrop-blur-md transition-opacity duration-300 p-2 md:p-4">
         <div class="medieval-card rounded-3xl p-4 md:p-8 max-w-lg w-full shadow-[0_0_40px_rgba(59,130,246,0.6)] border-2 border-primary-light relative flex flex-col h-[85vh] max-h-[550px] md:h-[550px]">
-            
             <svg class="absolute -top-8 left-6 md:-top-12 md:left-10 w-14 h-12 md:w-20 md:h-16 -z-10 filter drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]" preserveAspectRatio="none" viewBox="0 0 100 100">
                 <path d="M 0 100 L 40 10 C 45 0, 55 0, 60 10 L 100 100 Z" fill="#fdfaf0" stroke="#d4af37" stroke-width="2"/>
                 <path d="M 25 100 L 45 35 C 48 25, 52 25, 55 35 L 75 100 Z" fill="#fbcfe8" />
@@ -407,7 +563,6 @@
                 <h3 class="text-xl md:text-2xl font-black text-primary-dark flex items-center mb-2 md:mb-3 font-medieval tracking-widest">
                     <span class="text-2xl md:text-3xl mr-2 md:mr-3 drop-shadow-md">😺</span> 白泽之神谕
                 </h3>
-
                 <div class="text-xs md:text-sm text-green-700 font-black border-t-2 border-dashed border-gray-300 pt-2 md:pt-3 leading-relaxed">
                     <p class="flex items-center flex-wrap mb-1">
                         <span class="mr-1 md:mr-2">⚖️噤声祈祷，汝已感知</span>
@@ -449,12 +604,200 @@
             catTutorQuestionContext: null,
             catTutorMode: null,
 
-            // 新增：考后错题复盘状态
             reviewQueue: [],
-            currentReviewIndex: 0
+            currentReviewIndex: 0,
+
+            fishCount: 0,
+            coinCount: 0,
+            declinedFishThreshold: 0
         };
 
         const congratsMessages = [ "太棒啦！你已经完成了所有的练习！(๑•̀ㅂ•́)و✧", "坚持就是胜利！为你今天的努力点赞！٩( 'ω' )و", "做得真好！马上来看看解析巩固一下吧 (´▽`ʃ♡ƪ)", "辛苦啦！深呼吸，准备看看自己的战果吧！(*^▽^*)", "冲冲冲！每天进步一点点，你超酷的！(ง •_•)ง" ];
+
+        document.getElementById('nav-mall').addEventListener('click', () => showSection('mall-section'));
+
+        window.manualExchange = function() {
+            if (state.fishCount >= 60) {
+                state.fishCount -= 60;
+                state.coinCount += 1;
+                updateResourceUI();
+                state.declinedFishThreshold = Math.floor(state.fishCount / 60) * 60;
+                alert("✨ 炼金成功！你消耗了 60 条小鱼干，获得了 1 枚金币！");
+            } else {
+                alert("哎呀，小鱼干不足 60 条哦，再努力做点试炼吧！💪");
+            }
+        };
+
+        window.buyMallItem = function(itemType) {
+            let cost = itemType === 'photo' ? 5 : (itemType === 'secret' ? 10 : 2);
+            
+            if(!state.deepseekApiKey && itemType === 'encourage') {
+                return alert("你需要先配置好右上角的魔力印记 (API Key) 才能呼叫温女士哦！");
+            }
+
+            if (state.coinCount >= cost) {
+                state.coinCount -= cost;
+                updateResourceUI();
+                
+                if (itemType === 'encourage') {
+                    heartExplosion();
+                    const prompt = "你是一位名叫“温女士”的温柔伴侣。请用亲昵、活泼的语调称呼对方为“老婆”，夸奖她今天很努力、很了不起，告诉她今天已经做了足够多的事情了，叮嘱她一定要好好休息。绝不能出现任何批评或爹味说教。【绝对禁止】：你的回复中绝对不要使用“~”这个波浪号符号。控制在100字以内。";
+                    
+                    let fetchPromise = fetch('https://api.deepseek.com/chat/completions', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.deepseekApiKey}` },
+                        body: JSON.stringify({ model: "deepseek-chat", messages: [{role: "user", content: prompt}], max_tokens: 150 })
+                    }).then(res => res.json()).then(data => data.choices[0].message.content).catch(e => "亲爱的老婆，信号好像有点微弱呢，但我依然想对你说：你今天真的太棒太努力了，辛苦啦，快去好好休息吧！(紧紧抱住)");
+
+                    setTimeout(async () => {
+                        const modal = document.getElementById('encourage-modal');
+                        const card = document.getElementById('encourage-card');
+                        const content = document.getElementById('encourage-message');
+                        
+                        modal.classList.remove('hidden');
+                        setTimeout(() => {
+                            modal.classList.remove('opacity-0');
+                            card.classList.remove('scale-95', 'opacity-0');
+                            card.classList.add('modal-bounce');
+                        }, 10);
+                        
+                        let reply = await fetchPromise;
+                        reply = reply.replace(/~/g, '！'); 
+                        
+                        content.innerHTML = reply.replace(/\n/g, '<br>');
+                    }, 3000);
+
+                } else {
+                    document.getElementById(`btn-buy-${itemType}`).classList.add('hidden');
+                    
+                    const contentDiv = document.getElementById(`content-${itemType}`);
+                    const itemName = itemType === 'photo' ? '温女士的专属午餐' : '温女士的秘密影像';
+                    const timeString = new Date().toLocaleString('zh-CN', { hour12: false });
+                    
+                    contentDiv.innerHTML = `
+                        <div class="border-2 border-dashed border-yellow-400 p-4 md:p-5 rounded-xl bg-yellow-50 text-left relative overflow-hidden shadow-inner mt-2">
+                            <div class="absolute -right-4 -bottom-4 text-yellow-300 opacity-30 text-6xl"><i class="fa fa-certificate"></i></div>
+                            <h4 class="text-lg md:text-xl font-black text-yellow-800 mb-3 border-b-2 border-yellow-200 pb-2 font-medieval tracking-widest"><i class="fa fa-star text-yellow-500 mr-2"></i>神圣兑换契约</h4>
+                            <p class="text-xs md:text-sm text-gray-700 mb-2 font-bold flex items-start"><span class="w-20 shrink-0">📜 契约内容:</span><span class="text-secondary">${itemName}</span></p>
+                            <p class="text-xs md:text-sm text-gray-700 mb-2 font-bold flex items-start"><span class="w-20 shrink-0">⏳ 缔结时刻:</span><span class="text-secondary font-sans">${timeString}</span></p>
+                            <p class="text-xs md:text-sm text-gray-700 mb-4 font-bold flex items-start leading-relaxed"><span class="w-20 shrink-0">⚔️ 试炼之路:</span><span>学徒通过在真理法阵中不懈地推演、答题与刻印，积累小鱼干并成功炼化出魔法金币。</span></p>
+                            <div class="bg-gradient-to-r from-yellow-200 to-yellow-300 py-2 md:py-3 rounded-lg text-center shadow-sm">
+                                <p class="text-sm md:text-base text-yellow-800 font-black tracking-widest">请截图此凭证，向温女士兑换奖励！</p>
+                            </div>
+                        </div>
+                    `;
+                    contentDiv.classList.remove('hidden');
+                    
+                    startFireworks();
+                    setTimeout(() => stopFireworks(), 2000);
+                }
+            } else {
+                alert(`你的金币不够哟 (需要 ${cost} 🪙，当前拥有 ${state.coinCount} 🪙)，快去赚取小鱼干兑换吧！`);
+            }
+        };
+
+        window.closeEncourageModal = function() {
+            const modal = document.getElementById('encourage-modal');
+            const card = document.getElementById('encourage-card');
+            modal.classList.add('opacity-0'); 
+            card.classList.remove('modal-bounce'); 
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        function heartExplosion() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const hearts = ['❤️', '💖', '💕', '✨', '💗'];
+            for(let i=0; i<45; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    
+                    heart.style.left = (centerX - 20 + (Math.random() * 40)) + 'px';
+                    heart.style.top = (centerY - 20 + (Math.random() * 40)) + 'px';
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 80 + Math.random() * 200; 
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    const rot = (Math.random() - 0.5) * 60;
+
+                    heart.style.setProperty('--tx', tx + 'px');
+                    heart.style.setProperty('--ty', ty + 'px');
+                    heart.style.setProperty('--rot', rot + 'deg');
+
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1800);
+                }, i * 15);
+            }
+        }
+
+        function addFish(amount, event) {
+            state.fishCount += amount;
+            updateResourceUI();
+
+            const counter = document.getElementById('fish-counter-container');
+            counter.classList.add('scale-125', 'border-yellow-400');
+            setTimeout(() => counter.classList.remove('scale-125', 'border-yellow-400'), 300);
+
+            let startX = event ? (event.clientX || event.pageX) : window.innerWidth / 2;
+            let startY = event ? (event.clientY || event.pageY) : window.innerHeight / 2;
+
+            let visualAmount = Math.min(amount, 30);
+            for(let i=0; i<visualAmount; i++) {
+                setTimeout(() => {
+                    const fish = document.createElement('div');
+                    fish.className = 'floating-fish';
+                    fish.textContent = '🐟';
+                    fish.style.left = (startX - 25 + (Math.random()*50)) + 'px';
+                    fish.style.top = (startY - 25 + (Math.random()*50)) + 'px';
+                    document.body.appendChild(fish);
+                    
+                    setTimeout(() => fish.remove(), 1200);
+                }, i * 80);
+            }
+
+            if (state.fishCount >= state.declinedFishThreshold + 60) {
+                setTimeout(() => { showExchangeModal(); }, 1500);
+            }
+        }
+
+        function updateResourceUI() {
+            document.getElementById('global-fish-count').textContent = state.fishCount;
+            document.getElementById('global-coin-count').textContent = state.coinCount;
+        }
+
+        window.showExchangeModal = function() {
+            document.getElementById('exchange-modal').classList.remove('hidden');
+        };
+        
+        window.confirmExchange = function() {
+            if (state.fishCount >= 60) {
+                state.fishCount -= 60;
+                state.coinCount += 1;
+                updateResourceUI();
+                state.declinedFishThreshold = Math.floor(state.fishCount / 60) * 60;
+                document.getElementById('exchange-modal').classList.add('hidden');
+                
+                const coinCounter = document.getElementById('coin-counter-container');
+                coinCounter.classList.add('scale-150', 'bg-yellow-100');
+                setTimeout(() => coinCounter.classList.remove('scale-150', 'bg-yellow-100'), 500);
+            }
+        };
+
+        window.declineExchange = function() {
+            state.declinedFishThreshold += 60;
+            document.getElementById('exchange-modal').classList.add('hidden');
+        };
+
+        function fishExplosion() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            addFish(30, { clientX: centerX, clientY: centerY });
+        }
 
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
@@ -600,8 +943,8 @@
                 <h4 class="text-lg md:text-xl font-black text-dark leading-relaxed mb-6 md:mb-8">${q.text}</h4>
                 <div class="space-y-3 md:space-y-4" id="bg-quiz-options">
                     ${q.options.map((opt, i) => `
-                        <button onclick="checkBgQuizAnswer(${i}, ${q.correctAnswer})" class="w-full flex items-center text-left p-3 md:p-4 bg-[#fffcf5] border-2 border-gray-300 rounded-xl hover:border-secondary hover:bg-yellow-50 hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all-300 focus:outline-none">
-                            <span class="font-black text-gray-400 text-lg md:text-xl mr-3 md:mr-4 w-6 text-center font-medieval flex-shrink-0">${letters[i]}</span>
+                        <button onclick="checkBgQuizAnswer(event, ${i}, ${q.correctAnswer})" class="w-full flex items-center text-left p-3 md:p-4 bg-[#fffcf5] border-2 border-gray-300 rounded-xl hover:border-secondary hover:bg-yellow-50 hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all-300 focus:outline-none relative overflow-hidden group">
+                            <span class="font-black text-gray-400 text-lg md:text-xl mr-3 md:mr-4 w-6 text-center font-medieval flex-shrink-0 group-hover:scale-110 transition-transform">${letters[i]}</span>
                             <span class="font-bold text-dark text-base md:text-lg">${opt}</span>
                         </button>
                     `).join('')}
@@ -612,7 +955,7 @@
             container.innerHTML = html;
         }
 
-        window.checkBgQuizAnswer = function(selectedIndex, correctIndex) {
+        window.checkBgQuizAnswer = function(event, selectedIndex, correctIndex) {
             const optionsDiv = document.getElementById('bg-quiz-options');
             const buttons = optionsDiv.querySelectorAll('button');
             const resultDiv = document.getElementById('bg-quiz-result');
@@ -628,13 +971,15 @@
                     btn.classList.add('bg-white', 'opacity-40'); 
                 });
                 buttons[selectedIndex].classList.remove('bg-white', 'opacity-40');
-                buttons[selectedIndex].classList.add('!border-green-500', '!bg-green-100', 'shadow-[0_0_15px_rgba(34,197,94,0.5)]');
+                buttons[selectedIndex].classList.add('!border-green-500', '!bg-green-100', 'shadow-[0_0_15px_rgba(34,197,94,0.5)]', 'animate-fish-bite');
                 buttons[selectedIndex].querySelector('span:last-child').classList.add('text-green-900');
                 buttons[selectedIndex].querySelector('span:first-child').classList.replace('text-gray-400', 'text-green-600');
                 
+                addFish(3, event);
+
                 resultDiv.innerHTML = `
                     <div class="p-4 md:p-5 bg-green-50 text-green-900 rounded-xl border-2 border-green-400 text-sm md:text-base shadow-inner">
-                        <p class="font-black mb-2 text-base md:text-lg"><i class="fa fa-check-circle mr-2 text-green-600 text-lg md:text-xl"></i> 法则认可！回答正确</p>
+                        <p class="font-black mb-2 text-base md:text-lg"><i class="fa fa-check-circle mr-2 text-green-600 text-lg md:text-xl"></i> 法则认可！回答正确 <span class="text-secondary ml-2 font-bold">(+3 🐟)</span></p>
                         <p class="text-green-800 font-medium">${q.explanation || '干得漂亮！真理的碎片已向你敞开。'}</p>
                     </div>`;
                 resultDiv.classList.remove('hidden');
@@ -1157,7 +1502,11 @@
 
         function renderFlashcard() {
             const kp = state.knowledgePoints[state.currentFlashcardIndex];
+            
             document.getElementById('flashcard-progress').textContent = `${state.currentFlashcardIndex + 1}/${state.knowledgePoints.length}`;
+            const progressPercent = ((state.currentFlashcardIndex + 1) / state.knowledgePoints.length) * 100;
+            document.getElementById('flashcard-xp-fill').style.width = `${progressPercent}%`;
+
             const container = document.getElementById('flashcard-container');
             container.classList.remove('card-enter'); void container.offsetWidth; container.classList.add('card-enter');
 
@@ -1172,17 +1521,53 @@
             
             const btn = document.getElementById('got-it-btn');
             if (state.currentFlashcardIndex === state.knowledgePoints.length - 1) {
-                btn.querySelector('span').textContent = "灵魂刻印完整，步入最终裁决！🎯"; 
-                btn.querySelector('i').className = "fa fa-flag-checkered sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl";
-                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-red-800 to-red-600 text-light border-2 border-red-400 shadow-[0_0_20px_rgba(220,38,38,0.7)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(220,38,38,1)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest";
+                btn.querySelector('.btn-text').textContent = "灵魂刻印完整，步入最终裁决！(+1 🐟)🎯"; 
+                btn.querySelector('i').className = "fa fa-flag-checkered sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl relative z-10";
+                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-red-800 to-red-600 text-light border-2 border-red-400 shadow-[0_0_20px_rgba(220,38,38,0.7)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(220,38,38,1)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group";
             } else {
-                btn.querySelector('span').textContent = "已刻入灵魂！(下一枚) 🌟"; 
-                btn.querySelector('i').className = "fa fa-check-circle sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl";
-                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest";
+                btn.querySelector('.btn-text').textContent = "已刻入灵魂！(下一枚)(+1 🐟) 🌟"; 
+                btn.querySelector('i').className = "fa fa-check-circle sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl relative z-10";
+                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group";
             }
         }
 
-        document.getElementById('got-it-btn').addEventListener('click', () => {
+        document.getElementById('got-it-btn').addEventListener('click', (e) => {
+            // 独立更新资源，防止 addFish 在中心产生覆盖文字的大鱼
+            state.fishCount += 1;
+            updateResourceUI();
+            
+            const counter = document.getElementById('fish-counter-container');
+            counter.classList.add('scale-125', 'border-yellow-400');
+            setTimeout(() => counter.classList.remove('scale-125', 'border-yellow-400'), 300);
+
+            if (state.fishCount >= state.declinedFishThreshold + 60) {
+                setTimeout(() => { showExchangeModal(); }, 1500);
+            }
+
+            // ✨ 星星闪光特效（围绕按钮边缘爆发，不遮挡中间文字）
+            const btn = e.currentTarget;
+            const rect = btn.getBoundingClientRect();
+            
+            for(let i=0; i<12; i++) {
+                const star = document.createElement('div');
+                star.className = 'flashcard-star';
+                star.textContent = '✨';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const rx = Math.cos(angle) * (rect.width / 2 + 10);
+                const ry = Math.sin(angle) * (rect.height / 2 + 10);
+                
+                star.style.left = (rect.left + rect.width / 2 + rx - 10) + 'px';
+                star.style.top = (rect.top + rect.height / 2 + ry - 10) + 'px';
+                
+                star.style.setProperty('--tx', (Math.cos(angle) * 40) + 'px');
+                star.style.setProperty('--ty', (Math.sin(angle) * 40) + 'px');
+                star.style.setProperty('--rot', ((Math.random() - 0.5) * 180) + 'deg');
+
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 800);
+            }
+
             const kp = state.knowledgePoints[state.currentFlashcardIndex];
             openCatTutorForFlashcard(kp);
         });
@@ -1305,7 +1690,10 @@
             const idx = state.currentQuiz.currentQuestionIndex; 
             const q = state.currentQuiz.questions[idx]; 
             const ans = state.currentQuiz.answers[idx];
+            
             document.getElementById('quiz-progress').textContent = `${idx + 1}/${state.currentQuiz.questions.length}`;
+            const progressPercent = ((idx + 1) / state.currentQuiz.questions.length) * 100;
+            document.getElementById('quiz-xp-fill').style.width = `${progressPercent}%`;
 
             let html = `
                 <div class="mb-6 md:mb-8 flex flex-col md:flex-row items-start justify-between gap-4 md:gap-0">
@@ -1349,7 +1737,6 @@
         document.getElementById('prev-question-btn').addEventListener('click', () => { state.currentQuiz.currentQuestionIndex--; displayCurrentQuestion(); });
         document.getElementById('next-question-btn').addEventListener('click', () => { state.currentQuiz.currentQuestionIndex++; displayCurrentQuestion(); });
 
-        // ===== 烟花系统逻辑 (Canvas) =====
         const fwCanvas = document.getElementById('fireworks-canvas');
         const fwCtx = fwCanvas.getContext('2d');
         let fwParticles = [];
@@ -1387,8 +1774,8 @@
                 let p = fwParticles[i];
                 p.x += p.vx;
                 p.y += p.vy;
-                p.vy += 0.15; // 魔法重力
-                p.alpha -= 0.015; // 衰减
+                p.vy += 0.15; 
+                p.alpha -= 0.015; 
                 fwCtx.fillStyle = p.color;
                 fwCtx.globalAlpha = p.alpha;
                 fwCtx.beginPath();
@@ -1398,7 +1785,6 @@
             fwCtx.globalAlpha = 1;
             fwParticles = fwParticles.filter(p => p.alpha > 0);
             
-            // 随机在空中不断炸开新烟花
             if (Math.random() < 0.08) {
                 createFirework(Math.random() * fwCanvas.width, Math.random() * fwCanvas.height * 0.6);
             }
@@ -1408,7 +1794,6 @@
         function startFireworks() {
             fwCanvas.classList.remove('hidden');
             resizeFwCanvas();
-            // 初始大爆发
             for(let i=0; i<6; i++){
                 setTimeout(() => createFirework(fwCanvas.width * (0.2 + Math.random()*0.6), fwCanvas.height * (0.2 + Math.random()*0.4)), i * 200);
             }
@@ -1421,8 +1806,6 @@
             fwParticles = [];
             fwCanvas.classList.add('hidden');
         }
-
-        // ==================================
 
         document.getElementById('submit-quiz-btn').addEventListener('click', () => {
             document.getElementById('congrats-message').textContent = congratsMessages[Math.floor(Math.random() * congratsMessages.length)];
@@ -1448,36 +1831,38 @@
 
                 if (q.qType === 'choice') {
                     totalChoices++; isCorrect = (ans.selected === q.correctAnswer); if (isCorrect) correctChoices++;
-                    answerHtml = `<div class="flex flex-col md:flex-row gap-4 md:gap-6 mt-4 md:mt-6"><div class="flex-1 bg-[#fffcf5] p-4 md:p-5 rounded-xl border-2 border-gray-200 shadow-sm"><p class="text-xs md:text-sm text-gray-500 mb-2 font-black font-medieval tracking-widest">汝之抉择</p><p class="font-black text-lg md:text-xl ${isCorrect ? 'text-green-600' : 'text-red-600'}">${ans.selected >= 0 ? letters[ans.selected] + '. ' + q.options[ans.selected] : '深渊之握 (未作答)'}</p></div><div class="flex-1 bg-green-50 p-4 md:p-5 rounded-xl border-2 border-green-300 shadow-sm"><p class="text-xs md:text-sm text-green-700 mb-2 font-black font-medieval tracking-widest">真理所在</p><p class="font-black text-lg md:text-xl text-green-800">${letters[q.correctAnswer]}. ${q.options[q.correctAnswer]}</p></div></div>`;
+                    answerHtml = `<div class="flex flex-col md:flex-row gap-4 md:gap-6 mt-4 md:mt-6"><div class="flex-1 bg-[#fffcf5] p-4 md:p-5 rounded-xl border-2 border-gray-200 shadow-sm"><p class="text-xs md:text-sm text-gray-500 mb-2 font-black font-medieval tracking-widest">汝之抉择</p><p class="font-black text-lg md:text-xl ${isCorrect ? 'text-green-600' : 'text-red-600'}">${ans.selected >= 0 ? letters[ans.selected] + '. ' + q.options[ans.selected] : '深渊之握 (未作答)'} ${isCorrect ? '<span class="text-secondary ml-2">(+5 🐟)</span>' : ''}</p></div><div class="flex-1 bg-green-50 p-4 md:p-5 rounded-xl border-2 border-green-300 shadow-sm"><p class="text-xs md:text-sm text-green-700 mb-2 font-black font-medieval tracking-widest">真理所在</p><p class="font-black text-lg md:text-xl text-green-800">${letters[q.correctAnswer]}. ${q.options[q.correctAnswer]}</p></div></div>`;
                 } else {
                     answerHtml = `<div class="bg-[#fffcf5] p-4 md:p-6 rounded-xl border-2 border-gray-200 mt-4 md:mt-6 shadow-sm"><p class="text-xs md:text-sm text-gray-500 mb-2 md:mb-3 font-black font-medieval tracking-widest">汝之推演</p><p class="text-dark font-bold text-base md:text-lg whitespace-pre-wrap">${ans.textValue || '一片空白，犹如深渊'}</p></div>`;
                 }
 
                 let explanationHtml = q.explanation ? `<div class="bg-primary/5 p-4 md:p-6 rounded-xl border-2 border-primary-light mt-4 md:mt-6 shadow-[inset_0_0_15px_rgba(59,130,246,0.1)]"><p class="text-primary-dark font-black mb-2 md:mb-3 flex items-center text-base md:text-lg font-medieval tracking-widest"><i class="fa fa-magic mr-2 md:mr-3"></i> 大魔导师解析</p><p class="text-dark font-bold text-base md:text-lg whitespace-pre-wrap leading-relaxed">${q.explanation}</p></div>` : '';
-                return `<div class="p-5 md:p-8 rounded-3xl border-2 ${q.qType === 'choice' ? (isCorrect ? 'border-green-400 bg-green-50/50' : 'border-red-400 bg-red-50/50') : 'border-gray-300 bg-[#fdfaf0]'} shadow-[0_0_15px_rgba(0,0,0,0.05)] mb-6 md:mb-8"><div class="flex items-start mb-4 md:mb-6"><span class="text-xs md:text-sm font-black text-light px-3 py-1 md:px-4 md:py-1.5 rounded-sm ${q.qType === 'choice' ? (isCorrect ? 'bg-green-600 shadow-[0_0_10px_rgba(34,197,94,0.6)]' : 'bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.6)]') : 'bg-dark shadow-[0_0_10px_rgba(0,0,0,0.6)]'} mr-3 md:mr-4 mt-1 shrink-0 font-medieval tracking-widest">${q.qType === 'choice' ? (isCorrect ? '✨ 洞悉法则' : '💡 沦入虚妄') : '📝 宏大推演'}</span><p class="font-black text-dark text-xl md:text-2xl leading-relaxed font-medieval">${q.text}</p></div>${answerHtml}${explanationHtml}<div class="mt-6 md:mt-8 pt-4 md:pt-5 border-t-2 border-dashed border-gray-300 text-xs md:text-sm bg-black/5 p-4 md:p-5 rounded-xl"><p class="text-dark font-black mb-2 md:mb-3 flex items-center font-medieval tracking-widest"><i class="fa fa-search mr-2 md:mr-3"></i> 🔍 法则溯源</p><p class="text-gray-700 font-bold text-sm md:text-base leading-relaxed"><span class="font-black mr-1 md:mr-2 text-primary-dark break-all">[${q.source}]</span> ${q.originalKpContent}</p></div></div>`;
+                return `<div class="p-5 md:p-8 rounded-3xl border-2 ${q.qType === 'choice' ? (isCorrect ? 'border-green-400 bg-green-50/50' : 'border-red-400 bg-red-50/50') : 'border-gray-300 bg-[#fdfaf0]'} shadow-[0_0_15px_rgba(0,0,0,0.05)] mb-6 md:mb-8"><div class="flex items-start mb-4 md:mb-6"><span class="text-xs md:text-sm font-black text-light px-3 py-1 md:px-4 md:py-1.5 rounded-sm ${q.qType === 'choice' ? (isCorrect ? 'bg-green-600 shadow-[0_0_10px_rgba(34,197,94,0.6)]' : 'bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.6)]') : 'bg-dark shadow-[0_0_10px_rgba(0,0,0,0.6)]'} mr-3 md:mr-4 mt-1 shrink-0 font-medieval tracking-widest">${q.qType === 'choice' ? (isCorrect ? '✨ 洞悉法则 (+5 🐟)' : '💡 沦入虚妄') : '📝 宏大推演'}</span><p class="font-black text-dark text-xl md:text-2xl leading-relaxed font-medieval">${q.text}</p></div>${answerHtml}${explanationHtml}<div class="mt-6 md:mt-8 pt-4 md:pt-5 border-t-2 border-dashed border-gray-300 text-xs md:text-sm bg-black/5 p-4 md:p-5 rounded-xl"><p class="text-dark font-black mb-2 md:mb-3 flex items-center font-medieval tracking-widest"><i class="fa fa-search mr-2 md:mr-3"></i> 🔍 法则溯源</p><p class="text-gray-700 font-bold text-sm md:text-base leading-relaxed"><span class="font-black mr-1 md:mr-2 text-primary-dark break-all">[${q.source}]</span> ${q.originalKpContent}</p></div></div>`;
             }).join('');
 
             let accuracy = totalChoices > 0 ? (correctChoices / totalChoices) : 0;
+            let totalQuestionsCount = state.currentQuiz.questions.length;
             document.getElementById('result-score').textContent = totalChoices > 0 ? Math.round(accuracy * 100) + '%' : '已封印';
             document.getElementById('result-details').innerHTML = detailsHtml; 
             
-            if (totalChoices > 0 && accuracy > 0.8) {
+            if (totalQuestionsCount >= 30 && totalChoices > 0 && accuracy >= 0.8) {
+                fishExplosion();
                 startFireworks();
                 setTimeout(() => {
                     stopFireworks();
                     showSection('result-section');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (correctChoices > 0) addFish(correctChoices * 5); 
                 }, 3000);
             } else {
                 showSection('result-section');
+                if (correctChoices > 0) {
+                    setTimeout(() => addFish(correctChoices * 5), 500);
+                }
             }
         });
 
         document.getElementById('new-quiz-btn').addEventListener('click', () => { state.currentFlashcardIndex = 0; showSection('generate-section'); });
-
-        // ==============================================
-        // 新增功能：考后错题特训与解答题智能评估机制
-        // ==============================================
 
         document.getElementById('review-mistakes-btn').addEventListener('click', startMistakeReview);
 
@@ -1493,7 +1878,6 @@
                         state.reviewQueue.push({ question: q, answer: ans, index: idx });
                     }
                 } else if (q.qType === 'calculation') {
-                    // 解答题全部加入，待 AI 进行预判
                     state.reviewQueue.push({ question: q, answer: ans, index: idx });
                 }
             });
@@ -1530,7 +1914,6 @@
             const ans = currentItem.answer;
 
             if (q.qType === 'calculation') {
-                // 解答题预先请求 AI 评估对错
                 appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-primary'></i> 本喵正在仔细查阅你的解答题哦，稍等一下下...", "cat-evaluating-calc");
                 
                 const evalPrompt = `你是一个极其温柔的魔法导师。请判断用户的解答题答案是否正确。
@@ -1551,14 +1934,13 @@
                     document.getElementById('cat-evaluating-calc').remove();
 
                     if (reply.includes('[CORRECT]')) {
-                        // 如果正确，直接进入下一题
-                        appendCatMsg('assistant', `<span class='text-green-600 font-bold'>【系统提示】哇！你的第 ${currentItem.index + 1} 题 (解答题) 完全正确！真棒呀，我们继续往下看吧！</span>`);
+                        appendCatMsg('assistant', `<span class='text-green-600 font-bold'>【系统提示】哇！你的第 ${currentItem.index + 1} 题 (解答题) 完全正确！真棒呀，获得了 6 条小鱼干！我们继续往下看吧！</span>`);
+                        addFish(6);
                         setTimeout(() => {
                             state.currentReviewIndex++;
                             processReviewQueue();
                         }, 2000);
                     } else {
-                        // 如果错误，携带评语进入辅导环节
                         let initialTaunt = reply.replace('[WRONG]', '').trim();
                         startTutoringCurrentQuestion(currentItem, initialTaunt);
                     }
@@ -1571,7 +1953,6 @@
                     }, 2000);
                 }
             } else {
-                // 选择题已经是明确错误了，直接进入辅导环节
                 startTutoringCurrentQuestion(currentItem, "");
             }
         }
