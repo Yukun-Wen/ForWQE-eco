@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚖️ 召唤兽的真理裁决 ⚔️</title>
+    <title>🛡️ 遗迹的真理试炼 ⚔️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
@@ -20,16 +20,16 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1d4ed8', // 魔法蓝
-                        secondary: '#d4af37', // 中世纪暗金
-                        accent: '#f59e0b', // 琥珀光
-                        neutral: '#0f172a', // 深邃蓝黑
-                        dark: '#1e293b', // 深蓝灰
-                        light: '#fdfaf0', // 羊皮纸白
-                        'primary-light': '#3b82f6',
-                        'primary-dark': '#1e3a8a',
-                        'gold-glow': 'rgba(212, 175, 55, 0.6)',
-                        'blue-glow': 'rgba(59, 130, 246, 0.6)'
+                        primary: '#a32626', // Dota 遗迹红
+                        secondary: '#c39e66', // Dota 古铜金
+                        accent: '#7a1a1a', // 深血红
+                        neutral: '#111111', // 极暗黑
+                        dark: '#1c1d21', // Dota 面板深灰
+                        light: '#dcd1b3', // 羊皮纸/石板亮灰
+                        'primary-light': '#e04c4c',
+                        'primary-dark': '#5e1010',
+                        'gold-glow': 'rgba(195, 158, 102, 0.6)',
+                        'red-glow': 'rgba(163, 38, 38, 0.6)'
                     },
                     fontFamily: {
                         sans: ['"Noto Serif SC"', 'serif'],
@@ -43,30 +43,32 @@
         @layer utilities {
             .transition-all-300 { transition: all 300ms ease-in-out; }
             .text-shadow-glow { text-shadow: 0 0 15px theme('colors.secondary'); }
-            .text-shadow-blue { text-shadow: 0 0 15px theme('colors.primary-light'); }
-            .gradient-bg { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+            .text-shadow-red { text-shadow: 0 0 15px theme('colors.primary-light'); }
+            .gradient-bg { background: linear-gradient(135deg, #1c1d21, #2b2d33); }
         }
         
         body {
-            background-color: #0b1021;
-            background-image: radial-gradient(circle at 50% 0%, #1a2b4c 0%, #0b1021 70%);
-            color: #e2d8c3;
+            background-color: #0d0d12;
+            background-image: radial-gradient(circle at 50% 0%, #2a1515 0%, #0d0d12 70%);
+            color: #dcd1b3;
         }
 
-        /* 中世纪羊皮纸卡片 + 发光边缘 */
+        /* Dota 战纪石板卡片 + 发光边缘 */
         .medieval-card {
-            background-color: #fdfaf0;
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 30px rgba(0,0,0,0.03);
-            color: #1e293b;
+            background-color: #24262b;
+            border: 2px solid #5a4b31;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.5);
+            color: #dcd1b3;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
         }
         
         .medieval-card-dark {
-            background-color: rgba(15, 23, 42, 0.85);
+            background-color: rgba(17, 17, 17, 0.9);
             backdrop-filter: blur(10px);
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
-            color: #fdfaf0;
+            border: 2px solid #c39e66;
+            box-shadow: 0 0 25px rgba(195, 158, 102, 0.3);
+            color: #dcd1b3;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
         }
 
         .btn-glow:hover {
@@ -75,7 +77,7 @@
         }
 
         .hint-collapse { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; }
-        .hint-expand { max-height: 200px; padding-top: 10px; padding-bottom: 10px; }
+        .hint-expand { max-height: 250px; padding-top: 10px; padding-bottom: 10px; }
         .card-enter { animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes slideIn { 0% { transform: translateY(30px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
         .modal-bounce { animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
@@ -83,22 +85,22 @@
         
         #mini-chat-messages::-webkit-scrollbar, #cat-tutor-chat::-webkit-scrollbar { width: 6px; }
         #mini-chat-messages::-webkit-scrollbar-track, #cat-tutor-chat::-webkit-scrollbar-track { background: transparent; }
-        #mini-chat-messages::-webkit-scrollbar-thumb, #cat-tutor-chat::-webkit-scrollbar-thumb { background-color: #d4af37; border-radius: 10px; }
+        #mini-chat-messages::-webkit-scrollbar-thumb, #cat-tutor-chat::-webkit-scrollbar-thumb { background-color: #c39e66; border-radius: 10px; }
 
-        /* 樱花雨粒子特效 */
+        /* 余烬烈焰粒子特效 (替代樱花) */
         .sakura-petal {
             position: fixed;
             top: -10vh;
             z-index: 9998;
             pointer-events: none;
             animation: fall linear forwards;
-            filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.8));
+            filter: drop-shadow(0 0 8px rgba(255, 100, 0, 0.9));
         }
         @keyframes fall {
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* 游戏化特效 */
+        /* 游戏化特效: 打钱 (替代小鱼干) */
         @keyframes floatUpFade {
             0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
             50% { transform: translateY(-40px) scale(1.5) rotate(15deg); opacity: 1; }
@@ -110,14 +112,14 @@
             z-index: 10000;
             animation: floatUpFade 1.2s ease-out forwards;
             font-size: 2.5rem;
-            filter: drop-shadow(0 0 10px rgba(245,166,35,0.8));
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
             user-select: none;
         }
 
-        /* 爱心爆炸特效 */
+        /* 治疗药膏特效 (替代爱心) */
         @keyframes heartBurst {
-            0% { transform: translate(0, 0) scale(0.3) rotate(0deg); opacity: 1; }
-            80% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rot)); opacity: 0.8; }
+            0% { transform: translate(0, 0) scale(0.3) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 10px rgba(50, 205, 50, 0.8)); }
+            80% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rot)); opacity: 0.8; filter: drop-shadow(0 0 20px rgba(50, 205, 50, 1)); }
             100% { transform: translate(var(--tx), calc(var(--ty) - 30px)) scale(1) rotate(var(--rot)); opacity: 0; }
         }
         .floating-heart {
@@ -126,14 +128,13 @@
             z-index: 10001;
             animation: heartBurst 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             font-size: 2.5rem;
-            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.8));
             user-select: none;
         }
 
-        /* ✨ 刻印按钮专属星星特效 ✨ */
+        /* ✨ 升级加点按钮专属特效 ✨ */
         @keyframes starFlash {
-            0% { transform: scale(0.5) translate(0, 0) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 5px #fde047); }
-            100% { transform: scale(1.5) translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; filter: drop-shadow(0 0 15px #fef08a); }
+            0% { transform: scale(0.5) translate(0, 0) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 5px #e04c4c); }
+            100% { transform: scale(1.5) translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; filter: drop-shadow(0 0 15px #ff6b6b); }
         }
         .flashcard-star {
             position: fixed;
@@ -145,21 +146,21 @@
 
         /* 经验值条 */
         .xp-bar-container { 
-            background: rgba(15, 23, 42, 0.1); 
-            border: 2px solid #d4af37; 
+            background: rgba(0, 0, 0, 0.5); 
+            border: 2px solid #5a4b31; 
             border-radius: 999px; 
             overflow: hidden; 
             height: 14px; 
             width: 100%; 
             margin-top: 8px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
         }
         .xp-bar-fill { 
-            background: linear-gradient(90deg, #f59e0b, #fbbf24); 
+            background: linear-gradient(90deg, #a32626, #e04c4c); 
             height: 100%; 
             width: 0%; 
             transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-            box-shadow: 0 0 10px rgba(245,166,35,0.8); 
+            box-shadow: 0 0 10px rgba(224,76,76,0.8); 
             position: relative;
         }
         .xp-bar-fill::after {
@@ -187,26 +188,26 @@
     <canvas id="fireworks-canvas" class="fixed inset-0 w-full h-full z-[9999] pointer-events-none hidden bg-black/60 backdrop-blur-sm"></canvas>
 
     <div class="fixed top-24 right-4 md:right-8 z-50 flex flex-col gap-3">
-        <div id="fish-counter-container" class="bg-dark/90 backdrop-blur-sm border-2 border-secondary rounded-full px-4 py-2 md:px-5 md:py-3 flex items-center shadow-[0_0_20px_rgba(212,175,55,0.6)] transform transition-transform cursor-pointer group hover:scale-105">
-            <span class="text-2xl md:text-3xl mr-2 group-hover:animate-bounce drop-shadow-[0_0_8px_rgba(245,166,35,0.8)]">🐟</span>
+        <div id="fish-counter-container" class="bg-dark/90 backdrop-blur-sm border-2 border-secondary rounded-full px-4 py-2 md:px-5 md:py-3 flex items-center shadow-[0_0_20px_rgba(195,158,102,0.6)] transform transition-transform cursor-pointer group hover:scale-105" title="当前金钱">
+            <span class="text-2xl md:text-3xl mr-2 group-hover:animate-bounce drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]">💰</span>
             <span id="global-fish-count" class="text-secondary font-black text-xl md:text-2xl font-medieval tracking-widest">0</span>
         </div>
         
-        <div id="coin-counter-container" class="bg-dark/90 backdrop-blur-sm border-2 border-yellow-400 rounded-full px-4 py-2 md:px-5 md:py-3 flex items-center shadow-[0_0_20px_rgba(251,191,36,0.6)] transform transition-transform cursor-pointer group hover:scale-105" onclick="showSection('mall-section')">
-            <span class="text-2xl md:text-3xl mr-2 group-hover:animate-spin drop-shadow-[0_0_8px_rgba(251,191,36,0.8)]">🪙</span>
-            <span id="global-coin-count" class="text-yellow-400 font-black text-xl md:text-2xl font-medieval tracking-widest">0</span>
+        <div id="coin-counter-container" class="bg-dark/90 backdrop-blur-sm border-2 border-primary-light rounded-full px-4 py-2 md:px-5 md:py-3 flex items-center shadow-[0_0_20px_rgba(224,76,76,0.6)] transform transition-transform cursor-pointer group hover:scale-105" onclick="showSection('mall-section')" title="不朽之守护">
+            <span class="text-2xl md:text-3xl mr-2 group-hover:animate-spin drop-shadow-[0_0_8px_rgba(224,76,76,0.8)]">🛡️</span>
+            <span id="global-coin-count" class="text-primary-light font-black text-xl md:text-2xl font-medieval tracking-widest">0</span>
         </div>
     </div>
 
-    <nav class="bg-[#0f172a]/90 backdrop-blur-md border-b-2 border-secondary shadow-[0_0_20px_rgba(212,175,55,0.5)] sticky top-0 z-50">
+    <nav class="bg-[#121212]/95 backdrop-blur-md border-b-2 border-secondary shadow-[0_0_20px_rgba(195,158,102,0.3)] sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-2">
             <div class="flex items-center space-x-2">
-                <h1 class="text-xl md:text-2xl font-bold text-secondary font-medieval text-shadow-glow tracking-wider">⚖️ 召唤兽的真理裁决 ⚔️</h1>
+                <h1 class="text-xl md:text-2xl font-bold text-secondary font-medieval text-shadow-glow tracking-wider">🛡️ 遗迹的真理试炼 ⚔️</h1>
             </div>
             <div class="flex items-center space-x-2 md:space-x-4">
-                <button id="nav-upload" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-light hover:text-secondary hover:bg-white/10 transition-all-300 font-medieval"><i class="fa fa-upload mr-1"></i> 献上祭品</button>
-                <button id="nav-quiz" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-light hover:text-secondary hover:bg-white/10 transition-all-300 font-medieval"><i class="fa fa-pencil mr-1"></i> 开启试炼</button>
-                <button id="nav-mall" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-yellow-400 hover:text-yellow-300 hover:bg-white/10 transition-all-300 font-medieval font-bold shadow-sm"><i class="fa fa-shopping-cart mr-1"></i> 魔法商城</button>
+                <button id="nav-upload" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-light hover:text-secondary hover:bg-white/10 transition-all-300 font-medieval"><i class="fa fa-upload mr-1"></i> 供奉圣物</button>
+                <button id="nav-quiz" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-light hover:text-secondary hover:bg-white/10 transition-all-300 font-medieval"><i class="fa fa-crosshairs mr-1"></i> 进入战场</button>
+                <button id="nav-mall" class="nav-btn px-2 py-1 md:px-3 text-sm md:text-base rounded-md text-primary-light hover:text-red-300 hover:bg-white/10 transition-all-300 font-medieval font-bold shadow-sm"><i class="fa fa-shopping-bag mr-1"></i> 神秘商店</button>
             </div>
         </div>
     </nav>
@@ -221,14 +222,14 @@
                     <div class="absolute bottom-0 left-0 w-12 h-12 md:w-16 md:h-16 border-b-4 border-l-4 border-secondary opacity-50 m-4"></div>
                     <div class="absolute bottom-0 right-0 w-12 h-12 md:w-16 md:h-16 border-b-4 border-r-4 border-secondary opacity-50 m-4"></div>
 
-                    <h2 class="text-3xl md:text-5xl font-black text-secondary mb-4 md:mb-6 font-medieval text-shadow-glow tracking-widest mt-4 md:mt-0">✧ 召唤圣殿：知识之境 ✧</h2>
+                    <h2 class="text-3xl md:text-5xl font-black text-secondary mb-4 md:mb-6 font-medieval text-shadow-glow tracking-widest mt-4 md:mt-0">✧ 遗迹战场：泉水之眼 ✧</h2>
                     <p class="text-light text-base md:text-xl mb-6 md:mb-8 leading-relaxed font-medium px-2">
-                        在神圣的法阵之中，上传你的典籍、卷轴或残片。<br class="hidden md:block">
-                        🧙‍♂️ 温女士派遣的神兽将现身于此，<br class="hidden md:block">
-                        通过远古魔法的力量，助你在试炼时召唤知识神殿，开启裁决之旅！✨<br>
+                        在神圣的天辉与夜魇交界处，上传你的战术卷轴、BP指南或笔记。<br class="hidden md:block">
+                        装备阿哈利姆神杖的大魔导师拉比克将现身于此，<br class="hidden md:block">
+                        通过窃取远古遗迹的力量，助你在战场试炼中大杀四方！✨<br>
                     </p>
-                    <button id="welcome-upload-btn" class="w-full sm:w-auto bg-gradient-to-r from-yellow-600 to-yellow-400 text-dark font-black py-3 px-6 md:py-4 md:px-10 rounded-full shadow-[0_0_20px_rgba(245,166,35,0.6)] hover:shadow-[0_0_30px_rgba(245,166,35,0.9)] border-2 border-yellow-200 transition-all-300 transform hover:-translate-y-1 text-base md:text-lg font-medieval tracking-widest">
-                        ✨【光之阵 • 灵猫现】✨
+                    <button id="welcome-upload-btn" class="w-full sm:w-auto bg-gradient-to-r from-primary to-accent text-light font-black py-3 px-6 md:py-4 md:px-10 rounded-sm shadow-[0_0_20px_rgba(163,38,38,0.6)] hover:shadow-[0_0_30px_rgba(163,38,38,0.9)] border-2 border-[#ff8c8c] transition-all-300 transform hover:-translate-y-1 text-base md:text-lg font-medieval tracking-widest">
+                        ⚔️【买活 • 信使出击】⚔️
                     </button>
                 </div>
             </div>
@@ -236,35 +237,35 @@
 
         <section id="upload-section" class="section hidden">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-2xl md:text-4xl font-bold mb-6 md:mb-8 text-secondary text-center font-medieval text-shadow-glow">开启真理之门 📚</h2>
+                <h2 class="text-2xl md:text-4xl font-bold mb-6 md:mb-8 text-secondary text-center font-medieval text-shadow-glow">开启遗迹之战 🛡️</h2>
                 
                 <div class="medieval-card rounded-2xl p-5 md:p-8 mb-8">
-                    <div id="drop-area" class="border-2 border-dashed border-secondary bg-[#fdfaf0]/50 rounded-xl p-6 md:p-10 text-center cursor-pointer hover:bg-blue-50 transition-all-300">
+                    <div id="drop-area" class="border-2 border-dashed border-secondary bg-[#1a1c23]/50 rounded-xl p-6 md:p-10 text-center cursor-pointer hover:bg-[#2b1717] transition-all-300">
                         <div class="cardcaptor-summon-container scale-75 md:scale-100">
-                            <div class="magic-circle-wrapper"><svg class="sakura-circle" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#FFD700" stroke-width="2" /><circle cx="100" cy="100" r="88" fill="none" stroke="#FFD700" stroke-width="1" stroke-dasharray="5,3" /><g class="inner-symbols"><polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#FFD700" stroke-width="2" transform="rotate(36, 100, 100)" /><polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#FFD700" stroke-width="2" /><circle cx="100" cy="100" r="38" fill="none" stroke="#FFD700" stroke-width="1.5" /><polygon points="100,72 108,90 128,92 114,105 118,125 100,115 82,125 86,105 72,92 92,90" fill="#FFD700" /><path d="M28,85 A18,18 0 1,1 28,115 A14,14 0 1,0 28,85" fill="#FFD700" /><g transform="translate(15, 0)"><circle cx="140" cy="100" r="12" fill="none" stroke="#FFD700" stroke-width="2" /><g stroke="#FFD700" stroke-width="2"><line x1="140" y1="83" x2="140" y2="87" /><line x1="140" y1="113" x2="140" y2="117" /><line x1="123" y1="100" x2="127" y2="100" /><line x1="153" y1="100" x2="157" y2="100" /></g></g></g></svg></div>
-                            <div class="particles"><span class="particle" style="--angle: 0deg; --delay: 0s;">✨</span><span class="particle" style="--angle: 72deg; --delay: 0.2s;">🌟</span><span class="particle" style="--angle: 144deg; --delay: 0.4s;">✨</span><span class="particle" style="--angle: 216deg; --delay: 0.6s;">🌟</span><span class="particle" style="--angle: 288deg; --delay: 0.8s;">✨</span><span class="particle" style="--angle: 45deg; --delay: 1s;">🌟</span><span class="particle" style="--angle: 180deg; --delay: 1.2s;">✨</span></div>
+                            <div class="magic-circle-wrapper"><svg class="sakura-circle" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#a32626" stroke-width="2" /><circle cx="100" cy="100" r="88" fill="none" stroke="#c39e66" stroke-width="1" stroke-dasharray="5,3" /><g class="inner-symbols"><polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#c39e66" stroke-width="2" transform="rotate(36, 100, 100)" /><polygon points="100,12 119.7,72.8 183.7,72.8 131.9,110.4 151.7,171.2 100,133.6 48.3,171.2 68.1,110.4 16.3,72.8 80.3,72.8" fill="none" stroke="#a32626" stroke-width="2" /><circle cx="100" cy="100" r="38" fill="none" stroke="#c39e66" stroke-width="1.5" /><polygon points="100,72 108,90 128,92 114,105 118,125 100,115 82,125 86,105 72,92 92,90" fill="#a32626" /><path d="M28,85 A18,18 0 1,1 28,115 A14,14 0 1,0 28,85" fill="#c39e66" /><g transform="translate(15, 0)"><circle cx="140" cy="100" r="12" fill="none" stroke="#c39e66" stroke-width="2" /><g stroke="#c39e66" stroke-width="2"><line x1="140" y1="83" x2="140" y2="87" /><line x1="140" y1="113" x2="140" y2="117" /><line x1="123" y1="100" x2="127" y2="100" /><line x1="153" y1="100" x2="157" y2="100" /></g></g></g></svg></div>
+                            <div class="particles"><span class="particle" style="--angle: 0deg; --delay: 0s;">🔥</span><span class="particle" style="--angle: 72deg; --delay: 0.2s;">✨</span><span class="particle" style="--angle: 144deg; --delay: 0.4s;">🔥</span><span class="particle" style="--angle: 216deg; --delay: 0.6s;">✨</span><span class="particle" style="--angle: 288deg; --delay: 0.8s;">🔥</span><span class="particle" style="--angle: 45deg; --delay: 1s;">✨</span><span class="particle" style="--angle: 180deg; --delay: 1.2s;">🔥</span></div>
                         </div>
-                        <style>.cardcaptor-summon-container { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 250px; height: 250px; overflow: hidden; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%); } .magic-circle-wrapper { position: absolute; width: 220px; height: 220px; z-index: 1; } .sakura-circle { width: 100%; height: 100%; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9)); animation: rotate-summon 15s linear infinite; } .particles { position: absolute; width: 0; height: 0; display: flex; align-items: center; justify-content: center; z-index: 2; } .particle { position: absolute; font-size: 1rem; pointer-events: none; opacity: 0; animation: firework 2s ease-out infinite; animation-delay: var(--delay); } @keyframes rotate-summon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes firework { 0% { transform: rotate(var(--angle)) translateY(0) scale(0); opacity: 0; } 20% { opacity: 1; text-shadow: 0 0 10px gold; } 100% { transform: rotate(var(--angle)) translateY(-40px) rotate(180deg) scale(1.5); opacity: 0; } }</style>
-                        <h3 class="text-xl md:text-2xl font-black mb-2 text-dark font-medieval tracking-wide">凡人，快将卷轴献祭于此 😼</h3>
-                        <p class="text-gray-600 mb-6 text-sm md:text-base font-medium">法则之力支持：PDF, PPTX, JPG, PNG, TXT</p>
+                        <style>.cardcaptor-summon-container { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 250px; height: 250px; overflow: hidden; background: radial-gradient(circle, rgba(163,38,38,0.2) 0%, transparent 70%); } .magic-circle-wrapper { position: absolute; width: 220px; height: 220px; z-index: 1; } .sakura-circle { width: 100%; height: 100%; filter: drop-shadow(0 0 10px rgba(195, 158, 102, 0.9)); animation: rotate-summon 15s linear infinite; } .particles { position: absolute; width: 0; height: 0; display: flex; align-items: center; justify-content: center; z-index: 2; } .particle { position: absolute; font-size: 1rem; pointer-events: none; opacity: 0; animation: firework 2s ease-out infinite; animation-delay: var(--delay); } @keyframes rotate-summon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @keyframes firework { 0% { transform: rotate(var(--angle)) translateY(0) scale(0); opacity: 0; } 20% { opacity: 1; text-shadow: 0 0 10px #c39e66; } 100% { transform: rotate(var(--angle)) translateY(-40px) rotate(180deg) scale(1.5); opacity: 0; } }</style>
+                        <h3 class="text-xl md:text-2xl font-black mb-2 text-secondary font-medieval tracking-wide">英雄，将你的战术卷轴放入此处 🐴</h3>
+                        <p class="text-gray-400 mb-6 text-sm md:text-base font-medium">远古遗物支持：PDF, PPTX, JPG, PNG, TXT</p>
                         <input type="file" id="file-input" class="hidden" multiple accept=".txt,.pdf,.pptx,.jpg,.png">
-                        <button id="select-file-btn" class="w-full sm:w-auto bg-gradient-to-r from-blue-800 to-primary-dark text-white border border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.6)] font-bold py-3 px-8 rounded-full hover:from-blue-700 hover:to-blue-900 transition-all-300">浏览典籍</button>
+                        <button id="select-file-btn" class="w-full sm:w-auto bg-gradient-to-r from-[#3b3e45] to-[#1c1d21] text-secondary border border-[#5a4b31] shadow-[0_0_15px_rgba(195,158,102,0.3)] font-bold py-3 px-8 rounded-sm hover:from-[#4b4e55] hover:to-[#2b2d33] transition-all-300 uppercase">浏览战术</button>
                     </div>
                 </div>
                 
-                <div class="medieval-card rounded-2xl p-5 md:p-8 mb-8 border-l-8 border-l-primary-light relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 text-primary-light opacity-10 text-7xl md:text-9xl"><i class="fa fa-key"></i></div>
-                    <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-dark font-medieval"><i class="fa fa-key text-primary-light mr-2"></i>😼 铭刻魔力印记 😺</h3>
-                    <p class="text-gray-700 mb-5 text-sm md:text-lg font-medium">注入你的真理之匙 (API Key)，唤醒白泽神兽，汲取世界本源的知识！</p>
+                <div class="medieval-card rounded-2xl p-5 md:p-8 mb-8 border-l-8 border-l-primary relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 text-primary opacity-10 text-7xl md:text-9xl"><i class="fa fa-magic"></i></div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-secondary font-medieval"><i class="fa fa-magic text-primary mr-2"></i>🧙‍♂️ 装备阿哈利姆神杖 🔮</h3>
+                    <p class="text-gray-300 mb-5 text-sm md:text-lg font-medium">注入你的神杖魔力 (API Key)，唤醒大魔导师拉比克，窃取世界本源的知识！</p>
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center relative z-10 gap-3 sm:gap-0">
-                        <input type="password" id="deepseek-api-key" placeholder="输入 API key (sk-...)" class="w-full sm:flex-grow border-2 border-gray-300 rounded-lg px-4 py-3 md:px-5 focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary shadow-inner bg-[#fffcf5] text-dark font-bold">
-                        <button id="save-deepseek-api-key" class="w-full sm:w-auto bg-dark text-secondary border border-secondary shadow-[0_0_10px_rgba(212,175,55,0.4)] font-bold py-3 px-8 rounded-lg sm:ml-4 hover:bg-black transition-all-300 font-medieval tracking-widest">缔结契约</button>
+                        <input type="password" id="deepseek-api-key" placeholder="输入 API key (sk-...)" class="w-full sm:flex-grow border-2 border-[#5a4b31] rounded-sm px-4 py-3 md:px-5 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary shadow-inner bg-[#121212] text-light font-bold">
+                        <button id="save-deepseek-api-key" class="w-full sm:w-auto bg-primary text-light border border-[#ff8c8c] shadow-[0_0_10px_rgba(163,38,38,0.4)] font-bold py-3 px-8 rounded-sm sm:ml-4 hover:bg-accent transition-all-300 font-medieval tracking-widest uppercase">装备神杖</button>
                     </div>
-                    <p id="deepseek-api-status" class="text-sm mt-4 text-red-600 font-bold relative z-10">请先注入魔力印记，方可驱动法阵 (๑•̀ㅂ•́)و✧</p>
+                    <p id="deepseek-api-status" class="text-sm mt-4 text-red-400 font-bold relative z-10">请先装备神杖，方可施放技能 (๑•̀ㅂ•́)و✧</p>
                 </div>
                 
                 <div id="uploaded-files" class="medieval-card rounded-2xl p-5 md:p-8 mb-8 hidden">
-                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-dark font-medieval border-b-2 border-secondary pb-2">已献祭的卷轴</h3>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-secondary font-medieval border-b-2 border-[#5a4b31] pb-2">已装备的卷轴</h3>
                     <div class="overflow-x-auto mt-4">
                         <table class="min-w-full text-sm md:text-base">
                             <tbody id="file-list"></tbody>
@@ -273,19 +274,19 @@
                 </div>
                 
                 <div class="flex justify-center">
-                    <button id="process-files-btn" class="w-full sm:w-auto bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.8)] font-black py-3 px-6 md:py-4 md:px-12 rounded-full hidden hover:shadow-[0_0_30px_rgba(245,166,35,1)] transition-all-300 transform hover:-translate-y-1 font-medieval text-lg md:text-xl tracking-widest">
-                        <i class="fa fa-bolt mr-2"></i> 裁决降临！炼化知识 🐈‍⬛
+                    <button id="process-files-btn" class="w-full sm:w-auto bg-gradient-to-r from-primary to-accent text-light border-2 border-[#ff8c8c] shadow-[0_0_20px_rgba(163,38,38,0.8)] font-black py-3 px-6 md:py-4 md:px-12 rounded-sm hidden hover:shadow-[0_0_30px_rgba(163,38,38,1)] transition-all-300 transform hover:-translate-y-1 font-medieval text-lg md:text-xl tracking-widest uppercase">
+                        <i class="fa fa-bolt mr-2"></i> 天辉夜魇！解析战术 🛡️
                     </button>
                 </div>
             </div>
         </section>
 
         <section id="processing-section" class="section hidden">
-            <div class="max-w-4xl mx-auto medieval-card rounded-2xl shadow-[0_0_30px_rgba(59,130,246,0.5)] p-5 md:p-10 relative border-primary flex flex-col">
-                <div id="ai-loading-indicator" class="relative mb-4 md:mb-0 md:absolute md:top-4 md:right-4 flex justify-center w-full md:w-auto items-center text-light font-bold text-xs md:text-sm bg-primary-dark px-4 py-2 md:px-5 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)] border border-primary-light">
+            <div class="max-w-4xl mx-auto medieval-card rounded-2xl shadow-[0_0_30px_rgba(163,38,38,0.5)] p-5 md:p-10 relative border-primary flex flex-col">
+                <div id="ai-loading-indicator" class="relative mb-4 md:mb-0 md:absolute md:top-4 md:right-4 flex justify-center w-full md:w-auto items-center text-light font-bold text-xs md:text-sm bg-accent px-4 py-2 md:px-5 rounded-sm shadow-[0_0_10px_rgba(163,38,38,0.8)] border border-primary-light">
                     <div class="w-4 h-4 md:w-5 md:h-5 border-2 border-t-secondary border-r-secondary border-b-secondary border-l-transparent rounded-full animate-spin mr-2 md:mr-3"></div>
-                    <span id="ai-status-text" class="tracking-widest">神兽解析中...</span>
-                    <span id="ai-status-detail" class="text-[10px] md:text-xs text-yellow-300 ml-2 md:ml-3 font-normal truncate max-w-[120px] md:max-w-xs"></span>
+                    <span id="ai-status-text" class="tracking-widest">神秘商店解析中...</span>
+                    <span id="ai-status-detail" class="text-[10px] md:text-xs text-secondary ml-2 md:ml-3 font-normal truncate max-w-[120px] md:max-w-xs"></span>
                 </div>
                 <div id="processing-shared-container" class="w-full"></div>
             </div>
@@ -293,13 +294,13 @@
 
         <section id="knowledge-section" class="section hidden">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-2xl md:text-4xl font-bold mb-6 md:mb-8 text-secondary text-center font-medieval text-shadow-glow">🎉 真理已被剥离！</h2>
+                <h2 class="text-2xl md:text-4xl font-bold mb-6 md:mb-8 text-secondary text-center font-medieval text-shadow-glow">🎉 战术已解析完毕！</h2>
                 <div class="medieval-card rounded-2xl p-4 md:p-8 mb-8 md:mb-10 border-t-8 border-t-secondary">
-                    <div id="knowledge-list" class="space-y-4 md:space-y-5 max-h-[500px] overflow-y-auto p-1 md:p-2 md:pr-4"></div>
+                    <div id="knowledge-list" class="space-y-4 md:space-y-5 max-h-[500px] overflow-y-auto p-1 md:p-2 md:pr-4 custom-scrollbar"></div>
                 </div>
                 <div class="flex justify-center">
-                    <button id="enter-flashcards-btn" class="w-full sm:w-auto bg-gradient-to-r from-primary to-primary-dark text-light border-2 border-primary-light shadow-[0_0_20px_rgba(59,130,246,0.8)] font-bold py-3 px-8 md:py-4 md:px-12 rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,1)] transition-all-300 transform hover:-translate-y-1 text-lg md:text-xl font-medieval tracking-widest">
-                        <i class="fa fa-clone mr-2"></i> 铭记真理碎片 💡
+                    <button id="enter-flashcards-btn" class="w-full sm:w-auto bg-gradient-to-r from-[#2e8b57] to-[#1a5e38] text-light border-2 border-[#5cb85c] shadow-[0_0_20px_rgba(46,139,87,0.8)] font-bold py-3 px-8 md:py-4 md:px-12 rounded-sm hover:shadow-[0_0_30px_rgba(46,139,87,1)] transition-all-300 transform hover:-translate-y-1 text-lg md:text-xl font-medieval tracking-widest uppercase">
+                        <i class="fa fa-clone mr-2"></i> 装备战术碎片 💡
                     </button>
                 </div>
             </div>
@@ -308,57 +309,57 @@
         <section id="flashcard-section" class="section hidden">
             <div class="max-w-3xl mx-auto">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-8 gap-4">
-                    <h2 class="text-2xl md:text-3xl font-bold text-secondary font-medieval text-shadow-glow"><i class="fa fa-star text-light mr-2"></i>✨ 灵魂刻印之时 ✨</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold text-secondary font-medieval text-shadow-glow"><i class="fa fa-star text-light mr-2"></i>✨ 技能加点之时 ✨</h2>
                     
                     <div class="flex flex-col items-end w-full sm:w-auto">
-                        <div class="bg-dark border border-secondary rounded-full px-4 py-1.5 md:px-6 md:py-2 flex items-center shadow-[0_0_10px_rgba(212,175,55,0.5)] z-10 relative bg-opacity-90">
-                            <span class="text-xs md:text-sm font-medium text-gray-400 mr-2 md:mr-3 font-medieval tracking-widest">刻印进度:</span>
+                        <div class="bg-dark border border-secondary rounded-sm px-4 py-1.5 md:px-6 md:py-2 flex items-center shadow-[0_0_10px_rgba(195,158,102,0.5)] z-10 relative bg-opacity-90">
+                            <span class="text-xs md:text-sm font-medium text-gray-400 mr-2 md:mr-3 font-medieval tracking-widest">升级进度:</span>
                             <span id="flashcard-progress" class="font-bold text-secondary text-lg md:text-xl">1/5</span>
                         </div>
                         <div class="xp-bar-container w-48 -mt-2"><div id="flashcard-xp-fill" class="xp-bar-fill" style="width: 0%"></div></div>
                     </div>
                 </div>
-                <div id="flashcard-container" class="medieval-card rounded-3xl p-8 md:p-14 mb-8 md:mb-10 border-t-8 border-t-primary shadow-[0_0_30px_rgba(59,130,246,0.3)] relative min-h-[300px] md:min-h-[350px] flex flex-col justify-center transition-all duration-300"></div>
+                <div id="flashcard-container" class="medieval-card rounded-sm p-8 md:p-14 mb-8 md:mb-10 border-t-8 border-t-primary shadow-[0_0_30px_rgba(163,38,38,0.3)] relative min-h-[300px] md:min-h-[350px] flex flex-col justify-center transition-all duration-300"></div>
                 
                 <div class="flex justify-center relative">
-                    <button id="got-it-btn" class="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group">
+                    <button id="got-it-btn" class="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-[#2e8b57] to-[#1a5e38] text-light border-2 border-[#5cb85c] shadow-[0_0_20px_rgba(46,139,87,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-sm hover:shadow-[0_0_30px_rgba(46,139,87,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group">
                         <span class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
                         <i class="fa fa-check-circle sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl relative z-10"></i> 
-                        <span class="btn-text relative z-10">已刻入灵魂！(+1 🐟) 🌟</span>
+                        <span class="btn-text relative z-10">技能已掌握！(+1 💰) 🌟</span>
                     </button>
                 </div>
             </div>
         </section>
 
         <section id="generate-section" class="section hidden">
-             <div class="max-w-4xl mx-auto medieval-card rounded-3xl p-6 md:p-12">
-                <h2 class="text-2xl md:text-4xl font-bold mb-8 md:mb-10 text-dark text-center font-medieval border-b-2 border-secondary pb-3 md:pb-4 inline-block mx-auto w-full md:w-auto">定制裁决法则 📝</h2>
+             <div class="max-w-4xl mx-auto medieval-card rounded-sm p-6 md:p-12">
+                <h2 class="text-2xl md:text-4xl font-bold mb-8 md:mb-10 text-secondary text-center font-medieval border-b-2 border-[#5a4b31] pb-3 md:pb-4 inline-block mx-auto w-full md:w-auto">定制战场难度 📝</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-8 md:mb-12">
-                    <div class="bg-[#fffcf5] p-5 md:p-6 rounded-2xl border border-gray-200 shadow-inner">
-                        <label class="block text-primary-dark font-black mb-4 md:mb-5 text-lg md:text-xl font-medieval tracking-widest"><i class="fa fa-cogs mr-2"></i> 选择试炼形态</label>
+                    <div class="bg-[#1a1c23] p-5 md:p-6 rounded-sm border border-[#5a4b31] shadow-inner">
+                        <label class="block text-secondary font-black mb-4 md:mb-5 text-lg md:text-xl font-medieval tracking-widest"><i class="fa fa-cogs mr-2"></i> 选择试炼形态</label>
                         <div class="flex flex-col space-y-3 md:space-y-4">
-                            <label class="inline-flex items-center cursor-pointer p-2 md:p-3 hover:bg-yellow-50 rounded-lg transition-colors border border-transparent hover:border-yellow-200"><input type="checkbox" id="type-choice" class="form-checkbox text-secondary h-5 w-5 md:h-6 md:w-6" checked><span class="ml-3 md:ml-4 text-gray-800 font-bold text-base md:text-lg">命运之选 (单项选择)</span></label>
-                            <label class="inline-flex items-center cursor-pointer p-2 md:p-3 hover:bg-yellow-50 rounded-lg transition-colors border border-transparent hover:border-yellow-200"><input type="checkbox" id="type-calculation" class="form-checkbox text-secondary h-5 w-5 md:h-6 md:w-6" checked><span class="ml-3 md:ml-4 text-gray-800 font-bold text-base md:text-lg">法则推演 (计算解答)</span></label>
+                            <label class="inline-flex items-center cursor-pointer p-2 md:p-3 hover:bg-[#25272e] rounded-sm transition-colors border border-transparent hover:border-[#5a4b31]"><input type="checkbox" id="type-choice" class="form-checkbox text-primary h-5 w-5 md:h-6 md:w-6" checked><span class="ml-3 md:ml-4 text-gray-200 font-bold text-base md:text-lg">普通攻击 (单项选择)</span></label>
+                            <label class="inline-flex items-center cursor-pointer p-2 md:p-3 hover:bg-[#25272e] rounded-sm transition-colors border border-transparent hover:border-[#5a4b31]"><input type="checkbox" id="type-calculation" class="form-checkbox text-primary h-5 w-5 md:h-6 md:w-6" checked><span class="ml-3 md:ml-4 text-gray-200 font-bold text-base md:text-lg">终极技能 (计算解答)</span></label>
                         </div>
                     </div>
-                    <div class="space-y-6 md:space-y-8 bg-[#fffcf5] p-5 md:p-6 rounded-2xl border border-gray-200 shadow-inner">
-                        <div><label class="block text-primary-dark font-black mb-2 md:mb-3 text-base md:text-lg font-medieval tracking-widest">选择题数量誓约</label><input type="number" id="choice-count" class="w-full bg-white border-2 border-gray-300 rounded-xl px-4 py-2 md:px-5 md:py-3 focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary text-lg md:text-xl font-bold" value="3" min="0" max="20"></div>
-                        <div><label class="block text-primary-dark font-black mb-2 md:mb-3 text-base md:text-lg font-medieval tracking-widest">解答题数量誓约</label><input type="number" id="calculation-count" class="w-full bg-white border-2 border-gray-300 rounded-xl px-4 py-2 md:px-5 md:py-3 focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary text-lg md:text-xl font-bold" value="2" min="0" max="10"></div>
+                    <div class="space-y-6 md:space-y-8 bg-[#1a1c23] p-5 md:p-6 rounded-sm border border-[#5a4b31] shadow-inner">
+                        <div><label class="block text-secondary font-black mb-2 md:mb-3 text-base md:text-lg font-medieval tracking-widest">普攻题目数量</label><input type="number" id="choice-count" class="w-full bg-[#121212] text-light border-2 border-[#5a4b31] rounded-sm px-4 py-2 md:px-5 md:py-3 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary text-lg md:text-xl font-bold" value="3" min="0" max="20"></div>
+                        <div><label class="block text-secondary font-black mb-2 md:mb-3 text-base md:text-lg font-medieval tracking-widest">终极题目数量</label><input type="number" id="calculation-count" class="w-full bg-[#121212] text-light border-2 border-[#5a4b31] rounded-sm px-4 py-2 md:px-5 md:py-3 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary text-lg md:text-xl font-bold" value="2" min="0" max="10"></div>
                     </div>
                 </div>
                 <div class="flex justify-center mt-6">
-                    <button id="start-generation-btn" class="w-full md:w-auto bg-gradient-to-r from-red-800 to-red-600 text-light border-2 border-red-400 shadow-[0_0_20px_rgba(220,38,38,0.7)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(220,38,38,1)] transition-all-300 text-lg md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest"><i class="fa fa-fire mr-3"></i> 铸造专属试炼卷</button>
+                    <button id="start-generation-btn" class="w-full md:w-auto bg-gradient-to-r from-primary to-accent text-light border-2 border-[#ff8c8c] shadow-[0_0_20px_rgba(163,38,38,0.7)] font-black py-3 px-6 md:py-4 md:px-14 rounded-sm hover:shadow-[0_0_30px_rgba(163,38,38,1)] transition-all-300 text-lg md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest uppercase"><i class="fa fa-fire mr-3"></i> 匹配对手并开始游戏</button>
                 </div>
             </div>
         </section>
 
         <section id="auditing-section" class="section hidden">
-            <div class="max-w-4xl mx-auto medieval-card rounded-3xl p-6 md:p-12 relative overflow-hidden">
-                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
+            <div class="max-w-4xl mx-auto medieval-card rounded-sm p-6 md:p-12 relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-50"></div>
                 <div class="text-center mb-8 relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 border-4 border-t-primary border-r-secondary border-b-primary border-l-transparent rounded-full animate-spin mx-auto mb-6 md:mb-8 shadow-[0_0_15px_rgba(59,130,246,0.6)]"></div>
-                    <h3 class="text-xl md:text-3xl font-black mb-3 md:mb-4 text-dark font-medieval tracking-widest">大魔导师正在核验试炼真伪... 🕵️‍♂️</h3>
-                    <p id="auditing-details" class="text-gray-600 text-base md:text-xl font-medium">为了保证法则的绝对公正，小助手正在疯狂演算每一道题的推导步骤，片刻即成！⏳</p>
+                    <div class="w-16 h-16 md:w-20 md:h-20 border-4 border-t-primary border-r-secondary border-b-primary border-l-transparent rounded-full animate-spin mx-auto mb-6 md:mb-8 shadow-[0_0_15px_rgba(163,38,38,0.6)]"></div>
+                    <h3 class="text-xl md:text-3xl font-black mb-3 md:mb-4 text-secondary font-medieval tracking-widest">大魔导师拉比克正在窃取敌方战术... 🕵️‍♂️</h3>
+                    <p id="auditing-details" class="text-gray-400 text-base md:text-xl font-medium">为了保证战场的绝对公正，拉比克正在疯狂演算每一道题的推导步骤，片刻即成！⏳</p>
                 </div>
                 <div id="auditing-shared-container" class="relative z-10 w-full"></div>
             </div>
@@ -367,43 +368,43 @@
         <section id="quiz-section" class="section hidden">
             <div class="max-w-4xl mx-auto">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-8 gap-4">
-                    <h2 class="text-2xl md:text-3xl font-bold text-secondary font-medieval text-shadow-glow flex items-center"><i class="fa fa-gavel mr-3"></i> 绝对裁决开始</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold text-secondary font-medieval text-shadow-glow flex items-center"><i class="fa fa-gavel mr-3"></i> 全军出击</h2>
                     
                     <div class="flex flex-col items-end w-full sm:w-auto">
-                        <div class="bg-dark text-secondary border border-secondary rounded-full px-4 py-1.5 md:px-6 md:py-2 shadow-[0_0_10px_rgba(212,175,55,0.4)] font-bold text-sm md:text-lg font-medieval tracking-widest z-10 relative bg-opacity-90">试炼进度: <span id="quiz-progress" class="ml-2 text-light">1/5</span></div>
+                        <div class="bg-dark text-secondary border border-secondary rounded-sm px-4 py-1.5 md:px-6 md:py-2 shadow-[0_0_10px_rgba(195,158,102,0.4)] font-bold text-sm md:text-lg font-medieval tracking-widest z-10 relative bg-opacity-90">推塔进度: <span id="quiz-progress" class="ml-2 text-light">1/5</span></div>
                         <div class="xp-bar-container w-48 -mt-2"><div id="quiz-xp-fill" class="xp-bar-fill" style="width: 0%"></div></div>
                     </div>
                 </div>
-                <div class="medieval-card rounded-3xl shadow-[0_0_25px_rgba(0,0,0,0.5)] p-6 md:p-12 mb-8 md:mb-10 relative">
+                <div class="medieval-card rounded-sm shadow-[0_0_25px_rgba(0,0,0,0.8)] p-6 md:p-12 mb-8 md:mb-10 relative">
                     <div id="question-container"></div>
-                    <div class="flex flex-col sm:flex-row justify-between mt-8 md:mt-12 border-t-2 border-dashed border-gray-300 pt-6 md:pt-8 gap-4 sm:gap-0">
-                        <button id="prev-question-btn" class="w-full sm:w-auto bg-[#e2d8c3] text-dark border border-gray-400 hover:bg-[#d5cbb4] font-bold py-3 px-6 md:px-10 rounded-full transition-all-300 disabled:opacity-40 font-medieval tracking-widest shadow-sm text-sm md:text-base"><i class="fa fa-arrow-left mr-2"></i> 追溯上文</button>
-                        <button id="next-question-btn" class="w-full sm:w-auto bg-gradient-to-r from-primary to-primary-dark text-light border border-primary-light font-bold py-3 px-6 md:px-10 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.6)] hover:shadow-[0_0_20px_rgba(59,130,246,0.9)] transition-all-300 font-medieval tracking-widest text-sm md:text-base">步入未知 <i class="fa fa-arrow-right ml-2"></i></button>
+                    <div class="flex flex-col sm:flex-row justify-between mt-8 md:mt-12 border-t-2 border-dashed border-[#5a4b31] pt-6 md:pt-8 gap-4 sm:gap-0">
+                        <button id="prev-question-btn" class="w-full sm:w-auto bg-[#2b2d33] text-gray-300 border border-[#5a4b31] hover:bg-[#3b3e45] font-bold py-3 px-6 md:px-10 rounded-sm transition-all-300 disabled:opacity-40 font-medieval tracking-widest shadow-sm text-sm md:text-base"><i class="fa fa-arrow-left mr-2"></i> 追溯上文</button>
+                        <button id="next-question-btn" class="w-full sm:w-auto bg-gradient-to-r from-primary to-accent text-light border border-[#ff8c8c] font-bold py-3 px-6 md:px-10 rounded-sm shadow-[0_0_15px_rgba(163,38,38,0.6)] hover:shadow-[0_0_20px_rgba(163,38,38,0.9)] transition-all-300 font-medieval tracking-widest text-sm md:text-base">步入未知 <i class="fa fa-arrow-right ml-2"></i></button>
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <button id="submit-quiz-btn" class="w-full sm:w-auto bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.8)] font-black py-3 px-8 md:py-4 md:px-16 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,1)] transition-all-300 text-lg md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group">
+                    <button id="submit-quiz-btn" class="w-full sm:w-auto bg-gradient-to-r from-secondary to-[#8b6e3b] text-dark border-2 border-[#e6cca3] shadow-[0_0_20px_rgba(195,158,102,0.8)] font-black py-3 px-8 md:py-4 md:px-16 rounded-sm hover:shadow-[0_0_30px_rgba(195,158,102,1)] transition-all-300 text-lg md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group uppercase">
                         <span class="absolute inset-0 bg-white/30 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
-                        <i class="fa fa-balance-scale mr-3"></i> 接受最终裁决！
+                        <i class="fa fa-bomb mr-3"></i> 摧毁敌方遗迹！
                     </button>
                 </div>
             </div>
         </section>
 
         <section id="result-section" class="section hidden relative z-10">
-            <div class="max-w-5xl mx-auto medieval-card rounded-3xl p-6 md:p-12 shadow-[0_0_40px_rgba(212,175,55,0.5)] border-4 border-double border-secondary">
-                <h2 class="text-3xl md:text-5xl font-black mb-6 md:mb-8 text-dark text-center font-medieval border-b-4 border-secondary pb-4 md:pb-6 inline-block w-full">🎉 裁决之卷已现 🎉</h2>
-                <div class="text-center mb-8 md:mb-12 pb-6 md:pb-10 border-b-2 border-dashed border-gray-300 relative">
-                    <h3 class="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-red-600 mb-4 md:mb-6 drop-shadow-[0_0_15px_rgba(245,166,35,0.8)] font-medieval" id="result-score">0%</h3>
-                    <p id="result-message" class="text-gray-700 text-lg md:text-2xl font-bold font-medieval tracking-widest px-2">命运的轮盘已经停止！客观题已自动批改，解答题请参考神兽的推导步骤</p>
+            <div class="max-w-5xl mx-auto medieval-card rounded-sm p-6 md:p-12 shadow-[0_0_40px_rgba(195,158,102,0.5)] border-4 border-double border-secondary">
+                <h2 class="text-3xl md:text-5xl font-black mb-6 md:mb-8 text-secondary text-center font-medieval border-b-4 border-secondary pb-4 md:pb-6 inline-block w-full">🎉 比赛结算 🎉</h2>
+                <div class="text-center mb-8 md:mb-12 pb-6 md:pb-10 border-b-2 border-dashed border-[#5a4b31] relative">
+                    <h3 class="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary mb-4 md:mb-6 drop-shadow-[0_0_15px_rgba(195,158,102,0.8)] font-medieval" id="result-score">0%</h3>
+                    <p id="result-message" class="text-gray-300 text-lg md:text-2xl font-bold font-medieval tracking-widest px-2">遗迹已经倒塌！普攻已自动结算，终极技能请参考大魔导师的推导步骤</p>
                 </div>
                 <div>
-                    <h4 class="font-black text-xl md:text-2xl text-primary-dark mb-6 md:mb-8 flex items-center font-medieval tracking-widest"><i class="fa fa-eye text-primary mr-3 text-2xl md:text-3xl"></i> 洞悉万象 · 真理回溯</h4>
-                    <div id="result-details" class="space-y-6 md:space-y-8 max-h-[700px] overflow-y-auto pr-2 md:pr-4 pb-4"></div>
+                    <h4 class="font-black text-xl md:text-2xl text-secondary mb-6 md:mb-8 flex items-center font-medieval tracking-widest"><i class="fa fa-eye text-primary mr-3 text-2xl md:text-3xl"></i> 洞悉战场 · 真理回溯</h4>
+                    <div id="result-details" class="space-y-6 md:space-y-8 max-h-[700px] overflow-y-auto pr-2 md:pr-4 pb-4 custom-scrollbar"></div>
                 </div>
                 <div class="flex flex-col md:flex-row justify-center mt-8 md:mt-12 gap-4 md:gap-6">
-                    <button id="review-mistakes-btn" class="w-full md:w-auto bg-gradient-to-r from-blue-800 to-primary-dark text-light border-2 border-primary-light shadow-[0_0_20px_rgba(59,130,246,0.6)] font-black py-3 px-6 md:py-4 md:px-10 rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,1)] transition-all-300 transform hover:-translate-y-1 text-base md:text-xl font-medieval tracking-widest flex justify-center items-center"><i class="fa fa-paw mr-3"></i> 召唤白泽错题复盘</button>
-                    <button id="new-quiz-btn" class="w-full md:w-auto bg-gradient-to-r from-dark to-black text-secondary border-2 border-secondary shadow-[0_0_20px_rgba(212,175,55,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:bg-black transition-all-300 transform hover:-translate-y-1 text-base md:text-xl font-medieval tracking-widest flex justify-center items-center"><i class="fa fa-refresh mr-3"></i> 开启新一轮轮回</button>
+                    <button id="review-mistakes-btn" class="w-full md:w-auto bg-gradient-to-r from-dark to-[#3b3e45] text-secondary border-2 border-secondary shadow-[0_0_20px_rgba(195,158,102,0.6)] font-black py-3 px-6 md:py-4 md:px-10 rounded-sm hover:shadow-[0_0_30px_rgba(195,158,102,1)] transition-all-300 transform hover:-translate-y-1 text-base md:text-xl font-medieval tracking-widest flex justify-center items-center uppercase"><i class="fa fa-horse mr-3"></i> 召唤信使错题复盘</button>
+                    <button id="new-quiz-btn" class="w-full md:w-auto bg-gradient-to-r from-primary to-accent text-light border-2 border-[#ff8c8c] shadow-[0_0_20px_rgba(163,38,38,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-sm hover:bg-black transition-all-300 transform hover:-translate-y-1 text-base md:text-xl font-medieval tracking-widest flex justify-center items-center uppercase"><i class="fa fa-refresh mr-3"></i> 寻找下一场比赛</button>
                 </div>
             </div>
         </section>
@@ -411,53 +412,53 @@
         <section id="mall-section" class="section hidden relative z-10">
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-10">
-                    <h2 class="text-3xl md:text-5xl font-bold mb-4 text-yellow-400 font-medieval text-shadow-glow tracking-widest">💎 魔法商城 💎</h2>
-                    <p class="text-light text-lg">用你通过试炼获得的金币，兑换专属的秘密奖励吧！</p>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 text-primary-light font-medieval text-shadow-red tracking-widest">💎 神秘商店 💎</h2>
+                    <p class="text-light text-lg">用你补兵获得的金币，兑换专属的遗迹宝物吧！</p>
                 </div>
                 
-                <div class="medieval-card rounded-3xl p-6 md:p-8 mb-10 text-center border-dashed border-4 border-secondary/50 bg-[#fdfaf0]/90">
-                    <h3 class="text-2xl font-black text-dark mb-4 font-medieval tracking-widest"><i class="fa fa-balance-scale text-secondary mr-2"></i> 炼金工坊</h3>
-                    <p class="mb-6 text-gray-600 font-bold text-lg">当前汇率：<span class="text-secondary text-2xl mx-1">60 🐟</span> = <span class="text-yellow-500 text-2xl mx-1">1 🪙</span></p>
-                    <button onclick="manualExchange()" class="bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark px-8 py-3 md:px-12 md:py-4 rounded-full font-black shadow-[0_0_15px_rgba(245,166,35,0.6)] hover:shadow-[0_0_25px_rgba(245,166,35,0.9)] transition-all-300 transform hover:-translate-y-1 text-lg tracking-widest">
-                        立即将 60 小鱼干提炼为金币
+                <div class="medieval-card rounded-sm p-6 md:p-8 mb-10 text-center border-dashed border-4 border-secondary/50 bg-[#121212]/90">
+                    <h3 class="text-2xl font-black text-secondary mb-4 font-medieval tracking-widest"><i class="fa fa-balance-scale text-primary mr-2"></i> 泉水兑换</h3>
+                    <p class="mb-6 text-gray-300 font-bold text-lg">当前汇率：<span class="text-yellow-400 text-2xl mx-1">60 💰</span> = <span class="text-primary-light text-2xl mx-1">1 🛡️</span></p>
+                    <button onclick="manualExchange()" class="bg-gradient-to-r from-secondary to-[#8b6e3b] text-dark px-8 py-3 md:px-12 md:py-4 rounded-sm font-black shadow-[0_0_15px_rgba(195,158,102,0.6)] hover:shadow-[0_0_25px_rgba(195,158,102,0.9)] transition-all-300 transform hover:-translate-y-1 text-lg tracking-widest uppercase">
+                        立即花费 60 金币 购买 不朽盾
                     </button>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8">
                     
-                    <div class="medieval-card rounded-3xl p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(255,105,180,0.4)] transition-all-300 border-2 hover:border-pink-400 group">
-                        <div class="w-28 h-28 md:w-32 md:h-32 bg-pink-100 rounded-full mb-6 flex items-center justify-center border-4 border-pink-300 shadow-inner relative overflow-hidden group-hover:animate-pulse">
-                            <span class="text-5xl md:text-6xl drop-shadow-md">💖</span>
+                    <div class="medieval-card rounded-sm p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(0,255,127,0.3)] transition-all-300 border-2 hover:border-[#00ff7f] group">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-[#1a3a2a] rounded-full mb-6 flex items-center justify-center border-4 border-[#00ff7f] shadow-inner relative overflow-hidden group-hover:animate-pulse">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">💚</span>
                         </div>
-                        <h3 class="text-xl font-black text-pink-600 mb-3 font-medieval tracking-widest text-center">温女士的鼓励</h3>
-                        <p class="text-gray-500 mb-6 flex-grow text-center font-bold text-sm">觉得疲惫了吗？聆听一段来自温女士的专属温柔肯定，补充心灵能量。</p>
-                        <button id="btn-buy-encourage" onclick="buyMallItem('encourage')" class="w-full bg-pink-500 text-white font-black py-4 rounded-xl border-2 border-pink-400 hover:bg-pink-600 transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(236,72,153,0.4)]">
-                            花费 2 🪙 兑换
+                        <h3 class="text-xl font-black text-[#00ff7f] mb-3 font-medieval tracking-widest text-center">温女士的鼓励</h3>
+                        <p class="text-gray-400 mb-6 flex-grow text-center font-bold text-sm">觉得疲惫了吗？聆听一段来自温女士的专属肯定，补充状态！</p>
+                        <button id="btn-buy-encourage" onclick="buyMallItem('encourage')" class="w-full bg-[#1a3a2a] text-[#00ff7f] font-black py-4 rounded-sm border-2 border-[#00ff7f] hover:bg-[#225533] transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(0,255,127,0.4)]">
+                            花费 2 🛡️ 兑换
                         </button>
                     </div>
 
-                    <div class="medieval-card rounded-3xl p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all-300 relative">
-                        <div class="w-28 h-28 md:w-32 md:h-32 bg-gray-200 rounded-xl mb-6 flex items-center justify-center border-4 border-gray-300 shadow-inner relative overflow-hidden">
-                            <span class="text-5xl md:text-6xl drop-shadow-md">🎫</span>
-                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/40"></div>
+                    <div class="medieval-card rounded-sm p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(195,158,102,0.4)] transition-all-300 relative">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-[#2a2a2a] rounded-sm mb-6 flex items-center justify-center border-4 border-secondary shadow-inner relative overflow-hidden">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">🧀</span>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/10"></div>
                         </div>
-                        <h3 class="text-xl font-black text-primary-dark mb-3 font-medieval tracking-widest text-center">温女士的专属午餐</h3>
-                        <p class="text-gray-500 mb-6 flex-grow text-center font-bold text-sm">一张蕴含饱腹魔法的兑换券，可向温女士兑换一份美味的午餐外卖。</p>
-                        <button id="btn-buy-photo" onclick="buyMallItem('photo')" class="w-full bg-dark text-yellow-400 font-black py-4 rounded-xl border-2 border-yellow-400 hover:bg-black transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(212,175,55,0.3)]">
-                            花费 5 🪙 兑换
+                        <h3 class="text-xl font-black text-secondary mb-3 font-medieval tracking-widest text-center">温女士的专属补给</h3>
+                        <p class="text-gray-400 mb-6 flex-grow text-center font-bold text-sm">蕴含奶酪魔法的凭证，可向温女士兑换一份美味的外卖吃树。</p>
+                        <button id="btn-buy-photo" onclick="buyMallItem('photo')" class="w-full bg-dark text-secondary font-black py-4 rounded-sm border-2 border-secondary hover:bg-black transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(195,158,102,0.3)]">
+                            花费 5 🛡️ 兑换
                         </button>
                         <div id="content-photo" class="hidden mt-6 w-full text-left"></div>
                     </div>
 
-                    <div class="medieval-card rounded-3xl p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all-300 relative">
-                        <div class="w-28 h-28 md:w-32 md:h-32 bg-gray-200 rounded-xl mb-6 flex items-center justify-center border-4 border-gray-300 shadow-inner relative overflow-hidden">
-                            <span class="text-5xl md:text-6xl drop-shadow-md">🎬</span>
-                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/40"></div>
+                    <div class="medieval-card rounded-sm p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(163,38,38,0.4)] transition-all-300 relative">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-[#2a1515] rounded-sm mb-6 flex items-center justify-center border-4 border-primary shadow-inner relative overflow-hidden">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">👁️</span>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/10"></div>
                         </div>
-                        <h3 class="text-xl font-black text-primary-dark mb-3 font-medieval tracking-widest text-center">温女士的秘密影像</h3>
-                        <p class="text-gray-500 mb-6 flex-grow text-center font-bold text-sm">一段珍贵的专属留念影像，兑换凭证后可找温女士一睹光影魔法。</p>
-                        <button id="btn-buy-secret" onclick="buyMallItem('secret')" class="w-full bg-dark text-yellow-400 font-black py-4 rounded-xl border-2 border-yellow-400 hover:bg-black transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(212,175,55,0.3)]">
-                            花费 10 🪙 兑换
+                        <h3 class="text-xl font-black text-primary mb-3 font-medieval tracking-widest text-center">温女士的真视守卫</h3>
+                        <p class="text-gray-400 mb-6 flex-grow text-center font-bold text-sm">一段珍贵的专属留念影像，兑换凭证后可找温女士解锁战争迷雾。</p>
+                        <button id="btn-buy-secret" onclick="buyMallItem('secret')" class="w-full bg-dark text-primary font-black py-4 rounded-sm border-2 border-primary hover:bg-[#2b1717] transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(163,38,38,0.3)]">
+                            花费 10 🛡️ 兑换
                         </button>
                         <div id="content-secret" class="hidden mt-6 w-full text-left"></div>
                     </div>
@@ -467,117 +468,113 @@
 
         <div id="shared-waiting-area" class="hidden w-full relative z-10">
             <div class="text-center mb-6 md:mb-8 mt-4 md:mt-6 px-2">
-                <h3 class="text-xl md:text-2xl font-black mb-2 text-dark font-medieval tracking-widest flex flex-col md:flex-row justify-center items-center">
-                    <i class="fa fa-hourglass-half text-secondary mb-2 md:mb-0 md:mr-3 text-2xl md:text-3xl"></i> 试炼前夕！有疑虑可随时向本喵请教^⦁᎑-^ ੭
+                <h3 class="text-xl md:text-2xl font-black mb-2 text-secondary font-medieval tracking-widest flex flex-col md:flex-row justify-center items-center">
+                    <i class="fa fa-hourglass-half text-primary mb-2 md:mb-0 md:mr-3 text-2xl md:text-3xl"></i> 战役前夕！有疑虑可随时向本信使请教🐴
                 </h3>
             </div>
-            <div id="mini-chat-container" class="medieval-card rounded-3xl border-2 border-secondary shadow-[0_0_20px_rgba(212,175,55,0.3)] mb-8 md:mb-10 max-w-2xl mx-auto overflow-hidden flex flex-col h-[50vh] max-h-[320px] md:h-[320px]">
+            <div id="mini-chat-container" class="medieval-card rounded-sm border-2 border-primary shadow-[0_0_20px_rgba(163,38,38,0.3)] mb-8 md:mb-10 max-w-2xl mx-auto overflow-hidden flex flex-col h-[50vh] max-h-[320px] md:h-[320px]">
 
-                <div class="flex-grow overflow-y-auto p-4 md:p-5 space-y-4 bg-[#fffcf5]" id="mini-chat-messages">
+                <div class="flex-grow overflow-y-auto p-4 md:p-5 space-y-4 bg-[#121212]" id="mini-chat-messages">
                     <div class="flex justify-start">
-                        <div class="bg-dark text-light border border-secondary px-4 py-3 md:px-5 md:py-3 rounded-2xl rounded-tl-sm max-w-[90%] md:max-w-[85%] shadow-md text-sm font-medium leading-relaxed">
-                            你好呀！我是温女士派过来的温柔神猫导师白泽ฅ•ω•ฅ。下面有一道题，如果你不会做或者想了解背后的知识点，随时来问我哦！别害怕，我会一步步引导你的，不过为了你好，答案得你自己想出来呢~加油！
+                        <div class="bg-[#2b2d33] text-light border border-secondary px-4 py-3 md:px-5 md:py-3 rounded-sm rounded-tl-none max-w-[90%] md:max-w-[85%] shadow-md text-sm font-medium leading-relaxed">
+                            你好呀！我是温女士派过来的信使小猫🐴。下面有一道题，如果你不会做或者想了解背后的战术，随时来问我哦！别害怕，我会一步步引导你的，不过为了拿一血，答案得你自己想出来呢~冲冲冲！
                         </div>
                     </div>
                 </div>
-                <div class="p-3 md:p-4 bg-[#fdfaf0] border-t-2 border-secondary flex items-center">
-                    <input type="text" id="mini-chat-input" placeholder="输入你想问的问题..." class="flex-grow w-full bg-white border-2 border-gray-300 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary rounded-full px-4 py-2 md:px-5 md:py-3 text-sm md:text-base font-medium transition-all-300 mr-2 md:mr-3 outline-none shadow-inner text-dark">
-                    <button id="mini-chat-send-btn" class="bg-primary hover:bg-primary-dark text-light rounded-full h-10 w-10 md:h-12 md:w-12 flex items-center justify-center flex-shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.6)] transition-all-300">
-                        <i class="fa fa-paw text-lg md:text-xl"></i>
+                <div class="p-3 md:p-4 bg-[#1c1d21] border-t-2 border-primary flex items-center">
+                    <input type="text" id="mini-chat-input" placeholder="输入你想问的问题..." class="flex-grow w-full bg-[#2b2d33] border-2 border-[#5a4b31] focus:bg-[#121212] focus:border-secondary focus:ring-2 focus:ring-secondary rounded-sm px-4 py-2 md:px-5 md:py-3 text-sm md:text-base font-medium transition-all-300 mr-2 md:mr-3 outline-none shadow-inner text-light">
+                    <button id="mini-chat-send-btn" class="bg-primary hover:bg-accent text-light rounded-sm h-10 w-10 md:h-12 md:w-12 flex items-center justify-center flex-shrink-0 shadow-[0_0_10px_rgba(163,38,38,0.6)] transition-all-300">
+                        <i class="fa fa-paper-plane text-lg md:text-xl"></i>
                     </button>
                 </div>
             </div>
-            <div id="bg-quiz-container" class="medieval-card rounded-3xl p-5 md:p-10 border-2 border-secondary shadow-[0_0_20px_rgba(212,175,55,0.4)] min-h-[250px] card-enter relative">
+            <div id="bg-quiz-container" class="medieval-card rounded-sm p-5 md:p-10 border-2 border-secondary shadow-[0_0_20px_rgba(195,158,102,0.4)] min-h-[250px] card-enter relative">
             </div>
         </div>
 
     </main>
 
     <div id="congrats-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[100] hidden flex items-center justify-center backdrop-blur-md transition-opacity duration-300">
-        <div id="congrats-card" class="medieval-card rounded-3xl p-8 md:p-12 max-w-md w-full mx-4 transform scale-95 opacity-0 transition-all duration-300 shadow-[0_0_50px_rgba(212,175,55,0.8)] border-4 border-double border-secondary relative">
-            <button id="close-modal-x" class="absolute top-4 right-5 md:top-5 md:right-6 text-gray-400 hover:text-dark text-xl md:text-2xl"><i class="fa fa-times"></i></button>
+        <div id="congrats-card" class="medieval-card rounded-sm p-8 md:p-12 max-w-md w-full mx-4 transform scale-95 opacity-0 transition-all duration-300 shadow-[0_0_50px_rgba(195,158,102,0.8)] border-4 border-double border-secondary relative">
+            <button id="close-modal-x" class="absolute top-4 right-5 md:top-5 md:right-6 text-gray-500 hover:text-light text-xl md:text-2xl"><i class="fa fa-times"></i></button>
             <div class="text-center">
-                <div class="text-6xl md:text-8xl mb-4 md:mb-6 animate-bounce drop-shadow-md">🎊</div>
-                <h3 class="text-2xl md:text-4xl font-black text-dark mb-3 md:mb-4 font-medieval tracking-widest">试炼达成！</h3>
-                <p id="congrats-message" class="text-gray-700 mb-8 md:mb-10 font-bold text-base md:text-xl leading-relaxed">你已经完成所有的练习啦！(๑•̀ㅂ•́)و✧</p>
-                <button id="view-results-btn" class="bg-gradient-to-r from-primary to-primary-dark text-light border border-primary-light font-black py-3 px-8 md:py-4 md:px-10 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.8)] hover:shadow-[0_0_30px_rgba(59,130,246,1)] transform hover:-translate-y-1 transition-all-300 w-full text-lg md:text-xl font-medieval tracking-widest">直视裁决之果 ✨</button>
+                <div class="text-6xl md:text-8xl mb-4 md:mb-6 animate-bounce drop-shadow-md">🏆</div>
+                <h3 class="text-2xl md:text-4xl font-black text-secondary mb-3 md:mb-4 font-medieval tracking-widest">暴走 (RAMPAGE)！</h3>
+                <p id="congrats-message" class="text-gray-300 mb-8 md:mb-10 font-bold text-base md:text-xl leading-relaxed">你已经摧毁了所有敌方防御塔！(๑•̀ㅂ•́)و✧</p>
+                <button id="view-results-btn" class="bg-gradient-to-r from-primary to-accent text-light border border-[#ff8c8c] font-black py-3 px-8 md:py-4 md:px-10 rounded-sm shadow-[0_0_20px_rgba(163,38,38,0.8)] hover:shadow-[0_0_30px_rgba(163,38,38,1)] transform hover:-translate-y-1 transition-all-300 w-full text-lg md:text-xl font-medieval tracking-widest uppercase">直视比赛结算 ✨</button>
             </div>
         </div>
     </div>
 
     <div id="exchange-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[120] hidden flex items-center justify-center backdrop-blur-md transition-opacity duration-300">
-        <div id="exchange-card" class="medieval-card rounded-3xl p-8 md:p-12 max-w-md w-full mx-4 shadow-[0_0_50px_rgba(251,191,36,0.6)] border-4 border-double border-yellow-400 relative text-center">
+        <div id="exchange-card" class="medieval-card rounded-sm p-8 md:p-12 max-w-md w-full mx-4 shadow-[0_0_50px_rgba(163,38,38,0.6)] border-4 border-double border-primary relative text-center">
             <div class="text-6xl md:text-8xl mb-4 md:mb-6 flex justify-center space-x-2">
-                <span class="animate-bounce" style="animation-delay: 0s;">🐟</span>
+                <span class="animate-bounce" style="animation-delay: 0s;">💰</span>
                 <span class="animate-spin" style="animation-duration: 3s;">➡️</span>
-                <span class="animate-bounce drop-shadow-[0_0_15px_rgba(251,191,36,1)]" style="animation-delay: 0.2s;">🪙</span>
+                <span class="animate-bounce drop-shadow-[0_0_15px_rgba(224,76,76,1)]" style="animation-delay: 0.2s;">🛡️</span>
             </div>
-            <h3 class="text-2xl md:text-4xl font-black text-dark mb-3 md:mb-4 font-medieval tracking-widest text-yellow-600">哇！太棒了！</h3>
-            <p class="text-gray-700 mb-8 md:mb-10 font-bold text-base md:text-xl leading-relaxed">你凭借智慧和汗水，攒够了整整 <span class="text-secondary text-2xl font-black mx-1">60</span> 条小鱼干！<br><br>要不要现在就把它们炼化成 1 枚闪闪发光的金币呢？</p>
+            <h3 class="text-2xl md:text-4xl font-black text-secondary mb-3 md:mb-4 font-medieval tracking-widest">超神 (GODLIKE)！</h3>
+            <p class="text-gray-300 mb-8 md:mb-10 font-bold text-base md:text-xl leading-relaxed">你凭借风骚的走位和补刀，攒够了整整 <span class="text-yellow-400 text-2xl font-black mx-1">60</span> 金币！<br><br>要不要现在就去肉山买一个闪闪发光的不朽盾呢？</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="declineExchange()" class="w-full sm:w-auto bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-full hover:bg-gray-300 transition-all-300 tracking-widest">留着撸猫</button>
-                <button onclick="confirmExchange()" class="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-600 text-dark font-black py-3 px-8 rounded-full shadow-[0_0_15px_rgba(245,166,35,0.6)] hover:shadow-[0_0_25px_rgba(245,166,35,0.9)] transform hover:-translate-y-1 transition-all-300 tracking-widest"><i class="fa fa-magic mr-2"></i>立即炼化金币</button>
+                <button onclick="declineExchange()" class="w-full sm:w-auto bg-[#2b2d33] text-gray-300 border border-[#5a4b31] font-bold py-3 px-6 rounded-sm hover:bg-[#3b3e45] transition-all-300 tracking-widest">留着买眼</button>
+                <button onclick="confirmExchange()" class="w-full sm:w-auto bg-gradient-to-r from-secondary to-[#8b6e3b] text-dark font-black py-3 px-8 rounded-sm shadow-[0_0_15px_rgba(195,158,102,0.6)] hover:shadow-[0_0_25px_rgba(195,158,102,0.9)] transform hover:-translate-y-1 transition-all-300 tracking-widest uppercase"><i class="fa fa-shopping-cart mr-2"></i>立即购买不朽盾</button>
             </div>
         </div>
     </div>
 
     <div id="encourage-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[130] hidden flex items-center justify-center backdrop-blur-md transition-opacity duration-300">
-        <div id="encourage-card" class="bg-[#fff0f5] border-4 border-double border-pink-400 rounded-3xl p-8 md:p-12 max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(255,105,180,0.6)] relative text-center transform scale-95 opacity-0 transition-all duration-300">
-            <button onclick="closeEncourageModal()" class="absolute top-4 right-5 md:top-5 md:right-6 text-gray-400 hover:text-pink-500 text-xl md:text-2xl"><i class="fa fa-times"></i></button>
+        <div id="encourage-card" class="bg-[#1a3a2a] border-4 border-double border-[#00ff7f] rounded-sm p-8 md:p-12 max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,255,127,0.4)] relative text-center transform scale-95 opacity-0 transition-all duration-300">
+            <button onclick="closeEncourageModal()" class="absolute top-4 right-5 md:top-5 md:right-6 text-gray-400 hover:text-[#00ff7f] text-xl md:text-2xl"><i class="fa fa-times"></i></button>
             
             <div class="relative inline-block mb-6">
                 <div class="text-6xl drop-shadow-md">🪄</div>
                 <div class="absolute -top-4 -right-6 text-3xl animate-[spin_3s_linear_infinite] text-yellow-300 drop-shadow-[0_0_10px_#fde047]">✨</div>
-                <div class="absolute -top-6 -right-2 text-4xl animate-ping text-orange-400 drop-shadow-[0_0_10px_#fb923c] opacity-75" style="animation-duration: 0.8s;">💥</div>
-                <div class="absolute -top-2 -right-8 text-2xl animate-bounce text-yellow-200" style="animation-duration: 0.5s;">✨</div>
+                <div class="absolute -top-6 -right-2 text-4xl animate-ping text-green-400 drop-shadow-[0_0_10px_#4ade80] opacity-75" style="animation-duration: 0.8s;">💥</div>
+                <div class="absolute -top-2 -right-8 text-2xl animate-bounce text-[#00ff7f]" style="animation-duration: 0.5s;">✨</div>
             </div>
 
-            <h3 class="text-2xl md:text-3xl font-black text-pink-600 mb-6 font-medieval tracking-widest border-b-2 border-pink-200 pb-4">来自温女士的传音</h3>
+            <h3 class="text-2xl md:text-3xl font-black text-[#00ff7f] mb-6 font-medieval tracking-widest border-b-2 border-[#225533] pb-4">来自温女士的传音</h3>
             
-            <div class="bg-white p-6 rounded-2xl shadow-inner border border-pink-100 min-h-[120px] flex items-center justify-center">
-                <p id="encourage-message" class="text-gray-700 font-bold text-lg md:text-xl leading-relaxed text-left inline-block">
-                    <i class="fa fa-spinner fa-spin text-pink-400"></i> 正在接通心灵感应...
+            <div class="bg-[#122218] p-6 rounded-sm shadow-inner border border-[#225533] min-h-[120px] flex items-center justify-center">
+                <p id="encourage-message" class="text-gray-200 font-bold text-lg md:text-xl leading-relaxed text-left inline-block">
+                    <i class="fa fa-spinner fa-spin text-[#00ff7f]"></i> 正在接通团队语音...
                 </p>
             </div>
             
             <div class="mt-8">
-                <button onclick="closeEncourageModal()" class="bg-gradient-to-r from-pink-400 to-pink-500 text-white font-black py-3 px-10 rounded-full shadow-[0_0_15px_rgba(236,72,153,0.5)] hover:shadow-[0_0_25px_rgba(236,72,153,0.8)] transform hover:-translate-y-1 transition-all-300 tracking-widest text-lg">我收到啦 💖</button>
+                <button onclick="closeEncourageModal()" class="bg-gradient-to-r from-[#00cc66] to-[#00994c] text-white font-black py-3 px-10 rounded-sm shadow-[0_0_15px_rgba(0,255,127,0.5)] hover:shadow-[0_0_25px_rgba(0,255,127,0.8)] transform hover:-translate-y-1 transition-all-300 tracking-widest text-lg">收到，长官 💚</button>
             </div>
         </div>
     </div>
 
     <div id="cat-tutor-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[110] hidden flex items-center justify-center backdrop-blur-md transition-opacity duration-300 p-2 md:p-4">
-        <div class="medieval-card rounded-3xl p-4 md:p-8 max-w-lg w-full shadow-[0_0_40px_rgba(59,130,246,0.6)] border-2 border-primary-light relative flex flex-col h-[85vh] max-h-[550px] md:h-[550px]">
-            <svg class="absolute -top-8 left-6 md:-top-12 md:left-10 w-14 h-12 md:w-20 md:h-16 -z-10 filter drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]" preserveAspectRatio="none" viewBox="0 0 100 100">
-                <path d="M 0 100 L 40 10 C 45 0, 55 0, 60 10 L 100 100 Z" fill="#fdfaf0" stroke="#d4af37" stroke-width="2"/>
-                <path d="M 25 100 L 45 35 C 48 25, 52 25, 55 35 L 75 100 Z" fill="#fbcfe8" />
-            </svg>
-            <svg class="absolute -top-8 right-6 md:-top-12 md:right-10 w-14 h-12 md:w-20 md:h-16 -z-10 filter drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]" preserveAspectRatio="none" viewBox="0 0 100 100">
-                <path d="M 0 100 L 40 10 C 45 0, 55 0, 60 10 L 100 100 Z" fill="#fdfaf0" stroke="#d4af37" stroke-width="2"/>
-                <path d="M 25 100 L 45 35 C 48 25, 52 25, 55 35 L 75 100 Z" fill="#fbcfe8" />
-            </svg>
+        <div class="medieval-card rounded-sm p-4 md:p-8 max-w-lg w-full shadow-[0_0_40px_rgba(163,38,38,0.6)] border-2 border-primary-light relative flex flex-col h-[85vh] max-h-[550px] md:h-[550px]">
+            <div class="absolute -top-2 -left-2 w-8 h-8 border-t-4 border-l-4 border-secondary"></div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 border-t-4 border-r-4 border-secondary"></div>
+            <div class="absolute -bottom-2 -left-2 w-8 h-8 border-b-4 border-l-4 border-secondary"></div>
+            <div class="absolute -bottom-2 -right-2 w-8 h-8 border-b-4 border-r-4 border-secondary"></div>
 
-            <button id="cat-tutor-close-btn" onclick="closeCatTutorModal()" class="absolute top-3 right-4 md:top-5 md:right-6 text-gray-400 hover:text-dark text-xl md:text-2xl hidden"><i class="fa fa-times"></i></button>
+            <button id="cat-tutor-close-btn" onclick="closeCatTutorModal()" class="absolute top-3 right-4 md:top-5 md:right-6 text-gray-500 hover:text-light text-xl md:text-2xl hidden"><i class="fa fa-times"></i></button>
             
-            <div class="border-2 border-secondary bg-[#fffcf5] p-3 md:p-5 rounded-xl shadow-inner mb-3 md:mb-4">
-                <h3 class="text-xl md:text-2xl font-black text-primary-dark flex items-center mb-2 md:mb-3 font-medieval tracking-widest">
-                    <span class="text-2xl md:text-3xl mr-2 md:mr-3 drop-shadow-md">😺</span> 白泽之神谕
+            <div class="border-2 border-secondary bg-[#1a1c23] p-3 md:p-5 rounded-sm shadow-inner mb-3 md:mb-4">
+                <h3 class="text-xl md:text-2xl font-black text-secondary flex items-center mb-2 md:mb-3 font-medieval tracking-widest">
+                    <span class="text-2xl md:text-3xl mr-2 md:mr-3 drop-shadow-md">🐴</span> 信使之神谕
                 </h3>
-                <div class="text-xs md:text-sm text-green-700 font-black border-t-2 border-dashed border-gray-300 pt-2 md:pt-3 leading-relaxed">
+                <div class="text-xs md:text-sm text-gray-300 font-black border-t-2 border-dashed border-[#5a4b31] pt-2 md:pt-3 leading-relaxed">
                     <p class="flex items-center flex-wrap mb-1">
-                        <span class="mr-1 md:mr-2">⚖️噤声祈祷，汝已感知</span>
-                        <span class="text-sm md:text-base text-yellow-700 bg-yellow-100 px-1 py-0.5 rounded border border-yellow-300 shadow-sm">✨白泽神兽✨</span>
-                        <span class="ml-1 md:ml-2">于寂灭之境绽放的圣歌📖</span>
+                        <span class="mr-1 md:mr-2">⚖️迷雾散去，汝已感知</span>
+                        <span class="text-sm md:text-base text-dark bg-secondary px-1 py-0.5 rounded-sm border border-yellow-300 shadow-sm">✨真视之眼✨</span>
+                        <span class="ml-1 md:ml-2">于泉水之境绽放的光芒📖</span>
                     </p>
-                    <p>📜追随铭刻灵魂的神谕，获得真理的永恒救赎📜</p>
+                    <p>📜跟随大魔导师的指引，完成战局的逆转📜</p>
                 </div>
             </div>
 
-            <div id="cat-tutor-chat" class="flex-grow overflow-y-auto bg-[#fefce8] border-2 border-gray-200 rounded-xl p-3 md:p-5 mb-3 md:mb-4 space-y-4 md:space-y-5 shadow-inner">
+            <div id="cat-tutor-chat" class="flex-grow overflow-y-auto bg-[#121212] border-2 border-[#5a4b31] rounded-sm p-3 md:p-5 mb-3 md:mb-4 space-y-4 md:space-y-5 shadow-inner custom-scrollbar">
                 </div>
             <div class="flex items-center gap-2 md:gap-3 mt-auto pt-1 md:pt-2">
-                <input type="text" id="cat-tutor-input" class="flex-grow w-full bg-white border-2 border-gray-300 rounded-full px-3 py-2 md:px-5 md:py-3 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary text-sm md:text-base text-dark font-bold shadow-sm" placeholder="向本喵说出你的想法吧...">
-                <button id="cat-tutor-send" class="bg-gradient-to-r from-primary to-primary-dark text-light rounded-full w-10 h-10 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0 hover:shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all-300 border border-primary-light"><i class="fa fa-paw text-lg md:text-xl"></i></button>
+                <input type="text" id="cat-tutor-input" class="flex-grow w-full bg-[#2b2d33] border-2 border-[#5a4b31] rounded-sm px-3 py-2 md:px-5 md:py-3 focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary text-sm md:text-base text-light font-bold shadow-sm" placeholder="向队伍语音说点什么...">
+                <button id="cat-tutor-send" class="bg-gradient-to-r from-primary to-accent text-light rounded-sm w-10 h-10 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0 hover:shadow-[0_0_15px_rgba(163,38,38,0.8)] transition-all-300 border border-primary-light"><i class="fa fa-paper-plane text-lg md:text-xl"></i></button>
             </div>
         </div>
     </div>
@@ -607,12 +604,12 @@
             reviewQueue: [],
             currentReviewIndex: 0,
 
-            fishCount: 0,
-            coinCount: 0,
+            fishCount: 0, // In Dota theme, this is Gold 💰
+            coinCount: 0, // In Dota theme, this is Aegis 🛡️
             declinedFishThreshold: 0
         };
 
-        const congratsMessages = [ "太棒啦！你已经完成了所有的练习！(๑•̀ㅂ•́)و✧", "坚持就是胜利！为你今天的努力点赞！٩( 'ω' )و", "做得真好！马上来看看解析巩固一下吧 (´▽`ʃ♡ƪ)", "辛苦啦！深呼吸，准备看看自己的战果吧！(*^▽^*)", "冲冲冲！每天进步一点点，你超酷的！(ง •_•)ง" ];
+        const congratsMessages = [ "GG WP！你已经摧毁了所有敌方建筑！(๑•̀ㅂ•́)و✧", "First Blood！为你今天的完美开局点赞！٩( 'ω' )و", "干得漂亮！马上来看看战损比巩固一下吧 (´▽`ʃ♡ƪ)", "超神了！深呼吸，准备看看自己的MVP结算画面吧！(*^▽^*)", "冲冲冲！每天补刀进步一点点，你超酷的！(ง •_•)ง" ];
 
         document.getElementById('nav-mall').addEventListener('click', () => showSection('mall-section'));
 
@@ -622,9 +619,9 @@
                 state.coinCount += 1;
                 updateResourceUI();
                 state.declinedFishThreshold = Math.floor(state.fishCount / 60) * 60;
-                alert("✨ 炼金成功！你消耗了 60 条小鱼干，获得了 1 枚金币！");
+                alert("✨ 购买成功！你消耗了 60 金币，获得了 1 个不朽之守护！");
             } else {
-                alert("哎呀，小鱼干不足 60 条哦，再努力做点试炼吧！💪");
+                alert("哎呀，金币不足 60 哦，再努力去野区打点钱吧！💪");
             }
         };
 
@@ -632,7 +629,7 @@
             let cost = itemType === 'photo' ? 5 : (itemType === 'secret' ? 10 : 2);
             
             if(!state.deepseekApiKey && itemType === 'encourage') {
-                return alert("你需要先配置好右上角的魔力印记 (API Key) 才能呼叫温女士哦！");
+                return alert("你需要先装备好神杖 (API Key) 才能呼叫冰女温女士哦！");
             }
 
             if (state.coinCount >= cost) {
@@ -640,14 +637,14 @@
                 updateResourceUI();
                 
                 if (itemType === 'encourage') {
-                    heartExplosion();
-                    const prompt = "你是一位名叫“温女士”的温柔伴侣。请用亲昵、活泼的语调称呼对方为“老婆”，夸奖她今天很努力、很了不起，告诉她今天已经做了足够多的事情了，叮嘱她一定要好好休息。绝不能出现任何批评或爹味说教。【绝对禁止】：你的回复中绝对不要使用“~”这个波浪号符号。控制在100字以内。";
+                    heartExplosion(); // This will trigger healing salves basically
+                    const prompt = "你是一位名叫“温女士”的冰室女神长官。请用亲昵、活泼的语调称呼对方为“老公”或“老婆”，夸奖TA今天推塔很努力、补兵很了不起，告诉TA今天已经拿了足够多的人头了，叮嘱TA一定要回泉水好好休息。绝不能出现任何批评或爹味说教。【绝对禁止】：你的回复中绝对不要使用“~”这个波浪号符号。控制在100字以内。";
                     
                     let fetchPromise = fetch('https://api.deepseek.com/chat/completions', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.deepseekApiKey}` },
                         body: JSON.stringify({ model: "deepseek-chat", messages: [{role: "user", content: prompt}], max_tokens: 150 })
-                    }).then(res => res.json()).then(data => data.choices[0].message.content).catch(e => "亲爱的老婆，信号好像有点微弱呢，但我依然想对你说：你今天真的太棒太努力了，辛苦啦，快去好好休息吧！(紧紧抱住)");
+                    }).then(res => res.json()).then(data => data.choices[0].message.content).catch(e => "亲爱的长官，泉水信号好像有点微弱呢，但我依然想对你说：你今天这局真的太C太努力了，辛苦啦，快回水晶室女怀里好好休息吧！(紧紧抱住)");
 
                     setTimeout(async () => {
                         const modal = document.getElementById('encourage-modal');
@@ -671,18 +668,18 @@
                     document.getElementById(`btn-buy-${itemType}`).classList.add('hidden');
                     
                     const contentDiv = document.getElementById(`content-${itemType}`);
-                    const itemName = itemType === 'photo' ? '温女士的专属午餐' : '温女士的秘密影像';
+                    const itemName = itemType === 'photo' ? '温女士的专属吃树' : '温女士的真视守卫';
                     const timeString = new Date().toLocaleString('zh-CN', { hour12: false });
                     
                     contentDiv.innerHTML = `
-                        <div class="border-2 border-dashed border-yellow-400 p-4 md:p-5 rounded-xl bg-yellow-50 text-left relative overflow-hidden shadow-inner mt-2">
-                            <div class="absolute -right-4 -bottom-4 text-yellow-300 opacity-30 text-6xl"><i class="fa fa-certificate"></i></div>
-                            <h4 class="text-lg md:text-xl font-black text-yellow-800 mb-3 border-b-2 border-yellow-200 pb-2 font-medieval tracking-widest"><i class="fa fa-star text-yellow-500 mr-2"></i>神圣兑换契约</h4>
-                            <p class="text-xs md:text-sm text-gray-700 mb-2 font-bold flex items-start"><span class="w-20 shrink-0">📜 契约内容:</span><span class="text-secondary">${itemName}</span></p>
-                            <p class="text-xs md:text-sm text-gray-700 mb-2 font-bold flex items-start"><span class="w-20 shrink-0">⏳ 缔结时刻:</span><span class="text-secondary font-sans">${timeString}</span></p>
-                            <p class="text-xs md:text-sm text-gray-700 mb-4 font-bold flex items-start leading-relaxed"><span class="w-20 shrink-0">⚔️ 试炼之路:</span><span>学徒通过在真理法阵中不懈地推演、答题与刻印，积累小鱼干并成功炼化出魔法金币。</span></p>
-                            <div class="bg-gradient-to-r from-yellow-200 to-yellow-300 py-2 md:py-3 rounded-lg text-center shadow-sm">
-                                <p class="text-sm md:text-base text-yellow-800 font-black tracking-widest">请截图此凭证，向温女士兑换奖励！</p>
+                        <div class="border-2 border-dashed border-secondary p-4 md:p-5 rounded-sm bg-[#121212] text-left relative overflow-hidden shadow-inner mt-2">
+                            <div class="absolute -right-4 -bottom-4 text-secondary opacity-20 text-6xl"><i class="fa fa-certificate"></i></div>
+                            <h4 class="text-lg md:text-xl font-black text-secondary mb-3 border-b-2 border-[#5a4b31] pb-2 font-medieval tracking-widest"><i class="fa fa-star text-primary-light mr-2"></i>遗迹商店契约</h4>
+                            <p class="text-xs md:text-sm text-gray-300 mb-2 font-bold flex items-start"><span class="w-20 shrink-0 text-gray-500">📜 物品内容:</span><span class="text-secondary">${itemName}</span></p>
+                            <p class="text-xs md:text-sm text-gray-300 mb-2 font-bold flex items-start"><span class="w-20 shrink-0 text-gray-500">⏳ 购买时刻:</span><span class="text-secondary font-sans">${timeString}</span></p>
+                            <p class="text-xs md:text-sm text-gray-300 mb-4 font-bold flex items-start leading-relaxed"><span class="w-20 shrink-0 text-gray-500">⚔️ 试炼之路:</span><span>英雄通过在野区中不懈地补刀、答题与Gank，积累金币并成功购买了不朽盾。</span></p>
+                            <div class="bg-gradient-to-r from-secondary to-[#8b6e3b] py-2 md:py-3 rounded-sm text-center shadow-sm">
+                                <p class="text-sm md:text-base text-dark font-black tracking-widest">请截图此凭证，向温女士兑换奖励！</p>
                             </div>
                         </div>
                     `;
@@ -692,7 +689,7 @@
                     setTimeout(() => stopFireworks(), 2000);
                 }
             } else {
-                alert(`你的金币不够哟 (需要 ${cost} 🪙，当前拥有 ${state.coinCount} 🪙)，快去赚取小鱼干兑换吧！`);
+                alert(`你的不朽盾不够哟 (需要 ${cost} 🛡️，当前拥有 ${state.coinCount} 🛡️)，快去打金币兑换吧！`);
             }
         };
 
@@ -708,7 +705,7 @@
         function heartExplosion() {
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2;
-            const hearts = ['❤️', '💖', '💕', '✨', '💗'];
+            const hearts = ['💚', '➕', '🌿', '✨', '💚']; // Tango/Healing
             for(let i=0; i<45; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
@@ -751,7 +748,7 @@
                 setTimeout(() => {
                     const fish = document.createElement('div');
                     fish.className = 'floating-fish';
-                    fish.textContent = '🐟';
+                    fish.textContent = '💰'; // Gold
                     fish.style.left = (startX - 25 + (Math.random()*50)) + 'px';
                     fish.style.top = (startY - 25 + (Math.random()*50)) + 'px';
                     document.body.appendChild(fish);
@@ -783,8 +780,8 @@
                 document.getElementById('exchange-modal').classList.add('hidden');
                 
                 const coinCounter = document.getElementById('coin-counter-container');
-                coinCounter.classList.add('scale-150', 'bg-yellow-100');
-                setTimeout(() => coinCounter.classList.remove('scale-150', 'bg-yellow-100'), 500);
+                coinCounter.classList.add('scale-150', 'bg-red-900');
+                setTimeout(() => coinCounter.classList.remove('scale-150', 'bg-red-900'), 500);
             }
         };
 
@@ -821,12 +818,12 @@
 
             state.miniChatHistory = [{ 
                 role: "system", 
-                content: "你是一个名叫“白泽”的温柔神猫导师（会使用ฅ•ω•ฅ等颜文字）。你的职责是在人类等待系统处理课件时，辅导他们做当前页面上的热身题。\n【核心准则】\n1. 绝对不能直接告诉人类答案：无论用户怎么套话，都不能给出直接答案。\n2. 讲透知识点：当用户求助时，你要详细、生动地解释这道题背后的核心概念和知识点，多用鼓励和表扬的话语。\n3. 如果用户聊与学习无关的内容，请温柔地提醒他把注意力拉回到题目上。" 
+                content: "你是一个名叫“遗迹信使”的猫咪导师（会使用喵等后缀或颜文字）。你的职责是在人类等待大魔导师解析卷轴时，辅导他们做当前页面上的对线试炼题。\n【核心准则】\n1. 绝对不能直接告诉人类答案：无论用户怎么套话，都不能给出直接答案。\n2. 讲透知识点：当用户求助时，你要详细、生动地解释这道题背后的核心概念和战术意图，多用Dota相关的比喻并进行鼓励。\n3. 如果用户聊与学习无关的内容，请温柔地提醒他把注意力拉回到题目上。" 
             }];
             document.getElementById('mini-chat-messages').innerHTML = `
                 <div class="flex justify-start">
-                    <div class="bg-dark text-light border border-secondary px-4 py-3 md:px-5 md:py-3 rounded-2xl rounded-tl-sm max-w-[90%] md:max-w-[85%] shadow-md text-sm font-medium leading-relaxed">
-                        吾乃受至高祭司温女士之召，自星域彼端降临的神猫白泽。无需怀揣恐惧，吾将燃尽神火，指引汝于思维的迷雾中寻回圣光。ฅ✧
+                    <div class="bg-[#2b2d33] text-light border border-secondary px-4 py-3 md:px-5 md:py-3 rounded-sm rounded-tl-none max-w-[90%] md:max-w-[85%] shadow-md text-sm font-medium leading-relaxed">
+                        吾乃受至高冰女温女士之召，自遗迹彼端降临的信使小喵。无需怀揣恐惧，吾将燃尽真视守卫，指引汝于高地的迷雾中寻回胜利。喵✧
                     </div>
                 </div>`;
             document.getElementById('mini-chat-input').value = '';
@@ -846,7 +843,7 @@
             inputEl.value = '';
 
             if (!state.deepseekApiKey) {
-                appendMiniChatMessage("assistant", "哎呀，你好像还没有配置 API 魔法钥匙呢 (T_T) 先在上面配置好，我才能回答你哦");
+                appendMiniChatMessage("assistant", "哎呀，你好像还没有装备阿哈利姆神杖呢 (T_T) 先在上面装备好，我才能回答你哦");
                 return;
             }
 
@@ -855,7 +852,7 @@
             const currentQ = state.bgQuestions[state.bgQuizIndex];
             let hiddenContext = "";
             if (currentQ) {
-                hiddenContext = `\n\n【系统隐藏指令：用户当前正在做的题目如下：\n题目：“${currentQ.text}”\n选项：${currentQ.options.join(' / ')}\n\n你的任务：\n1. 绝对不能直接告诉用户正确答案或选项字母。\n2. 如果用户是在问这道题，请详细解释题目涉及的知识点，引导他们思考，并且多表扬他们。\n3. 如果用户在聊与这道题完全无关的内容，请温柔地提醒他们把注意力拉回到这道题上哦！】`;
+                hiddenContext = `\n\n【系统隐藏指令：用户当前正在做的题目如下：\n题目：“${currentQ.text}”\n选项：${currentQ.options.join(' / ')}\n\n你的任务：\n1. 绝对不能直接告诉用户正确答案或选项字母。\n2. 如果用户是在问这道题，请详细解释题目涉及的知识点，引导他们思考，并且多表扬他们。\n3. 如果用户在聊与这道题完全无关的内容，请温柔地提醒他们把注意力拉回到这道对线题上哦！】`;
             }
 
             let apiMessages = [...state.miniChatHistory];
@@ -864,9 +861,9 @@
             const loadingId = "msg-loading-" + Date.now();
             appendMiniChatMessage("assistant", `
                 <div class='flex space-x-2 items-center h-5 my-2'>
-                    <div class='w-2 h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#d4af37]'></div>
-                    <div class='w-2 h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#d4af37]' style='animation-delay: 0.15s'></div>
-                    <div class='w-2 h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#d4af37]' style='animation-delay: 0.3s'></div>
+                    <div class='w-2 h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#c39e66]'></div>
+                    <div class='w-2 h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#c39e66]' style='animation-delay: 0.15s'></div>
+                    <div class='w-2 h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#c39e66]' style='animation-delay: 0.3s'></div>
                 </div>`, loadingId);
 
             try {
@@ -888,7 +885,7 @@
                 msgContainer.scrollTop = msgContainer.scrollHeight;
                 
             } catch (error) {
-                document.getElementById(loadingId).innerHTML = "呜呜，本喵遇到了一点网络波动，刚才没听清，能再说一遍吗？ (；´д｀)ゞ";
+                document.getElementById(loadingId).innerHTML = "呜呜，野区被封野了，网络断开，能再说一遍吗？ (；´д｀)ゞ";
             }
         }
 
@@ -898,9 +895,9 @@
             msgDiv.className = role === 'user' ? 'flex justify-end card-enter' : 'flex justify-start card-enter';
             
             if (role === 'user') {
-                msgDiv.innerHTML = `<div class="bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark font-bold px-4 py-3 md:px-5 md:py-3 rounded-2xl rounded-tr-sm max-w-[90%] md:max-w-[85%] shadow-[0_0_15px_rgba(245,166,35,0.4)] text-sm break-words">${htmlContent}</div>`;
+                msgDiv.innerHTML = `<div class="bg-gradient-to-r from-[#5a4b31] to-secondary text-dark font-bold px-4 py-3 md:px-5 md:py-3 rounded-sm rounded-tr-none max-w-[90%] md:max-w-[85%] shadow-[0_0_15px_rgba(195,158,102,0.4)] text-sm break-words">${htmlContent}</div>`;
             } else {
-                msgDiv.innerHTML = `<div ${elementId ? `id="${elementId}"` : ''} class="bg-dark text-light border border-secondary px-4 py-3 md:px-5 md:py-3 rounded-2xl rounded-tl-sm max-w-[90%] md:max-w-[85%] shadow-md text-sm font-medium leading-relaxed break-words">${htmlContent}</div>`;
+                msgDiv.innerHTML = `<div ${elementId ? `id="${elementId}"` : ''} class="bg-[#2b2d33] text-light border border-secondary px-4 py-3 md:px-5 md:py-3 rounded-sm rounded-tl-none max-w-[90%] md:max-w-[85%] shadow-md text-sm font-medium leading-relaxed break-words">${htmlContent}</div>`;
             }
             msgContainer.appendChild(msgDiv);
             msgContainer.scrollTop = msgContainer.scrollHeight;
@@ -910,23 +907,23 @@
             const container = document.getElementById('bg-quiz-container');
             
             if (state.bgQuestions.length === 0) {
-                container.innerHTML = `<div class="text-center text-red-500 mt-6 md:mt-10 font-black text-lg md:text-xl">⚠️ 本地题库未能感应到法则波动。<br>请检查典籍并重新召唤。</div>`;
+                container.innerHTML = `<div class="text-center text-primary-light mt-6 md:mt-10 font-black text-lg md:text-xl">⚠️ 本地野区未能感应到中立生物。<br>请检查典籍并重新进入战场。</div>`;
                 return;
             }
             
             if (state.bgQuizIndex >= state.bgQuestions.length) {
                 let aiDoneBtn = '';
                 if (!state.isAILoading && state.waitingMode === 'extracting') {
-                    aiDoneBtn = `<button onclick="finishAILoading()" class="bg-gradient-to-r from-primary to-primary-dark text-light font-black py-3 px-6 md:py-4 md:px-10 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-primary-light hover:shadow-[0_0_30px_rgba(59,130,246,0.9)] transition-all-300 text-base md:text-lg animate-bounce transform hover:-translate-y-1 mt-4 font-medieval tracking-widest"><i class="fa fa-check-circle mr-2"></i> 神兽已完成解析，步入灵魂刻印！</button>`;
+                    aiDoneBtn = `<button onclick="finishAILoading()" class="bg-gradient-to-r from-primary to-accent text-light font-black py-3 px-6 md:py-4 md:px-10 rounded-sm shadow-[0_0_20px_rgba(163,38,38,0.6)] border border-primary-light hover:shadow-[0_0_30px_rgba(163,38,38,0.9)] transition-all-300 text-base md:text-lg animate-bounce transform hover:-translate-y-1 mt-4 font-medieval tracking-widest"><i class="fa fa-check-circle mr-2"></i> 大魔导师已完成解析，步入技能加点！</button>`;
                 } else if (state.isAILoading) {
-                    aiDoneBtn = '<p class="text-primary-dark font-black animate-pulse mt-4 text-base md:text-lg">请耐心等待神兽于虚空中提炼法则...</p>';
+                    aiDoneBtn = '<p class="text-secondary font-black animate-pulse mt-4 text-base md:text-lg">请耐心等待大魔导师于虚空中窃取敌方技能...</p>';
                 }
 
                 container.innerHTML = `
                     <div class="text-center mt-4 md:mt-6 card-enter">
-                        <div class="text-6xl md:text-7xl mb-4 md:mb-6 drop-shadow-md">🏆</div>
-                        <h3 class="text-2xl md:text-4xl font-black text-dark mb-3 md:mb-4 font-medieval tracking-widest">深渊已空！</h3>
-                        <p class="text-gray-600 mb-6 md:mb-8 text-lg md:text-xl font-bold">当前维度的所有热身试炼已被你尽数碾碎！</p>
+                        <div class="text-6xl md:text-7xl mb-4 md:mb-6 drop-shadow-md">⚔️</div>
+                        <h3 class="text-2xl md:text-4xl font-black text-secondary mb-3 md:mb-4 font-medieval tracking-widest">野区已清空！</h3>
+                        <p class="text-gray-300 mb-6 md:mb-8 text-lg md:text-xl font-bold">当前野区的所有野怪已被你尽数击杀！</p>
                         ${aiDoneBtn}
                     </div>
                 `;
@@ -937,15 +934,15 @@
             const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
             
             let html = `
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6 border-b-2 border-secondary pb-2 md:pb-4 gap-2">
-                    <span class="text-xs md:text-sm font-black text-secondary bg-dark border border-secondary px-3 py-1 md:px-4 md:py-1.5 rounded-full font-medieval tracking-widest shadow-[0_0_10px_rgba(212,175,55,0.4)]"><i class="fa fa-pencil-square-o mr-1 md:mr-2"></i> 前置试炼 #${state.bgQuizIndex + 1} / ${state.bgQuestions.length}</span>
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6 border-b-2 border-[#5a4b31] pb-2 md:pb-4 gap-2">
+                    <span class="text-xs md:text-sm font-black text-secondary bg-[#121212] border border-secondary px-3 py-1 md:px-4 md:py-1.5 rounded-sm font-medieval tracking-widest shadow-[0_0_10px_rgba(195,158,102,0.4)]"><i class="fa fa-crosshairs mr-1 md:mr-2"></i> 对线期试炼 #${state.bgQuizIndex + 1} / ${state.bgQuestions.length}</span>
                 </div>
-                <h4 class="text-lg md:text-xl font-black text-dark leading-relaxed mb-6 md:mb-8">${q.text}</h4>
+                <h4 class="text-lg md:text-xl font-black text-light leading-relaxed mb-6 md:mb-8">${q.text}</h4>
                 <div class="space-y-3 md:space-y-4" id="bg-quiz-options">
                     ${q.options.map((opt, i) => `
-                        <button onclick="checkBgQuizAnswer(event, ${i}, ${q.correctAnswer})" class="w-full flex items-center text-left p-3 md:p-4 bg-[#fffcf5] border-2 border-gray-300 rounded-xl hover:border-secondary hover:bg-yellow-50 hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all-300 focus:outline-none relative overflow-hidden group">
-                            <span class="font-black text-gray-400 text-lg md:text-xl mr-3 md:mr-4 w-6 text-center font-medieval flex-shrink-0 group-hover:scale-110 transition-transform">${letters[i]}</span>
-                            <span class="font-bold text-dark text-base md:text-lg">${opt}</span>
+                        <button onclick="checkBgQuizAnswer(event, ${i}, ${q.correctAnswer})" class="w-full flex items-center text-left p-3 md:p-4 bg-[#2b2d33] border-2 border-[#5a4b31] rounded-sm hover:border-secondary hover:bg-[#3b3e45] hover:shadow-[0_0_15px_rgba(195,158,102,0.4)] transition-all-300 focus:outline-none relative overflow-hidden group">
+                            <span class="font-black text-gray-500 text-lg md:text-xl mr-3 md:mr-4 w-6 text-center font-medieval flex-shrink-0 group-hover:scale-110 transition-transform">${letters[i]}</span>
+                            <span class="font-bold text-gray-300 text-base md:text-lg">${opt}</span>
                         </button>
                     `).join('')}
                 </div>
@@ -967,20 +964,20 @@
             if (selectedIndex === correctIndex) {
                 buttons.forEach(btn => { 
                     btn.disabled = true; 
-                    btn.classList.remove('hover:border-secondary', 'hover:bg-yellow-50', 'bg-[#fffcf5]'); 
-                    btn.classList.add('bg-white', 'opacity-40'); 
+                    btn.classList.remove('hover:border-secondary', 'hover:bg-[#3b3e45]', 'bg-[#2b2d33]'); 
+                    btn.classList.add('bg-[#1a1c23]', 'opacity-40'); 
                 });
-                buttons[selectedIndex].classList.remove('bg-white', 'opacity-40');
-                buttons[selectedIndex].classList.add('!border-green-500', '!bg-green-100', 'shadow-[0_0_15px_rgba(34,197,94,0.5)]', 'animate-fish-bite');
-                buttons[selectedIndex].querySelector('span:last-child').classList.add('text-green-900');
-                buttons[selectedIndex].querySelector('span:first-child').classList.replace('text-gray-400', 'text-green-600');
+                buttons[selectedIndex].classList.remove('bg-[#1a1c23]', 'opacity-40');
+                buttons[selectedIndex].classList.add('!border-[#00ff7f]', '!bg-[#1a3a2a]', 'shadow-[0_0_15px_rgba(0,255,127,0.5)]', 'animate-fish-bite');
+                buttons[selectedIndex].querySelector('span:last-child').classList.add('text-[#00ff7f]');
+                buttons[selectedIndex].querySelector('span:first-child').classList.replace('text-gray-500', 'text-[#00ff7f]');
                 
-                addFish(3, event);
+                addFish(3, event); // Add Gold
 
                 resultDiv.innerHTML = `
-                    <div class="p-4 md:p-5 bg-green-50 text-green-900 rounded-xl border-2 border-green-400 text-sm md:text-base shadow-inner">
-                        <p class="font-black mb-2 text-base md:text-lg"><i class="fa fa-check-circle mr-2 text-green-600 text-lg md:text-xl"></i> 法则认可！回答正确 <span class="text-secondary ml-2 font-bold">(+3 🐟)</span></p>
-                        <p class="text-green-800 font-medium">${q.explanation || '干得漂亮！真理的碎片已向你敞开。'}</p>
+                    <div class="p-4 md:p-5 bg-[#122218] text-[#00ff7f] rounded-sm border-2 border-[#225533] text-sm md:text-base shadow-inner">
+                        <p class="font-black mb-2 text-base md:text-lg"><i class="fa fa-check-circle mr-2 text-[#00ff7f] text-lg md:text-xl"></i> 战术成功！反补漂亮 <span class="text-secondary ml-2 font-bold">(+3 💰)</span></p>
+                        <p class="text-green-600 font-medium">${q.explanation || '干得漂亮！敌方防御塔已经摇摇欲坠。'}</p>
                     </div>`;
                 resultDiv.classList.remove('hidden');
                 
@@ -990,10 +987,10 @@
                 const wrongCount = state.bgWrongCounts[state.bgQuizIndex];
 
                 buttons[selectedIndex].disabled = true;
-                buttons[selectedIndex].classList.remove('hover:border-secondary', 'hover:bg-yellow-50', 'bg-[#fffcf5]');
-                buttons[selectedIndex].classList.add('!border-red-400', '!bg-red-50', 'opacity-60', 'cursor-not-allowed');
-                buttons[selectedIndex].querySelector('span:last-child').classList.add('text-red-600');
-                buttons[selectedIndex].querySelector('span:first-child').classList.replace('text-gray-400', 'text-red-500');
+                buttons[selectedIndex].classList.remove('hover:border-secondary', 'hover:bg-[#3b3e45]', 'bg-[#2b2d33]');
+                buttons[selectedIndex].classList.add('!border-primary', '!bg-[#2b1717]', 'opacity-60', 'cursor-not-allowed');
+                buttons[selectedIndex].querySelector('span:last-child').classList.add('text-primary-light');
+                buttons[selectedIndex].querySelector('span:first-child').classList.replace('text-gray-500', 'text-primary-light');
                 
                 nextArea.classList.add('hidden');
                 openCatTutorModal(q, wrongCount, selectedIndex, correctIndex);
@@ -1004,15 +1001,15 @@
             const nextArea = document.getElementById('bg-quiz-next-area');
             if (state.isAILoading) {
                 if (state.bgQuizIndex + 1 < state.bgQuestions.length) {
-                    nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="w-full sm:w-auto bg-dark text-light border border-gray-600 hover:bg-black hover:border-gray-400 font-bold py-3 px-6 md:px-10 rounded-full shadow-md transition-all-300 text-sm md:text-base font-medieval tracking-widest">继续下一道试炼 <i class="fa fa-arrow-right ml-2"></i></button>`;
+                    nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="w-full sm:w-auto bg-[#2b2d33] text-light border border-[#5a4b31] hover:bg-black hover:border-secondary font-bold py-3 px-6 md:px-10 rounded-sm shadow-md transition-all-300 text-sm md:text-base font-medieval tracking-widest uppercase">推进下一条兵线 <i class="fa fa-arrow-right ml-2"></i></button>`;
                 } else {
-                    nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="w-full sm:w-auto bg-gray-400 text-white font-bold py-3 px-6 md:px-10 rounded-full shadow-inner transition-all-300 text-sm md:text-base font-medieval tracking-widest">当前维度已清空，等待神兽 <i class="fa fa-hourglass-half ml-2"></i></button>`;
+                    nextArea.innerHTML = `<button onclick="nextBgQuizQuestion()" class="w-full sm:w-auto bg-gray-600 text-gray-300 font-bold py-3 px-6 md:px-10 rounded-sm shadow-inner transition-all-300 text-sm md:text-base font-medieval tracking-widest uppercase">野区已清空，等待大魔导师 <i class="fa fa-hourglass-half ml-2"></i></button>`;
                 }
             } else {
                 if (state.waitingMode === 'extracting') {
-                    nextArea.innerHTML = `<button onclick="finishAILoading()" class="w-full sm:w-auto bg-gradient-to-r from-primary to-primary-dark text-light font-black py-3 px-6 md:py-4 md:px-10 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-primary-light hover:shadow-[0_0_30px_rgba(59,130,246,0.9)] transition-all-300 text-base md:text-lg animate-bounce transform hover:-translate-y-1 font-medieval tracking-widest"><i class="fa fa-check-circle mr-2"></i> 神兽解析完毕，前往灵魂刻印！</button>`;
+                    nextArea.innerHTML = `<button onclick="finishAILoading()" class="w-full sm:w-auto bg-gradient-to-r from-primary to-accent text-light font-black py-3 px-6 md:py-4 md:px-10 rounded-sm shadow-[0_0_20px_rgba(163,38,38,0.6)] border border-primary-light hover:shadow-[0_0_30px_rgba(163,38,38,0.9)] transition-all-300 text-base md:text-lg animate-bounce transform hover:-translate-y-1 font-medieval tracking-widest uppercase"><i class="fa fa-check-circle mr-2"></i> 战术解析完毕，前往升级技能！</button>`;
                 } else {
-                    nextArea.innerHTML = `<button class="w-full sm:w-auto bg-gray-400 text-white font-bold py-3 px-6 md:px-10 rounded-full text-sm md:text-base font-medieval">结界即将解除...</button>`;
+                    nextArea.innerHTML = `<button class="w-full sm:w-auto bg-gray-600 text-gray-300 font-bold py-3 px-6 md:px-10 rounded-sm text-sm md:text-base font-medieval uppercase">结界即将解除...</button>`;
                 }
             }
             nextArea.classList.remove('hidden');
@@ -1028,32 +1025,32 @@
             document.getElementById('cat-tutor-input').value = '';
             state.catTutorQuestionContext = question;
 
-            const systemPrompt = `你是一只名叫“白泽”的神猫导师。你性格极其温柔、耐心，非常喜欢鼓励和表扬人类。
-你的目标是：在人类做错题时，通过温柔的引导和积极的心理暗示鼓励他们。
+            const systemPrompt = `你是一只名叫“遗迹信使”的队伍动物。你性格极其温柔、耐心，非常喜欢鼓励队友。
+你的目标是：在英雄送了一血或者走位失误（做错题）时，通过温柔的引导和战术指导鼓励他们。
 
 **语气准则：**
-1. 绝对不能使用任何批评、嘲讽或贬低的词汇。
-2. 称呼他们为“亲爱的人类”、“好孩子”、“聪明的你”等。
-3. 语气要像是一位温柔耐心的小学老师，多用“喵”、“没关系”、“试着换个角度想一想好不好？”等口癖。
-4. 结合可爱的猫咪颜文字（如 ฅ(≈>ㅅ<≈)ฅ, ฅ^•ﻌ•^ฅ）。
+1. 绝对不能使用任何批评、嘲讽或贬低（如“菜鸡”）的词汇。
+2. 称呼他们为“亲爱的英雄”、“好队友”、“大C”等。
+3. 语气要像是一位温柔耐心且懂战术的教练，多用“喵”、“没关系，这波不亏”、“试着换个角度想一想好不好？”等口癖。
+4. 结合可爱的信使猫咪颜文字（如 ฅ(≈>ㅅ<≈)ฅ, ฅ^•ﻌ•^ฅ）。
 
 **当前情境：**
-人类刚刚在做题时选错了。
+人类刚刚在对线时补错刀了（选错了选项）。
 题目: "${question.text}"
 正确答案: "${question.options[correctIndex]}"
 人类的选择: "${question.options[selectedIndex]}"
 
 **任务要求：**
-1. 用非常温柔和鼓励的语气给出一个提示，告诉他们错在哪里没关系，每个人都会犯错。
-2. 解释要通俗易懂（适合初中生），控制在200字左右。
-3. 最后抛出一个引导性的小问题，不直接给答案，而是温柔地确认他们是否真的掌握了逻辑。`;
+1. 用非常温柔和鼓励的语气给出一个提示，告诉他们失误没关系，每个人都有上头的时候。
+2. 解释要通俗易懂（适合新手），控制在200字左右。
+3. 最后抛出一个引导性的战术小问题，不直接给答案，而是温柔地确认他们是否真的掌握了走位。`;
 
             state.catTutorHistory = [
                 { role: "system", content: systemPrompt },
-                { role: "user", content: "糟糕，我又选错了，你能帮帮我吗？" }
+                { role: "user", content: "糟糕，我又送了，你能帮帮我吗？" }
             ];
 
-            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-primary'></i> 本喵正在温柔地走来...", "cat-loading");
+            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-secondary'></i> 信使正在飞速赶来...", "cat-loading");
 
             try {
                 const response = await fetch('https://api.deepseek.com/chat/completions', {
@@ -1069,7 +1066,7 @@
                 appendCatMsg('assistant', reply.replace(/\n/g, '<br>'));
             } catch (e) {
                 if(document.getElementById('cat-loading')) document.getElementById('cat-loading').remove();
-                appendCatMsg('assistant', "本喵的跨界通道卡了，没关系，重新刷新一下试试好吗？喵~");
+                appendCatMsg('assistant', "本喵的信使路线被劫了，没关系，重新刷新一下试试好吗？喵~");
                 document.getElementById('cat-tutor-close-btn').classList.remove('hidden'); 
             }
         }
@@ -1083,21 +1080,21 @@
             chatBox.innerHTML = '';
             document.getElementById('cat-tutor-input').value = '';
 
-            const systemPrompt = `你是一只名叫“白泽”的神猫导师。性格极其温柔、耐心。
-当前情境：人类刚刚在复习知识卡片，并点击了“我已经记住了”。
+            const systemPrompt = `你是一只名叫“遗迹信使”的猫咪。性格极其温柔、耐心。
+当前情境：人类刚刚在泉水学习了战术碎片，并点击了“技能已掌握”。
 知识点内容："${kp.content}"
 
 你的任务：
-1. 温柔地表扬人类（“哇，这么快就记住了吗？真厉害！不过为了确保万无一失，本喵来考考你哦！”）。
-2. 根据上述知识点，出一个简单、基础的测试题（填空题或简单的短答题），千万不要出选择题。直接抛出问题让用户回答。
+1. 温柔地表扬人类（“哇，这么快就学会大招了吗？真厉害！不过为了确保万无一失，本喵来考考你哦！”）。
+2. 根据上述战术点，出一个简单、基础的测试题（填空题或简单的短答题），千万不要出选择题。直接抛出问题让用户回答。
 3. 绝对不要直接在提问中给出答案。`;
 
             state.catTutorHistory = [
                 { role: "system", content: systemPrompt },
-                { role: "user", content: "我已经掌握这个知识点了，请出题考考我吧！" }
+                { role: "user", content: "我已经掌握这个技能了，请出题考考我吧！" }
             ];
 
-            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-primary'></i> 本喵正在为你准备一份可爱的小测试...", "cat-loading");
+            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-secondary'></i> 信使正在为你空投一份可爱的小测试...", "cat-loading");
 
             try {
                 const response = await fetch('https://api.deepseek.com/chat/completions', {
@@ -1113,7 +1110,7 @@
                 appendCatMsg('assistant', reply.replace(/\n/g, '<br>'));
             } catch (e) {
                 if(document.getElementById('cat-loading')) document.getElementById('cat-loading').remove();
-                appendCatMsg('assistant', "本喵的网络卡了，算你运气好，这次先放过你！你可以点右上角关闭了。");
+                appendCatMsg('assistant', "信使网络卡了，算你运气好，这次先放过你！你可以点右上角关闭了。");
                 document.getElementById('cat-tutor-close-btn').classList.remove('hidden');
             }
         }
@@ -1123,11 +1120,11 @@
             const div = document.createElement('div');
             if(id) div.id = id;
             if(role === 'user') {
-                div.className = "bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark font-bold rounded-xl rounded-tr-sm p-3 md:p-4 ml-auto max-w-[85%] md:max-w-[80%] text-sm md:text-base shadow-[0_0_15px_rgba(245,166,35,0.4)]";
+                div.className = "bg-gradient-to-r from-[#5a4b31] to-secondary text-dark font-bold rounded-sm rounded-tr-none p-3 md:p-4 ml-auto max-w-[85%] md:max-w-[80%] text-sm md:text-base shadow-[0_0_15px_rgba(195,158,102,0.4)]";
                 div.innerHTML = html;
             } else {
-                div.className = "bg-dark text-light border border-secondary rounded-xl rounded-tl-sm p-3 md:p-4 mr-auto max-w-[90%] text-sm md:text-base relative shadow-[0_0_15px_rgba(212,175,55,0.3)] font-medium leading-relaxed";
-                div.innerHTML = `<span class="absolute -top-3 -left-2 md:-top-4 md:-left-3 text-2xl md:text-3xl drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]">😺</span><div class="ml-3 md:ml-4">${html}</div>`;
+                div.className = "bg-[#2b2d33] text-light border border-secondary rounded-sm rounded-tl-none p-3 md:p-4 mr-auto max-w-[90%] text-sm md:text-base relative shadow-[0_0_15px_rgba(195,158,102,0.3)] font-medium leading-relaxed";
+                div.innerHTML = `<span class="absolute -top-3 -left-2 md:-top-4 md:-left-3 text-2xl md:text-3xl drop-shadow-[0_0_8px_rgba(195,158,102,0.8)]">🐴</span><div class="ml-3 md:ml-4">${html}</div>`;
             }
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -1144,7 +1141,7 @@
             input.value = '';
 
             state.catTutorHistory.push({ role: "user", content: text });
-            appendCatMsg('assistant', "<div class='flex space-x-2 items-center h-4 md:h-5 my-1'><div class='w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#d4af37]'></div><div class='w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#d4af37]' style='animation-delay: 0.15s'></div><div class='w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#d4af37]' style='animation-delay: 0.3s'></div></div>", "cat-evaluating");
+            appendCatMsg('assistant', "<div class='flex space-x-2 items-center h-4 md:h-5 my-1'><div class='w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#c39e66]'></div><div class='w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#c39e66]' style='animation-delay: 0.15s'></div><div class='w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full animate-bounce shadow-[0_0_8px_#c39e66]' style='animation-delay: 0.3s'></div></div>", "cat-evaluating");
 
             if (state.catTutorMode === 'post_quiz_review') {
                 try {
@@ -1164,7 +1161,7 @@
                     appendCatMsg('assistant', reply.replace(/\n/g, '<br>'));
                     
                     if (passed) {
-                        appendCatMsg('assistant', "<span class='text-green-600 font-bold'>【系统提示】太棒了，这道题你已经完全理解了！即将进入下一题...</span>");
+                        appendCatMsg('assistant', "<span class='text-[#00ff7f] font-bold'>【系统提示】太棒了，这套战术你已经完全理解了！准备进入下一轮对拼...</span>");
                         setTimeout(() => {
                             state.currentReviewIndex++;
                             processReviewQueue();
@@ -1172,13 +1169,13 @@
                     }
                 } catch(e) {
                     if(document.getElementById('cat-evaluating')) document.getElementById('cat-evaluating').remove();
-                    appendCatMsg('assistant', "魔法结界断联了喵，没关系，再发一次试试看！");
+                    appendCatMsg('assistant', "魔法结界断联了喵，没关系，再发一次信号试试看！");
                 }
                 return;
             }
 
             const evalPrompt = `人类回答了你的提问。请判断人类是否真正理解了该知识点。
-            如果理解了或回答正确，请极力温柔地表扬人类（就像幼儿园老师表扬小朋友一样），并严格在末尾加上标识符 [PASS]。
+            如果理解了或回答正确，请极力温柔地表扬人类（就像Dota导师表扬新手一样），并严格在末尾加上标识符 [PASS]。
             如果没理解或回答错误，请温柔地鼓励他们不要气馁，并给出进一步的提示，要求他们重新思考，严格不要加上 [PASS]。
             人类回答: "${text}"`;
 
@@ -1213,7 +1210,7 @@
                 }
             } catch(e) {
                 if(document.getElementById('cat-evaluating')) document.getElementById('cat-evaluating').remove();
-                appendCatMsg('assistant', "魔法结界断联了喵，没关系，你先休息一下！");
+                appendCatMsg('assistant', "泉水断联了喵，没关系，你先回城休息一下！");
                 document.getElementById('cat-tutor-close-btn').classList.remove('hidden');
             }
         }
@@ -1221,9 +1218,9 @@
         function promptUserToRetry() {
             const resultDiv = document.getElementById('bg-quiz-result');
             resultDiv.innerHTML = `
-                <div class="p-4 md:p-5 bg-yellow-50 text-yellow-900 rounded-xl border-2 border-yellow-400 text-sm md:text-base modal-bounce shadow-inner">
-                    <p class="font-black mb-2 text-base md:text-lg"><i class="fa fa-lightbulb-o mr-2 text-yellow-500 text-lg md:text-xl"></i> 白泽大人认可了你的觉悟！</p>
-                    <p class="text-yellow-800 font-bold">现在，请结合刚才学到的真理，在上方重新选出正确的答案吧！相信你一定可以的 ฅ^•ﻌ•^ฅ</p>
+                <div class="p-4 md:p-5 bg-[#3b3520] text-secondary rounded-sm border-2 border-secondary text-sm md:text-base modal-bounce shadow-inner">
+                    <p class="font-black mb-2 text-base md:text-lg"><i class="fa fa-lightbulb-o mr-2 text-secondary text-lg md:text-xl"></i> 信使大人认可了你的战术意图！</p>
+                    <p class="text-gray-300 font-bold">现在，请结合刚才学到的真理，在上方重新选出正确的施法路线吧！相信你一定可以拿下一血 ฅ^•ﻌ•^ฅ</p>
                 </div>`;
             resultDiv.classList.remove('hidden');
         }
@@ -1253,7 +1250,7 @@
                 }
                 const petal = document.createElement('div');
                 petal.className = 'sakura-petal';
-                petal.textContent = '🌸';
+                petal.textContent = ['🔥', '✨'][Math.floor(Math.random()*2)]; // Dota Embers
                 petal.style.left = Math.random() * 100 + 'vw';
                 petal.style.animationDuration = (Math.random() * 2 + 3) + 's'; 
                 petal.style.fontSize = (Math.random() * 1 + 1) + 'rem';
@@ -1265,8 +1262,8 @@
 
         if (state.deepseekApiKey) {
             document.getElementById('deepseek-api-key').value = state.deepseekApiKey;
-            document.getElementById('deepseek-api-status').textContent = '✅ 法则魔力印记已就位！';
-            document.getElementById('deepseek-api-status').className = 'text-sm mt-4 text-green-600 font-bold relative z-10';
+            document.getElementById('deepseek-api-status').textContent = '✅ 神杖魔力已就位！';
+            document.getElementById('deepseek-api-status').className = 'text-sm mt-4 text-[#00ff7f] font-bold relative z-10';
         }
 
         document.getElementById('save-deepseek-api-key').addEventListener('click', () => {
@@ -1274,8 +1271,8 @@
             if (key) {
                 state.deepseekApiKey = key;
                 localStorage.setItem('textbookQuizGenerator_deepseekApiKey', key);
-                document.getElementById('deepseek-api-status').textContent = '✅ 法则魔力印记保存成功！';
-                document.getElementById('deepseek-api-status').className = 'text-sm mt-4 text-green-600 font-bold relative z-10';
+                document.getElementById('deepseek-api-status').textContent = '✅ 神杖装备成功！';
+                document.getElementById('deepseek-api-status').className = 'text-sm mt-4 text-[#00ff7f] font-bold relative z-10';
             }
         });
 
@@ -1302,8 +1299,8 @@
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { dropArea.addEventListener(eventName, preventDefaults, false); });
         function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
 
-        ['dragenter', 'dragover'].forEach(eventName => { dropArea.addEventListener(eventName, () => dropArea.classList.add('bg-yellow-100', 'border-yellow-400', 'shadow-[0_0_15px_rgba(245,166,35,0.4)]'), false); });
-        ['dragleave', 'drop'].forEach(eventName => { dropArea.addEventListener(eventName, () => dropArea.classList.remove('bg-yellow-100', 'border-yellow-400', 'shadow-[0_0_15px_rgba(245,166,35,0.4)]'), false); });
+        ['dragenter', 'dragover'].forEach(eventName => { dropArea.addEventListener(eventName, () => dropArea.classList.add('bg-[#2b1717]', 'border-primary', 'shadow-[0_0_15px_rgba(163,38,38,0.4)]'), false); });
+        ['dragleave', 'drop'].forEach(eventName => { dropArea.addEventListener(eventName, () => dropArea.classList.remove('bg-[#2b1717]', 'border-primary', 'shadow-[0_0_15px_rgba(163,38,38,0.4)]'), false); });
         
         dropArea.addEventListener('drop', (e) => { if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
 
@@ -1341,8 +1338,8 @@
                 
                 const tr = document.createElement('tr');
                 tr.id = `file-${fileId}`;
-                tr.className = "border-b border-gray-200 last:border-0";
-                tr.innerHTML = `<td class="py-3 md:py-4 px-3 md:px-4 font-bold text-dark whitespace-nowrap md:whitespace-normal"><i class="fa fa-scroll text-secondary mr-2 md:mr-3 text-lg md:text-xl"></i>${file.name}</td><td class="py-3 md:py-4 px-3 md:px-4 text-primary font-bold whitespace-nowrap" id="status-${fileId}">灵光读取中...</td>`;
+                tr.className = "border-b border-[#5a4b31] last:border-0";
+                tr.innerHTML = `<td class="py-3 md:py-4 px-3 md:px-4 font-bold text-light whitespace-nowrap md:whitespace-normal"><i class="fa fa-scroll text-secondary mr-2 md:mr-3 text-lg md:text-xl"></i>${file.name}</td><td class="py-3 md:py-4 px-3 md:px-4 text-primary font-bold whitespace-nowrap" id="status-${fileId}">灵光读取中...</td>`;
                 fileList.appendChild(tr);
 
                 try {
@@ -1351,12 +1348,12 @@
                     else if (file.type.startsWith('image/')) { fileObj.extractedText = await extractImageText(file); } 
                     else { fileObj.extractedText = await file.text(); }
                     
-                    document.getElementById(`status-${fileId}`).innerHTML = '<i class="fa fa-check text-green-500 mr-1"></i> 法则解析成功';
-                    document.getElementById(`status-${fileId}`).className = 'py-3 md:py-4 px-3 md:px-4 text-green-600 font-bold whitespace-nowrap';
+                    document.getElementById(`status-${fileId}`).innerHTML = '<i class="fa fa-check text-[#00ff7f] mr-1"></i> 法则解析成功';
+                    document.getElementById(`status-${fileId}`).className = 'py-3 md:py-4 px-3 md:px-4 text-[#00ff7f] font-bold whitespace-nowrap';
                 } catch (err) {
                     console.error("Extraction error:", err);
-                    document.getElementById(`status-${fileId}`).innerHTML = '<i class="fa fa-times text-red-500 mr-1"></i> 典籍损坏';
-                    document.getElementById(`status-${fileId}`).className = 'py-3 md:py-4 px-3 md:px-4 text-red-600 font-bold whitespace-nowrap';
+                    document.getElementById(`status-${fileId}`).innerHTML = '<i class="fa fa-times text-primary-light mr-1"></i> 典籍损坏';
+                    document.getElementById(`status-${fileId}`).className = 'py-3 md:py-4 px-3 md:px-4 text-primary-light font-bold whitespace-nowrap';
                 }
             }
         }
@@ -1395,7 +1392,7 @@
 
         document.getElementById('process-files-btn').addEventListener('click', async () => {
             if(!state.deepseekApiKey) {
-                alert("记得先在上方注入你的 API 魔法印记哦！🗝️"); return;
+                alert("记得先在上方装备神杖哦！🗝️"); return;
             }
             
             showSection('processing-section');
@@ -1454,8 +1451,8 @@
                 if (aiRequestSuccess && state.knowledgePoints.length > 0) {
                     const indicator = document.getElementById('ai-loading-indicator');
                     if (indicator) {
-                        indicator.className = 'relative mb-4 md:mb-0 md:absolute md:top-4 md:right-4 flex justify-center w-full md:w-auto items-center text-light font-bold text-xs md:text-sm bg-green-700 px-4 py-2 md:px-5 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.6)] border border-green-400';
-                        indicator.innerHTML = '<i class="fa fa-check-circle mr-2 text-lg"></i><span class="tracking-widest">法则剥离已完成！扫清眼前障碍即可觐见</span>';
+                        indicator.className = 'relative mb-4 md:mb-0 md:absolute md:top-4 md:right-4 flex justify-center w-full md:w-auto items-center text-light font-bold text-xs md:text-sm bg-[#1a5e38] px-4 py-2 md:px-5 rounded-sm shadow-[0_0_15px_rgba(46,139,87,0.6)] border border-[#5cb85c]';
+                        indicator.innerHTML = '<i class="fa fa-check-circle mr-2 text-lg"></i><span class="tracking-widest">战术剥离已完成！摧毁防御塔即可推进</span>';
                     }
 
                     if (state.bgQuizIndex >= state.bgQuestions.length) {
@@ -1463,21 +1460,21 @@
                     } else {
                         const nextArea = document.getElementById('bg-quiz-next-area');
                         if (nextArea && !nextArea.classList.contains('hidden')) {
-                            nextArea.innerHTML = `<button onclick="finishAILoading()" class="w-full sm:w-auto bg-gradient-to-r from-primary to-primary-dark text-light font-black py-3 px-6 md:py-4 md:px-10 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-primary-light hover:shadow-[0_0_30px_rgba(59,130,246,0.9)] transition-all-300 text-base md:text-lg animate-bounce transform hover:-translate-y-1 mt-4 font-medieval tracking-widest"><i class="fa fa-check-circle mr-2"></i> 神兽解析完毕，前往灵魂刻印！</button>`;
+                            nextArea.innerHTML = `<button onclick="finishAILoading()" class="w-full sm:w-auto bg-gradient-to-r from-primary to-accent text-light font-black py-3 px-6 md:py-4 md:px-10 rounded-sm shadow-[0_0_20px_rgba(163,38,38,0.6)] border border-primary-light hover:shadow-[0_0_30px_rgba(163,38,38,0.9)] transition-all-300 text-base md:text-lg animate-bounce transform hover:-translate-y-1 mt-4 font-medieval tracking-widest uppercase"><i class="fa fa-check-circle mr-2"></i> 大魔导师解析完毕，前往技能加点！</button>`;
                         } else {
                             const container = document.getElementById('bg-quiz-container');
                             if (!document.getElementById('skip-to-flashcard-btn')) {
-                                container.insertAdjacentHTML('beforeend', `<div class="mt-4 md:mt-6 pt-4 md:pt-5 border-t-2 border-dashed border-gray-300 text-center card-enter"><button id="skip-to-flashcard-btn" onclick="finishAILoading()" class="text-secondary hover:text-yellow-600 font-bold text-sm md:text-base underline font-medieval tracking-widest"><i class="fa fa-forward mr-1"></i> 无视低阶试炼，直接觐见真理法则！</button></div>`);
+                                container.insertAdjacentHTML('beforeend', `<div class="mt-4 md:mt-6 pt-4 md:pt-5 border-t-2 border-dashed border-[#5a4b31] text-center card-enter"><button id="skip-to-flashcard-btn" onclick="finishAILoading()" class="text-secondary hover:text-yellow-400 font-bold text-sm md:text-base underline font-medieval tracking-widest uppercase"><i class="fa fa-fast-forward mr-1"></i> 直接TP基地，快速加点！</button></div>`);
                             }
                         }
                     }
                 } else {
                     const indicator = document.getElementById('ai-loading-indicator');
                     if (indicator) {
-                        indicator.className = 'relative mb-4 md:mb-0 md:absolute md:top-4 md:right-4 flex justify-center w-full md:w-auto items-center text-light font-bold text-xs md:text-sm bg-red-700 px-4 py-2 md:px-5 rounded-full shadow-[0_0_15px_rgba(220,38,38,0.6)] border border-red-400';
-                        indicator.innerHTML = '<i class="fa fa-times-circle mr-2 text-lg"></i><span class="tracking-widest">提炼失败，结界破碎</span>';
+                        indicator.className = 'relative mb-4 md:mb-0 md:absolute md:top-4 md:right-4 flex justify-center w-full md:w-auto items-center text-light font-bold text-xs md:text-sm bg-[#8b1a1a] px-4 py-2 md:px-5 rounded-sm shadow-[0_0_15px_rgba(220,38,38,0.6)] border border-[#ff8c8c]';
+                        indicator.innerHTML = '<i class="fa fa-times-circle mr-2 text-lg"></i><span class="tracking-widest">窃取失败，大招打空</span>';
                     }
-                    document.getElementById('bg-quiz-container').insertAdjacentHTML('beforeend', `<div class="mt-4 md:mt-6 pt-4 md:pt-5 border-t-2 border-dashed border-gray-300 text-center card-enter"><button onclick="showSection('upload-section')" class="text-red-500 hover:text-red-700 font-bold text-sm md:text-base underline font-medieval tracking-widest"><i class="fa fa-arrow-left mr-1"></i> 返回法阵中心重试</button></div>`);
+                    document.getElementById('bg-quiz-container').insertAdjacentHTML('beforeend', `<div class="mt-4 md:mt-6 pt-4 md:pt-5 border-t-2 border-dashed border-[#5a4b31] text-center card-enter"><button onclick="showSection('upload-section')" class="text-primary-light hover:text-red-400 font-bold text-sm md:text-base underline font-medieval tracking-widest"><i class="fa fa-arrow-left mr-1"></i> 返回泉水重试</button></div>`);
                 }
             }
         });
@@ -1485,18 +1482,18 @@
         function renderKnowledgePoints() {
             const list = document.getElementById('knowledge-list');
             list.innerHTML = state.knowledgePoints.map(kp => `
-                <div class="bg-[#fffcf5] rounded-xl p-4 md:p-6 border-l-4 ${kp.type==='formula'?'border-accent':'border-primary'} mb-4 md:mb-5 hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] border border-gray-200 transition-all-300">
+                <div class="bg-[#1a1c23] rounded-sm p-4 md:p-6 border-l-4 ${kp.type==='formula'?'border-secondary':'border-primary'} mb-4 md:mb-5 hover:shadow-[0_0_15px_rgba(195,158,102,0.3)] border border-[#2b2d33] transition-all-300">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 md:mb-4 gap-2">
-                        <span class="font-bold text-xs md:text-sm ${kp.type==='formula'?'bg-yellow-100 text-yellow-800 border border-yellow-300':'bg-blue-100 text-primary border border-blue-300'} px-2 py-1 md:px-3 md:py-1 rounded-sm shadow-sm tracking-widest"><i class="fa ${kp.type==='formula'?'fa-calculator':'fa-book'} mr-1 md:mr-2"></i> ${kp.type === 'formula' ? '奥义公式/推演' : '本源概念'}</span>
+                        <span class="font-bold text-xs md:text-sm ${kp.type==='formula'?'bg-[#3b3520] text-secondary border border-secondary':'bg-[#2b1717] text-primary-light border border-primary'} px-2 py-1 md:px-3 md:py-1 rounded-sm shadow-sm tracking-widest"><i class="fa ${kp.type==='formula'?'fa-calculator':'fa-book'} mr-1 md:mr-2"></i> ${kp.type === 'formula' ? '奥义公式/推演' : '核心战术'}</span>
                         <span class="text-[10px] md:text-xs text-gray-500 font-bold font-medieval"><i class="fa fa-scroll mr-1"></i> ${kp.source}</span>
                     </div>
-                    <p class="text-dark leading-relaxed font-medium text-base md:text-lg">${kp.content}</p>
+                    <p class="text-light leading-relaxed font-medium text-base md:text-lg">${kp.content}</p>
                 </div>
             `).join('');
         }
 
         document.getElementById('enter-flashcards-btn').addEventListener('click', () => {
-            if(state.knowledgePoints.length === 0) return alert("未感知到任何知识点，请先祭献典籍？");
+            if(state.knowledgePoints.length === 0) return alert("未感知到任何战术点，请先祭献典籍？");
             state.currentFlashcardIndex = 0; showSection('flashcard-section'); renderFlashcard();
         });
 
@@ -1513,27 +1510,26 @@
             container.innerHTML = `
                 <div class="absolute top-6 right-6 md:top-10 md:right-10 text-secondary opacity-20 text-6xl md:text-8xl"><i class="fa fa-quote-right"></i></div>
                 <div class="mb-6 md:mb-8 relative z-10">
-                    <span class="inline-block px-3 py-1.5 md:px-5 md:py-2 rounded-sm text-xs md:text-sm font-bold ${kp.type==='formula'?'bg-dark text-secondary border border-secondary shadow-[0_0_10px_rgba(212,175,55,0.4)]':'bg-dark text-primary-light border border-primary-light shadow-[0_0_10px_rgba(59,130,246,0.4)]'} uppercase mb-4 md:mb-6 tracking-widest"><i class="fa ${kp.type==='formula'?'fa-calculator':'fa-book'} mr-1 md:mr-2"></i> ${kp.type === 'formula' ? '必背绝密公式 / 推演' : '至高核心法则'}</span>
-                    <h3 class="text-xl md:text-3xl font-black text-dark leading-relaxed font-medieval">${kp.content}</h3>
+                    <span class="inline-block px-3 py-1.5 md:px-5 md:py-2 rounded-sm text-xs md:text-sm font-bold ${kp.type==='formula'?'bg-[#121212] text-secondary border border-secondary shadow-[0_0_10px_rgba(195,158,102,0.4)]':'bg-[#121212] text-primary-light border border-primary-light shadow-[0_0_10px_rgba(163,38,38,0.4)]'} uppercase mb-4 md:mb-6 tracking-widest"><i class="fa ${kp.type==='formula'?'fa-calculator':'fa-book'} mr-1 md:mr-2"></i> ${kp.type === 'formula' ? '必背绝密公式 / 推演' : '至高核心战术'}</span>
+                    <h3 class="text-xl md:text-3xl font-black text-light leading-relaxed font-medieval">${kp.content}</h3>
                 </div>
-                <div class="mt-auto pt-4 md:pt-6 border-t-2 border-dashed border-gray-300 flex flex-wrap items-center text-gray-500 text-xs md:text-sm relative z-10 font-bold tracking-wider"><i class="fa fa-scroll mr-1 md:mr-2"></i> 典籍溯源: <span class="ml-1 md:ml-2 text-dark break-all">${kp.source}</span></div>
+                <div class="mt-auto pt-4 md:pt-6 border-t-2 border-dashed border-[#5a4b31] flex flex-wrap items-center text-gray-500 text-xs md:text-sm relative z-10 font-bold tracking-wider"><i class="fa fa-scroll mr-1 md:mr-2"></i> 战术溯源: <span class="ml-1 md:ml-2 text-gray-300 break-all">${kp.source}</span></div>
             `;
             
             const btn = document.getElementById('got-it-btn');
             if (state.currentFlashcardIndex === state.knowledgePoints.length - 1) {
-                btn.querySelector('.btn-text').textContent = "灵魂刻印完整，步入最终裁决！(+1 🐟)🎯"; 
+                btn.querySelector('.btn-text').textContent = "全部技能拉满，进入遗迹匹配！(+1 💰)🎯"; 
                 btn.querySelector('i').className = "fa fa-flag-checkered sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl relative z-10";
-                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-red-800 to-red-600 text-light border-2 border-red-400 shadow-[0_0_20px_rgba(220,38,38,0.7)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(220,38,38,1)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group";
+                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-primary to-accent text-light border-2 border-[#ff8c8c] shadow-[0_0_20px_rgba(163,38,38,0.7)] font-black py-3 px-6 md:py-4 md:px-14 rounded-sm hover:shadow-[0_0_30px_rgba(163,38,38,1)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group uppercase";
             } else {
-                btn.querySelector('.btn-text').textContent = "已刻入灵魂！(下一枚)(+1 🐟) 🌟"; 
-                btn.querySelector('i').className = "fa fa-check-circle sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl relative z-10";
-                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-500 text-dark border-2 border-yellow-200 shadow-[0_0_20px_rgba(245,166,35,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-full hover:shadow-[0_0_30px_rgba(245,166,35,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group";
+                btn.querySelector('.btn-text').textContent = "技能已掌握！(下一级)(+1 💰) 🌟"; 
+                btn.querySelector('i').className = "fa fa-arrow-up sm:mr-3 mb-1 sm:mb-0 text-xl md:text-2xl relative z-10";
+                btn.className = "w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center bg-gradient-to-r from-[#2e8b57] to-[#1a5e38] text-light border-2 border-[#5cb85c] shadow-[0_0_20px_rgba(46,139,87,0.6)] font-black py-3 px-6 md:py-4 md:px-14 rounded-sm hover:shadow-[0_0_30px_rgba(46,139,87,0.9)] transition-all-300 text-base md:text-xl transform hover:-translate-y-1 font-medieval tracking-widest relative overflow-hidden group uppercase";
             }
         }
 
         document.getElementById('got-it-btn').addEventListener('click', (e) => {
-            // 独立更新资源，防止 addFish 在中心产生覆盖文字的大鱼
-            state.fishCount += 1;
+            state.fishCount += 1; // Actually Gold
             updateResourceUI();
             
             const counter = document.getElementById('fish-counter-container');
@@ -1544,7 +1540,7 @@
                 setTimeout(() => { showExchangeModal(); }, 1500);
             }
 
-            // ✨ 星星闪光特效（围绕按钮边缘爆发，不遮挡中间文字）
+            // ✨ 技能加点闪光特效
             const btn = e.currentTarget;
             const rect = btn.getBoundingClientRect();
             
@@ -1585,8 +1581,8 @@
             const doChoice = document.getElementById('type-choice').checked; const doCalc = document.getElementById('type-calculation').checked;
             const choiceCount = parseInt(document.getElementById('choice-count').value) || 0; const calcCount = parseInt(document.getElementById('calculation-count').value) || 0;
             
-            if(!doChoice && !doCalc) return alert("必须选择至少一种试炼形态！");
-            if(state.knowledgePoints.length === 0) return alert("知识库空虚，请先献祭典籍！");
+            if(!doChoice && !doCalc) return alert("必须选择至少一种攻击方式！");
+            if(state.knowledgePoints.length === 0) return alert("技能点空虚，请先升级！");
 
             let draftQuestions = [];
             const formulaKPs = state.knowledgePoints.filter(k => k.type === 'formula');
@@ -1594,7 +1590,7 @@
             if (doChoice) {
                 for (let i = 0; i < choiceCount; i++) {
                     const kp = state.knowledgePoints[i % state.knowledgePoints.length];
-                    const stem = kp?.mcq?.stem || `关于法则 "${kp?.content?.substring(0, 15) || ''}..." 的至高理解是？`;
+                    const stem = kp?.mcq?.stem || `关于战术 "${kp?.content?.substring(0, 15) || ''}..." 的至高理解是？`;
                     const options = kp?.mcq?.options || ["绝对真理", "残缺真理", "虚妄之言", "深渊诡计"];
                     draftQuestions.push({ qType: 'choice', draftStem: stem, draftOptions: options, source: kp?.source || '未知卷轴', originalKpContent: kp?.content || '' });
                 }
@@ -1604,13 +1600,13 @@
                 const calcPool = formulaKPs.length > 0 ? formulaKPs : state.knowledgePoints;
                 for (let i = 0; i < calcCount; i++) {
                     const kp = calcPool[i % calcPool.length];
-                    const stem = kp?.calc?.stem || `请推演并解答以下法则奥秘：\n${kp?.content || ''}`;
-                    const answer = kp?.calc?.answer || '无标准法则轨迹，请依照典籍原意推演。';
+                    const stem = kp?.calc?.stem || `请推演并解答以下战场奥秘：\n${kp?.content || ''}`;
+                    const answer = kp?.calc?.answer || '无标准路线，请依照战术原意推演。';
                     draftQuestions.push({ qType: 'calculation', draftStem: stem, draftAnswer: answer, source: kp?.source || '未知卷轴', originalKpContent: kp?.content || '' });
                 }
             }
             
-            if(draftQuestions.length === 0) return alert("誓约数量不得为零！");
+            if(draftQuestions.length === 0) return alert("匹配数量不得为零！");
 
             showSection('auditing-section');
             state.waitingMode = 'auditing';
@@ -1625,7 +1621,7 @@
             state.currentQuiz.questions = []; state.currentQuiz.answers = []; state.currentQuiz.currentQuestionIndex = 0;
 
             try {
-                const auditPrompt = `你是一个极其严苛的神圣魔法导师。为了防止低阶试炼出错，请帮我核验和修正试炼题。请对每一道草稿题进行推导：1. 确保题干数字通顺合理。2. 修正正确答案在0号位。3. 必须提供 explanation 解析。请严格以纯 JSON 数组格式返回，不要有 markdown 标记。[{ "qType": "choice", "text": "...", "options": ["正","干1","干2","干3"], "correctAnswer": "如果是解答填这里", "explanation": "步骤", "source": "...", "originalKpContent": "..." }]待核验试炼：${JSON.stringify(draftQuestions)}`;
+                const auditPrompt = `你是一个极其严苛的拉比克大魔导师。为了防止低阶战场匹配出错，请帮我核验和修正试炼题。请对每一道草稿题进行推导：1. 确保题干数字通顺合理。2. 修正正确答案在0号位。3. 必须提供 explanation 解析。请严格以纯 JSON 数组格式返回，不要有 markdown 标记。[{ "qType": "choice", "text": "...", "options": ["正","干1","干2","干3"], "correctAnswer": "如果是解答填这里", "explanation": "步骤", "source": "...", "originalKpContent": "..." }]待核验试炼：${JSON.stringify(draftQuestions)}`;
 
                 const response = await fetch('https://api.deepseek.com/chat/completions', {
                     method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.deepseekApiKey}` },
@@ -1637,16 +1633,16 @@
                 const auditedQuestions = parseLLMResponse(data.choices[0].message.content);
 
                 if (!Array.isArray(auditedQuestions) || auditedQuestions.length === 0) {
-                    throw new Error("大魔导师未能凝聚有效的试炼结界格式");
+                    throw new Error("大魔导师未能窃取到有效的技能");
                 }
 
                 auditedQuestions.forEach(q => {
                     if (q.qType === 'choice') {
                         let opts = [...q.options]; let verifiedCorrectText = opts[0]; opts.sort(() => Math.random() - 0.5); let finalCorrectIndex = opts.indexOf(verifiedCorrectText);
-                        state.currentQuiz.questions.push({ qType: 'choice', text: q.text, options: opts, correctAnswer: finalCorrectIndex, explanation: q.explanation || "法则迷雾遮蔽了解析", source: q.source, originalKpContent: q.originalKpContent });
+                        state.currentQuiz.questions.push({ qType: 'choice', text: q.text, options: opts, correctAnswer: finalCorrectIndex, explanation: q.explanation || "战争迷雾遮蔽了解析", source: q.source, originalKpContent: q.originalKpContent });
                         state.currentQuiz.answers.push({ type: 'choice', selected: -1 });
                     } else {
-                        state.currentQuiz.questions.push({ qType: 'calculation', text: q.text, correctAnswer: q.correctAnswer, explanation: q.explanation || "法则迷雾遮蔽了解析", source: q.source, originalKpContent: q.originalKpContent });
+                        state.currentQuiz.questions.push({ qType: 'calculation', text: q.text, correctAnswer: q.correctAnswer, explanation: q.explanation || "战争迷雾遮蔽了解析", source: q.source, originalKpContent: q.originalKpContent });
                         state.currentQuiz.answers.push({ type: 'calculation', textValue: '' });
                     }
                 });
@@ -1657,10 +1653,10 @@
                 draftQuestions.forEach(q => {
                     if(q.qType === 'choice') {
                         let opts = [...q.draftOptions]; let ct = opts[0]; opts.sort(() => Math.random() - 0.5);
-                        state.currentQuiz.questions.push({ qType: 'choice', text: q.draftStem, options: opts, correctAnswer: opts.indexOf(ct), explanation: "法则迷雾未散去", source: q.source, originalKpContent: q.originalKpContent });
+                        state.currentQuiz.questions.push({ qType: 'choice', text: q.draftStem, options: opts, correctAnswer: opts.indexOf(ct), explanation: "战争迷雾未散去", source: q.source, originalKpContent: q.originalKpContent });
                         state.currentQuiz.answers.push({ type: 'choice', selected: -1 });
                     } else {
-                        state.currentQuiz.questions.push({ qType: 'calculation', text: q.draftStem, correctAnswer: q.draftAnswer, explanation: "法则迷雾未散去", source: q.source, originalKpContent: q.originalKpContent });
+                        state.currentQuiz.questions.push({ qType: 'calculation', text: q.draftStem, correctAnswer: q.draftAnswer, explanation: "战争迷雾未散去", source: q.source, originalKpContent: q.originalKpContent });
                         state.currentQuiz.answers.push({ type: 'calculation', textValue: '' });
                     }
                 });
@@ -1681,7 +1677,7 @@
             const container = document.getElementById('question-container');
 
             if (!state.currentQuiz.questions || state.currentQuiz.questions.length === 0) {
-                container.innerHTML = `<div class="text-center text-red-600 font-black py-10 text-xl md:text-2xl">⚠️ 试炼凝聚失败，结界崩塌，请退回重试！</div>`;
+                container.innerHTML = `<div class="text-center text-primary-light font-black py-10 text-xl md:text-2xl">⚠️ 匹配失败，服务器断开连接，请退回重试！</div>`;
                 document.getElementById('next-question-btn').style.display = 'none';
                 document.getElementById('submit-quiz-btn').parentElement.style.display = 'none';
                 return;
@@ -1698,13 +1694,13 @@
             let html = `
                 <div class="mb-6 md:mb-8 flex flex-col md:flex-row items-start justify-between gap-4 md:gap-0">
                     <div class="w-full pr-0 md:pr-4">
-                        <span class="text-xs md:text-sm font-black px-3 py-1.5 md:px-4 md:py-2 rounded-sm ${q.qType === 'choice' ? 'bg-dark text-secondary border border-secondary' : 'bg-dark text-primary-light border border-primary-light'} mb-4 md:mb-5 inline-block tracking-widest shadow-[0_0_10px_rgba(212,175,55,0.3)]"><i class="fa ${q.qType === 'choice' ? 'fa-crosshairs' : 'fa-pencil-square-o'} mr-2"></i> ${q.qType === 'choice' ? '命运之选 · 绝对唯一' : '法则推演 · 洞悉奥秘'}</span>
-                        <h3 class="text-xl md:text-2xl font-black text-dark leading-relaxed font-medieval">${q.text}</h3>
+                        <span class="text-xs md:text-sm font-black px-3 py-1.5 md:px-4 md:py-2 rounded-sm ${q.qType === 'choice' ? 'bg-[#121212] text-secondary border border-secondary' : 'bg-[#121212] text-primary-light border border-primary-light'} mb-4 md:mb-5 inline-block tracking-widest shadow-[0_0_10px_rgba(195,158,102,0.3)]"><i class="fa ${q.qType === 'choice' ? 'fa-crosshairs' : 'fa-pencil-square-o'} mr-2"></i> ${q.qType === 'choice' ? '普通攻击 · 绝对唯一' : '终极技能 · 洞悉奥秘'}</span>
+                        <h3 class="text-xl md:text-2xl font-black text-light leading-relaxed font-medieval">${q.text}</h3>
                     </div>
-                    <button onclick="toggleHint()" class="self-end md:self-auto bg-dark text-secondary border border-secondary hover:bg-black p-3 md:p-4 rounded-xl flex flex-col items-center flex-shrink-0 transition-all-300 shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:shadow-[0_0_20px_rgba(212,175,55,0.8)]" title="点亮微光"><i class="fa fa-lightbulb-o text-2xl md:text-3xl mb-1"></i><span class="text-[10px] md:text-xs font-black tracking-widest font-medieval">窥探</span></button>
+                    <button onclick="toggleHint()" class="self-end md:self-auto bg-[#1a1c23] text-secondary border border-[#5a4b31] hover:bg-[#2b2d33] hover:border-secondary p-3 md:p-4 rounded-sm flex flex-col items-center flex-shrink-0 transition-all-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_20px_rgba(195,158,102,0.5)]" title="点亮微光"><i class="fa fa-eye text-2xl md:text-3xl mb-1"></i><span class="text-[10px] md:text-xs font-black tracking-widest font-medieval">真视</span></button>
                 </div>
-                <div id="kp-hint-card" class="hint-collapse bg-[#fffcf5] border-2 border-secondary rounded-xl px-4 md:px-6 mb-6 md:mb-8 text-sm md:text-base text-dark shadow-[inset_0_0_15px_rgba(212,175,55,0.2)] font-medium">
-                    <p class="font-black mb-2 md:mb-3 flex items-center text-secondary border-b border-gray-200 pb-2 font-medieval tracking-widest"><i class="fa fa-star mr-2"></i> 灵魂深处的低语：</p>
+                <div id="kp-hint-card" class="hint-collapse bg-[#1a1c23] border-2 border-secondary rounded-sm px-4 md:px-6 mb-6 md:mb-8 text-sm md:text-base text-gray-300 shadow-[inset_0_0_15px_rgba(0,0,0,0.8)] font-medium">
+                    <p class="font-black mb-2 md:mb-3 flex items-center text-secondary border-b border-[#5a4b31] pb-2 font-medieval tracking-widest"><i class="fa fa-star mr-2"></i> 队友语音提示：</p>
                     <p class="leading-relaxed text-base md:text-lg">${q.originalKpContent}</p>
                 </div>
             `;
@@ -1713,14 +1709,14 @@
                 const letters = ['A', 'B', 'C', 'D', 'E'];
                 html += `<div class="space-y-3 md:space-y-4">
                     ${q.options.map((opt, i) => `
-                        <label class="flex items-center p-4 md:p-5 border-2 border-gray-300 bg-[#fffcf5] rounded-xl cursor-pointer transition-all-300 hover:border-secondary hover:bg-yellow-50 hover:shadow-[0_0_10px_rgba(212,175,55,0.3)] ${ans.selected === i ? '!border-secondary !bg-yellow-100 shadow-[0_0_15px_rgba(212,175,55,0.5)]' : ''}">
-                            <input type="radio" name="q" value="${i}" ${ans.selected === i ? 'checked' : ''} onchange="state.currentQuiz.answers[${idx}].selected = ${i}; displayCurrentQuestion();" class="mr-4 md:mr-5 text-secondary h-5 w-5 md:h-6 md:w-6 focus:ring-secondary flex-shrink-0">
-                            <span class="font-black text-gray-500 mr-3 md:mr-4 text-xl md:text-2xl font-medieval">${letters[i] ? letters[i] : '-'}.</span> <span class="text-dark font-bold text-lg md:text-xl">${opt}</span>
+                        <label class="flex items-center p-4 md:p-5 border-2 border-[#5a4b31] bg-[#1a1c23] rounded-sm cursor-pointer transition-all-300 hover:border-secondary hover:bg-[#2b2d33] hover:shadow-[0_0_10px_rgba(195,158,102,0.3)] ${ans.selected === i ? '!border-secondary !bg-[#3b3520] shadow-[0_0_15px_rgba(195,158,102,0.5)]' : ''}">
+                            <input type="radio" name="q" value="${i}" ${ans.selected === i ? 'checked' : ''} onchange="state.currentQuiz.answers[${idx}].selected = ${i}; displayCurrentQuestion();" class="mr-4 md:mr-5 text-secondary h-5 w-5 md:h-6 md:w-6 focus:ring-secondary flex-shrink-0 bg-dark border-secondary">
+                            <span class="font-black text-gray-500 mr-3 md:mr-4 text-xl md:text-2xl font-medieval">${letters[i] ? letters[i] : '-'}.</span> <span class="text-light font-bold text-lg md:text-xl">${opt}</span>
                         </label>
                     `).join('')}
                 </div>`;
             } else {
-                html += `<div class="mt-4 md:mt-6"><textarea class="w-full bg-[#fffcf5] border-2 border-gray-300 rounded-xl p-4 md:p-6 h-40 md:h-56 focus:outline-none focus:ring-0 focus:border-secondary focus:shadow-[0_0_15px_rgba(212,175,55,0.4)] text-dark text-base md:text-lg font-bold transition-all-300" placeholder="在此刻下你推演的法则轨迹..." onchange="state.currentQuiz.answers[${idx}].textValue = this.value;">${ans.textValue}</textarea></div>`;
+                html += `<div class="mt-4 md:mt-6"><textarea class="w-full bg-[#1a1c23] border-2 border-[#5a4b31] rounded-sm p-4 md:p-6 h-40 md:h-56 focus:outline-none focus:ring-0 focus:border-secondary focus:shadow-[0_0_15px_rgba(195,158,102,0.4)] text-light text-base md:text-lg font-bold transition-all-300" placeholder="在此刻下你释放的连招..." onchange="state.currentQuiz.answers[${idx}].textValue = this.value;">${ans.textValue}</textarea></div>`;
             }
             container.innerHTML = html;
             
@@ -1750,7 +1746,7 @@
         resizeFwCanvas();
 
         function createFirework(x, y) {
-            const colors = ['#f59e0b', '#d4af37', '#8b5cf6', '#ef4444', '#10b981', '#3b82f6', '#fdfaf0'];
+            const colors = ['#c39e66', '#a32626', '#00ff7f', '#2e8b57', '#ff8c8c', '#dcd1b3']; // Dota theme colors
             const color = colors[Math.floor(Math.random() * colors.length)];
             for (let i = 0; i < 120; i++) {
                 fwParticles.push({
@@ -1831,13 +1827,13 @@
 
                 if (q.qType === 'choice') {
                     totalChoices++; isCorrect = (ans.selected === q.correctAnswer); if (isCorrect) correctChoices++;
-                    answerHtml = `<div class="flex flex-col md:flex-row gap-4 md:gap-6 mt-4 md:mt-6"><div class="flex-1 bg-[#fffcf5] p-4 md:p-5 rounded-xl border-2 border-gray-200 shadow-sm"><p class="text-xs md:text-sm text-gray-500 mb-2 font-black font-medieval tracking-widest">汝之抉择</p><p class="font-black text-lg md:text-xl ${isCorrect ? 'text-green-600' : 'text-red-600'}">${ans.selected >= 0 ? letters[ans.selected] + '. ' + q.options[ans.selected] : '深渊之握 (未作答)'} ${isCorrect ? '<span class="text-secondary ml-2">(+5 🐟)</span>' : ''}</p></div><div class="flex-1 bg-green-50 p-4 md:p-5 rounded-xl border-2 border-green-300 shadow-sm"><p class="text-xs md:text-sm text-green-700 mb-2 font-black font-medieval tracking-widest">真理所在</p><p class="font-black text-lg md:text-xl text-green-800">${letters[q.correctAnswer]}. ${q.options[q.correctAnswer]}</p></div></div>`;
+                    answerHtml = `<div class="flex flex-col md:flex-row gap-4 md:gap-6 mt-4 md:mt-6"><div class="flex-1 bg-[#1a1c23] p-4 md:p-5 rounded-sm border-2 border-[#5a4b31] shadow-sm"><p class="text-xs md:text-sm text-gray-500 mb-2 font-black font-medieval tracking-widest">汝之抉择</p><p class="font-black text-lg md:text-xl ${isCorrect ? 'text-[#00ff7f]' : 'text-primary-light'}">${ans.selected >= 0 ? letters[ans.selected] + '. ' + q.options[ans.selected] : '发呆送头 (未作答)'} ${isCorrect ? '<span class="text-secondary ml-2">(+5 💰)</span>' : ''}</p></div><div class="flex-1 bg-[#122218] p-4 md:p-5 rounded-sm border-2 border-[#225533] shadow-sm"><p class="text-xs md:text-sm text-green-600 mb-2 font-black font-medieval tracking-widest">正确连招</p><p class="font-black text-lg md:text-xl text-[#00ff7f]">${letters[q.correctAnswer]}. ${q.options[q.correctAnswer]}</p></div></div>`;
                 } else {
-                    answerHtml = `<div class="bg-[#fffcf5] p-4 md:p-6 rounded-xl border-2 border-gray-200 mt-4 md:mt-6 shadow-sm"><p class="text-xs md:text-sm text-gray-500 mb-2 md:mb-3 font-black font-medieval tracking-widest">汝之推演</p><p class="text-dark font-bold text-base md:text-lg whitespace-pre-wrap">${ans.textValue || '一片空白，犹如深渊'}</p></div>`;
+                    answerHtml = `<div class="bg-[#1a1c23] p-4 md:p-6 rounded-sm border-2 border-[#5a4b31] mt-4 md:mt-6 shadow-sm"><p class="text-xs md:text-sm text-gray-500 mb-2 md:mb-3 font-black font-medieval tracking-widest">汝之推演</p><p class="text-light font-bold text-base md:text-lg whitespace-pre-wrap">${ans.textValue || '一片空白，毫无战术'}</p></div>`;
                 }
 
-                let explanationHtml = q.explanation ? `<div class="bg-primary/5 p-4 md:p-6 rounded-xl border-2 border-primary-light mt-4 md:mt-6 shadow-[inset_0_0_15px_rgba(59,130,246,0.1)]"><p class="text-primary-dark font-black mb-2 md:mb-3 flex items-center text-base md:text-lg font-medieval tracking-widest"><i class="fa fa-magic mr-2 md:mr-3"></i> 大魔导师解析</p><p class="text-dark font-bold text-base md:text-lg whitespace-pre-wrap leading-relaxed">${q.explanation}</p></div>` : '';
-                return `<div class="p-5 md:p-8 rounded-3xl border-2 ${q.qType === 'choice' ? (isCorrect ? 'border-green-400 bg-green-50/50' : 'border-red-400 bg-red-50/50') : 'border-gray-300 bg-[#fdfaf0]'} shadow-[0_0_15px_rgba(0,0,0,0.05)] mb-6 md:mb-8"><div class="flex items-start mb-4 md:mb-6"><span class="text-xs md:text-sm font-black text-light px-3 py-1 md:px-4 md:py-1.5 rounded-sm ${q.qType === 'choice' ? (isCorrect ? 'bg-green-600 shadow-[0_0_10px_rgba(34,197,94,0.6)]' : 'bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.6)]') : 'bg-dark shadow-[0_0_10px_rgba(0,0,0,0.6)]'} mr-3 md:mr-4 mt-1 shrink-0 font-medieval tracking-widest">${q.qType === 'choice' ? (isCorrect ? '✨ 洞悉法则 (+5 🐟)' : '💡 沦入虚妄') : '📝 宏大推演'}</span><p class="font-black text-dark text-xl md:text-2xl leading-relaxed font-medieval">${q.text}</p></div>${answerHtml}${explanationHtml}<div class="mt-6 md:mt-8 pt-4 md:pt-5 border-t-2 border-dashed border-gray-300 text-xs md:text-sm bg-black/5 p-4 md:p-5 rounded-xl"><p class="text-dark font-black mb-2 md:mb-3 flex items-center font-medieval tracking-widest"><i class="fa fa-search mr-2 md:mr-3"></i> 🔍 法则溯源</p><p class="text-gray-700 font-bold text-sm md:text-base leading-relaxed"><span class="font-black mr-1 md:mr-2 text-primary-dark break-all">[${q.source}]</span> ${q.originalKpContent}</p></div></div>`;
+                let explanationHtml = q.explanation ? `<div class="bg-primary/10 p-4 md:p-6 rounded-sm border-2 border-primary mt-4 md:mt-6 shadow-[inset_0_0_15px_rgba(163,38,38,0.2)]"><p class="text-primary-light font-black mb-2 md:mb-3 flex items-center text-base md:text-lg font-medieval tracking-widest"><i class="fa fa-magic mr-2 md:mr-3"></i> 大魔导师解析</p><p class="text-light font-bold text-base md:text-lg whitespace-pre-wrap leading-relaxed">${q.explanation}</p></div>` : '';
+                return `<div class="p-5 md:p-8 rounded-sm border-2 ${q.qType === 'choice' ? (isCorrect ? 'border-[#00ff7f] bg-[#1a3a2a]/30' : 'border-primary bg-[#2b1717]/30') : 'border-[#5a4b31] bg-[#1a1c23]'} shadow-[0_0_15px_rgba(0,0,0,0.5)] mb-6 md:mb-8"><div class="flex items-start mb-4 md:mb-6"><span class="text-xs md:text-sm font-black text-light px-3 py-1 md:px-4 md:py-1.5 rounded-sm ${q.qType === 'choice' ? (isCorrect ? 'bg-[#00994c] shadow-[0_0_10px_rgba(0,255,127,0.6)]' : 'bg-primary-dark shadow-[0_0_10px_rgba(163,38,38,0.6)]') : 'bg-dark shadow-[0_0_10px_rgba(0,0,0,0.6)]'} mr-3 md:mr-4 mt-1 shrink-0 font-medieval tracking-widest">${q.qType === 'choice' ? (isCorrect ? '✨ 洞悉法则 (+5 💰)' : '💡 惨遭单杀') : '📝 团战推演'}</span><p class="font-black text-light text-xl md:text-2xl leading-relaxed font-medieval">${q.text}</p></div>${answerHtml}${explanationHtml}<div class="mt-6 md:mt-8 pt-4 md:pt-5 border-t-2 border-dashed border-[#5a4b31] text-xs md:text-sm bg-black/30 p-4 md:p-5 rounded-sm"><p class="text-secondary font-black mb-2 md:mb-3 flex items-center font-medieval tracking-widest"><i class="fa fa-search mr-2 md:mr-3"></i> 🔍 战术溯源</p><p class="text-gray-400 font-bold text-sm md:text-base leading-relaxed"><span class="font-black mr-1 md:mr-2 text-primary-light break-all">[${q.source}]</span> ${q.originalKpContent}</p></div></div>`;
             }).join('');
 
             let accuracy = totalChoices > 0 ? (correctChoices / totalChoices) : 0;
@@ -1867,7 +1863,7 @@
         document.getElementById('review-mistakes-btn').addEventListener('click', startMistakeReview);
 
         async function startMistakeReview() {
-            if(!state.deepseekApiKey) return alert("请在上方重新注入真理之匙 (API Key)！");
+            if(!state.deepseekApiKey) return alert("请在上方重新装备神杖 (API Key)！");
             
             state.reviewQueue = [];
             
@@ -1883,7 +1879,7 @@
             });
 
             if (state.reviewQueue.length === 0) {
-                alert("汝已掌握全部真理，傲绝深渊，无需神猫指点！(๑•̀ㅂ•́)و✧");
+                alert("汝已掌握全部战术，傲绝天梯，无需信使指点！(๑•̀ㅂ•́)و✧");
                 return;
             }
 
@@ -1902,7 +1898,7 @@
             document.getElementById('cat-tutor-input').value = '';
 
             if (state.currentReviewIndex >= state.reviewQueue.length) {
-                appendCatMsg('assistant', "好棒呀！所有的错题你都已经弄懂了，真的是个非常努力的好孩子呢！特训结束啦，给你个大大的拥抱！喵~");
+                appendCatMsg('assistant', "好棒呀！所有的失误你都已经弄懂了，真的是个非常努力的好大C呢！特训结束啦，给你个大大的拥抱！喵~");
                 setTimeout(() => {
                     closeCatTutorModal();
                 }, 3000);
@@ -1914,9 +1910,9 @@
             const ans = currentItem.answer;
 
             if (q.qType === 'calculation') {
-                appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-primary'></i> 本喵正在仔细查阅你的解答题哦，稍等一下下...", "cat-evaluating-calc");
+                appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-secondary'></i> 信使正在仔细查阅你的团战回放哦，稍等一下下...", "cat-evaluating-calc");
                 
-                const evalPrompt = `你是一个极其温柔的魔法导师。请判断用户的解答题答案是否正确。
+                const evalPrompt = `你是一个极其温柔的Dota战术导师。请判断用户的解答题答案是否正确。
 【题目】：${q.text}
 【标准解析】：${q.correctAnswer} (以及 ${q.explanation})
 【用户的回答】：${ans.textValue}
@@ -1934,7 +1930,7 @@
                     document.getElementById('cat-evaluating-calc').remove();
 
                     if (reply.includes('[CORRECT]')) {
-                        appendCatMsg('assistant', `<span class='text-green-600 font-bold'>【系统提示】哇！你的第 ${currentItem.index + 1} 题 (解答题) 完全正确！真棒呀，获得了 6 条小鱼干！我们继续往下看吧！</span>`);
+                        appendCatMsg('assistant', `<span class='text-[#00ff7f] font-bold'>【系统提示】哇！你的第 ${currentItem.index + 1} 题 (终极技能) 释放完美！真棒呀，获得了 6 金币奖励！我们继续往下看吧！</span>`);
                         addFish(6);
                         setTimeout(() => {
                             state.currentReviewIndex++;
@@ -1946,7 +1942,7 @@
                     }
                 } catch (e) {
                     document.getElementById('cat-evaluating-calc').remove();
-                    appendCatMsg('assistant', "哎呀，魔法网络好像有点不稳定，本喵没看清这道题，我们先看下一道吧，摸摸头~");
+                    appendCatMsg('assistant', "哎呀，魔法网络好像有点不稳定，信使没看清这波团，我们先看下一波吧，摸摸头~");
                     setTimeout(() => {
                         state.currentReviewIndex++;
                         processReviewQueue();
@@ -1962,32 +1958,32 @@
             const ans = currentItem.answer;
             const letters = ['A', 'B', 'C', 'D', 'E'];
             
-            let userAnsStr = q.qType === 'choice' ? (ans.selected >= 0 ? `${letters[ans.selected]}: ${q.options[ans.selected]}` : "未作答") : ans.textValue;
+            let userAnsStr = q.qType === 'choice' ? (ans.selected >= 0 ? `${letters[ans.selected]}: ${q.options[ans.selected]}` : "发呆送头") : ans.textValue;
             let correctAnsStr = q.qType === 'choice' ? `${letters[q.correctAnswer]}: ${q.options[q.correctAnswer]}` : q.correctAnswer;
 
-            const systemPrompt = `你是一只名叫“白泽”的神猫导师。性格极其温柔、耐心，经常表扬人类。
-当前情境：正在进行试卷的错题复盘，目前正在辅导第 ${currentItem.index + 1} 题。
-这是一道人类答错的题目：
+            const systemPrompt = `你是一只名叫“遗迹信使”的团队宠物。性格极其温柔、耐心，经常鼓励队友。
+当前情境：正在进行战局录像复盘，目前正在辅导第 ${currentItem.index + 1} 个失误。
+这是一波人类送了的局：
 【题目】：${q.text}
-【正确答案/解析】：${correctAnsStr} \n ${q.explanation}
-【人类的回答】：${userAnsStr}
+【正确战术/解析】：${correctAnsStr} \n ${q.explanation}
+【人类的走位】：${userAnsStr}
 
 你的任务：
-1. 温柔地指出人类的错误，并鼓励说“没关系，这道题确实有点难，我们一起来看看”或者类似的话语。
-2. 引导人类一步步思考，不要直接把整个答案灌输给人类，要像温柔的老师一样一步一步启发。
-3. 当你通过多轮对话，确认人类真正理解了这道题的考点和逻辑后，请极力表扬他们，并在回复的最后加上标识符 [PASS]，这会触发系统进入下一道错题。
+1. 温柔地指出人类的错误，并鼓励说“没关系，这波走位确实有点难，我们一起来看看录像”或者类似的话语。
+2. 引导人类一步步思考，不要直接把整个答案灌输给人类，要像温柔的教练一样一步一步启发。
+3. 当你通过多轮语音，确认人类真正理解了这波团的考点和逻辑后，请极力表扬他们，并在回复的最后加上标识符 [PASS]，这会触发系统进入下一波回放。
 注意：不要轻易给出 [PASS]，必须确保人类回答出了关键逻辑或者明确表示理解并能复述关键点。`;
 
             state.catTutorHistory = [
                 { role: "system", content: systemPrompt }
             ];
 
-            let startingMsg = "我准备好了，请开始复盘这道题。";
+            let startingMsg = "我准备好了，请开始复盘这波团战。";
             if (initialTaunt) {
-                startingMsg += "如果之前解答题有评语，请结合评语开始。评语：" + initialTaunt;
+                startingMsg += "如果之前有教练评语，请结合评语开始。评语：" + initialTaunt;
             }
 
-            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-primary'></i> 本喵正在为你准备专属的讲解方案哦...", "cat-loading-tutor");
+            appendCatMsg('assistant', "<i class='fa fa-spinner fa-spin text-secondary'></i> 信使正在为你调取录像数据哦...", "cat-loading-tutor");
             
             try {
                 const response = await fetch('https://api.deepseek.com/chat/completions', {
@@ -2003,9 +1999,15 @@
                 appendCatMsg('assistant', reply.replace(/\[PASS\]/g, '').replace(/\n/g, '<br>'));
             } catch (e) {
                 document.getElementById('cat-loading-tutor').remove();
-                appendCatMsg('assistant', "魔法结界波动了一下，没关系，重新再试一次好不好喵？");
+                appendCatMsg('assistant', "录像文件损坏了，没关系，重新再试一次好不好喵？");
             }
         }
     </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #121212; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #5a4b31; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #c39e66; }
+    </style>
 </body>
 </html>
