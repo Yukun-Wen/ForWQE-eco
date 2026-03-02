@@ -217,10 +217,10 @@
         <section id="welcome-section" class="section active">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="medieval-card-dark rounded-2xl p-6 md:p-12 mb-8 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-12 h-12 md:w-16 md:h-16 border-t-4 border-l-4 border-secondary opacity-50 m-4"></div>
-                    <div class="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 border-t-4 border-r-4 border-secondary opacity-50 m-4"></div>
-                    <div class="absolute bottom-0 left-0 w-12 h-12 md:w-16 md:h-16 border-b-4 border-l-4 border-secondary opacity-50 m-4"></div>
-                    <div class="absolute bottom-0 right-0 w-12 h-12 md:w-16 md:h-16 border-b-4 border-r-4 border-secondary opacity-50 m-4"></div>
+                    <div class="absolute top-0 left-0 w-12 h-12 md:w-16 h-16 border-t-4 border-l-4 border-secondary opacity-50 m-4"></div>
+                    <div class="absolute top-0 right-0 w-12 h-12 md:w-16 h-16 border-t-4 border-r-4 border-secondary opacity-50 m-4"></div>
+                    <div class="absolute bottom-0 left-0 w-12 h-12 md:w-16 h-16 border-b-4 border-l-4 border-secondary opacity-50 m-4"></div>
+                    <div class="absolute bottom-0 right-0 w-12 h-12 md:w-16 h-16 border-b-4 border-r-4 border-secondary opacity-50 m-4"></div>
 
                     <h2 class="text-3xl md:text-5xl font-black text-secondary mb-4 md:mb-6 font-medieval text-shadow-glow tracking-widest mt-4 md:mt-0">✧ 遗迹战场：泉水之眼 ✧</h2>
                     <p class="text-light text-base md:text-xl mb-6 md:mb-8 leading-relaxed font-medium px-2">
@@ -450,17 +450,31 @@
                         <div id="content-photo" class="hidden mt-6 w-full text-left"></div>
                     </div>
 
-                    <div class="medieval-card rounded-sm p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(163,38,38,0.4)] transition-all-300 relative">
-                        <div class="w-28 h-28 md:w-32 md:h-32 bg-[#2a1515] rounded-sm mb-6 flex items-center justify-center border-4 border-primary shadow-inner relative overflow-hidden">
-                            <span class="text-5xl md:text-6xl drop-shadow-md">👁️</span>
+                    <div class="medieval-card rounded-sm p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(255,105,180,0.4)] transition-all-300 relative">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-[#3a1c28] rounded-sm mb-6 flex items-center justify-center border-4 border-[#ff69b4] shadow-inner relative overflow-hidden">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">🍡</span>
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/10"></div>
                         </div>
-                        <h3 class="text-xl font-black text-primary mb-3 font-medieval tracking-widest text-center">温女士的真视守卫</h3>
-                        <p class="text-gray-400 mb-6 flex-grow text-center font-bold text-sm">一段珍贵的专属留念影像，兑换凭证后可找温女士解锁战争迷雾。</p>
-                        <button id="btn-buy-secret" onclick="buyMallItem('secret')" class="w-full bg-dark text-primary font-black py-4 rounded-sm border-2 border-primary hover:bg-[#2b1717] transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(163,38,38,0.3)]">
+                        <h3 class="text-xl font-black text-[#ff69b4] mb-3 font-medieval tracking-widest text-center">温女士的疗愈魔药</h3>
+                        <p class="text-gray-400 mb-6 flex-grow text-center font-bold text-sm">兑换后获知如何施展‘神圣劝化’。通过精准的关怀模式（控制技能）和物资投喂（物理补给），大幅提升其护甲与心情点数。</br>
+注：若不及时安抚，该目标可能进入无敌脆皮模式，请谨慎操作。</p>
+                        <button id="btn-buy-heal" onclick="buyMallItem('heal')" class="w-full bg-dark text-[#ff69b4] font-black py-4 rounded-sm border-2 border-[#ff69b4] hover:bg-[#3a1c28] transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(255,105,180,0.3)]">
                             花费 10 🛡️ 兑换
                         </button>
-                        <div id="content-secret" class="hidden mt-6 w-full text-left"></div>
+                        <div id="content-heal" class="hidden mt-6 w-full text-left"></div>
+                    </div>
+
+                    <div class="medieval-card rounded-sm p-6 flex flex-col items-center shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(163,38,38,0.4)] transition-all-300 relative">
+                        <div class="w-28 h-28 md:w-32 md:h-32 bg-[#2a1515] rounded-sm mb-6 flex items-center justify-center border-4 border-primary shadow-inner relative overflow-hidden">
+                            <span class="text-5xl md:text-6xl drop-shadow-md">📜</span>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/10"></div>
+                        </div>
+                        <h3 class="text-xl font-black text-primary mb-3 font-medieval tracking-widest text-center">温女士的恩仇录</h3>
+                        <p class="text-gray-400 mb-6 flex-grow text-center font-bold text-sm">温女士已将那些承载着痛苦与仇恨的【邪恶净化】咒语刻入了秘法卷轴。只需献上足额的【圣者遗物】进行兑换，你便能窥视卷轴中的暗影档案。你将获得【支配之御】，亲手抹除那些噬魂的怨念，或是利用【重塑之光】将那段血海深仇化为虚无。</p>
+                        <button id="btn-buy-memo" onclick="buyMallItem('memo')" class="w-full bg-dark text-primary font-black py-4 rounded-sm border-2 border-primary hover:bg-[#2b1717] transition-all-300 text-lg tracking-widest shadow-[0_0_10px_rgba(163,38,38,0.3)]">
+                            花费 15 🛡️ 兑换
+                        </button>
+                        <div id="content-memo" class="hidden mt-6 w-full text-left"></div>
                     </div>
                 </div>
             </div>
@@ -604,9 +618,9 @@
             reviewQueue: [],
             currentReviewIndex: 0,
 
-            fishCount: 0, // In Dota theme, this is Gold 💰
-            coinCount: 0, // In Dota theme, this is Aegis 🛡️
-            declinedFishThreshold: 0
+            fishCount: parseInt(localStorage.getItem('dota_fishCount')) || 0, // In Dota theme, this is Gold 💰
+            coinCount: parseInt(localStorage.getItem('dota_coinCount')) || 0, // In Dota theme, this is Aegis 🛡️
+            declinedFishThreshold: parseInt(localStorage.getItem('dota_declinedFishThreshold')) || 0
         };
 
         const congratsMessages = [ "GG WP！你已经摧毁了所有敌方建筑！(๑•̀ㅂ•́)و✧", "First Blood！为你今天的完美开局点赞！٩( 'ω' )و", "干得漂亮！马上来看看战损比巩固一下吧 (´▽`ʃ♡ƪ)", "超神了！深呼吸，准备看看自己的MVP结算画面吧！(*^▽^*)", "冲冲冲！每天补刀进步一点点，你超酷的！(ง •_•)ง" ];
@@ -617,8 +631,8 @@
             if (state.fishCount >= 60) {
                 state.fishCount -= 60;
                 state.coinCount += 1;
-                updateResourceUI();
                 state.declinedFishThreshold = Math.floor(state.fishCount / 60) * 60;
+                updateResourceUI();
                 alert("✨ 购买成功！你消耗了 60 金币，获得了 1 个不朽之守护！");
             } else {
                 alert("哎呀，金币不足 60 哦，再努力去野区打点钱吧！💪");
@@ -626,7 +640,7 @@
         };
 
         window.buyMallItem = function(itemType) {
-            let cost = itemType === 'photo' ? 5 : (itemType === 'secret' ? 10 : 2);
+            let cost = itemType === 'photo' ? 5 : (itemType === 'heal' ? 10 : (itemType === 'memo' ? 15 : 2));
             
             if(!state.deepseekApiKey && itemType === 'encourage') {
                 return alert("你需要先装备好神杖 (API Key) 才能呼叫冰女温女士哦！");
@@ -668,7 +682,20 @@
                     document.getElementById(`btn-buy-${itemType}`).classList.add('hidden');
                     
                     const contentDiv = document.getElementById(`content-${itemType}`);
-                    const itemName = itemType === 'photo' ? '温女士的专属吃树' : '温女士的真视守卫';
+                    let itemName = '';
+                    let customText = '';
+                    
+                    if (itemType === 'photo') {
+                        itemName = '温女士的专属吃树';
+                        customText = '凭此契约，即可向温女士兑换一份美味的外卖吃树。';
+                    } else if (itemType === 'heal') {
+                        itemName = '温女士的疗愈魔药';
+                        customText = '请上交 20 元给温女士购买香喷喷的肉串和冰爽的柠檬水！脆皮辅助的心情值将瞬间回满 🍡🍋';
+                    } else if (itemType === 'memo') {
+                        itemName = '温女士的恩仇录';
+                        customText = '凭此带有时间戳的证明，即可向温女士要求查看今日记仇备忘录，并执行一次永久删除操作！📓✍️';
+                    }
+                    
                     const timeString = new Date().toLocaleString('zh-CN', { hour12: false });
                     
                     contentDiv.innerHTML = `
@@ -676,8 +703,8 @@
                             <div class="absolute -right-4 -bottom-4 text-secondary opacity-20 text-6xl"><i class="fa fa-certificate"></i></div>
                             <h4 class="text-lg md:text-xl font-black text-secondary mb-3 border-b-2 border-[#5a4b31] pb-2 font-medieval tracking-widest"><i class="fa fa-star text-primary-light mr-2"></i>遗迹商店契约</h4>
                             <p class="text-xs md:text-sm text-gray-300 mb-2 font-bold flex items-start"><span class="w-20 shrink-0 text-gray-500">📜 物品内容:</span><span class="text-secondary">${itemName}</span></p>
-                            <p class="text-xs md:text-sm text-gray-300 mb-2 font-bold flex items-start"><span class="w-20 shrink-0 text-gray-500">⏳ 购买时刻:</span><span class="text-secondary font-sans">${timeString}</span></p>
-                            <p class="text-xs md:text-sm text-gray-300 mb-4 font-bold flex items-start leading-relaxed"><span class="w-20 shrink-0 text-gray-500">⚔️ 试炼之路:</span><span>英雄通过在野区中不懈地补刀、答题与Gank，积累金币并成功购买了不朽盾。</span></p>
+                            <p class="text-xs md:text-sm text-gray-300 mb-2 font-bold flex items-start"><span class="w-20 shrink-0 text-gray-500">⏳ 契约时刻:</span><span class="text-secondary font-sans">${timeString}</span></p>
+                            <p class="text-xs md:text-sm text-gray-300 mb-4 font-bold flex items-start leading-relaxed"><span class="w-20 shrink-0 text-gray-500">⚔️ 契约效力:</span><span>${customText}</span></p>
                             <div class="bg-gradient-to-r from-secondary to-[#8b6e3b] py-2 md:py-3 rounded-sm text-center shadow-sm">
                                 <p class="text-sm md:text-base text-dark font-black tracking-widest">请截图此凭证，向温女士兑换奖励！</p>
                             </div>
@@ -765,6 +792,9 @@
         function updateResourceUI() {
             document.getElementById('global-fish-count').textContent = state.fishCount;
             document.getElementById('global-coin-count').textContent = state.coinCount;
+            localStorage.setItem('dota_fishCount', state.fishCount);
+            localStorage.setItem('dota_coinCount', state.coinCount);
+            localStorage.setItem('dota_declinedFishThreshold', state.declinedFishThreshold);
         }
 
         window.showExchangeModal = function() {
@@ -775,8 +805,8 @@
             if (state.fishCount >= 60) {
                 state.fishCount -= 60;
                 state.coinCount += 1;
-                updateResourceUI();
                 state.declinedFishThreshold = Math.floor(state.fishCount / 60) * 60;
+                updateResourceUI();
                 document.getElementById('exchange-modal').classList.add('hidden');
                 
                 const coinCounter = document.getElementById('coin-counter-container');
@@ -787,6 +817,7 @@
 
         window.declineExchange = function() {
             state.declinedFishThreshold += 60;
+            updateResourceUI();
             document.getElementById('exchange-modal').classList.add('hidden');
         };
 
@@ -811,7 +842,11 @@
                 state.bgQuestions = [];
             }
         }
-        window.addEventListener('DOMContentLoaded', loadLocalQuestions);
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLocalQuestions();
+            updateResourceUI();
+        });
 
         function initMiniChat() {
             if (state.miniChatHistory.length > 0) return; 
@@ -1997,17 +2032,20 @@
                 
                 document.getElementById('cat-loading-tutor').remove();
                 appendCatMsg('assistant', reply.replace(/\[PASS\]/g, '').replace(/\n/g, '<br>'));
-            } catch (e) {
-                document.getElementById('cat-loading-tutor').remove();
-                appendCatMsg('assistant', "录像文件损坏了，没关系，重新再试一次好不好喵？");
-            }
-        }
-    </script>
-    <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #121212; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #5a4b31; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #c39e66; }
-    </style>
+            } catch (e)
+{
+                if(document.getElementById('cat-loading-tutor')) {
+                    document.getElementById('cat-loading-tutor').remove();
+                }
+                appendCatMsg('assistant', "录像文件损坏了，没关系，重新再试一次好不好喵？");
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #121212; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #5a4b31; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #c39e66; }
+    </style>
 </body>
 </html>
